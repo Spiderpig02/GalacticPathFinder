@@ -29,7 +29,7 @@ GalacticPathFinder is an interactive web application designed to visualize and u
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/Spiderpig02">
+        <a href="https://github.com/Jensern1">
             <img src="https://github.com/Jensern1.png?size=100" width="100px;" alt="Jens Martin Norheim Berget"/><br />
             <sub><b>Jens Martin Norheim Berget</b></sub>
         </a>
