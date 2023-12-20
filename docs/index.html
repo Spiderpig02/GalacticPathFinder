@@ -1,0 +1,309 @@
+<html><head>
+  <title>Graph Traversal API</title>
+  <style type="text/css">
+    body {
+      font-family: Trebuchet MS, sans-serif;
+      font-size: 15px;
+      color: #444;
+      margin-right: 24px;
+    }
+    
+    h1	{
+      font-size: 25px;
+    }
+    h2	{
+      font-size: 20px;
+    }
+    h3	{
+      font-size: 16px;
+      font-weight: bold;
+    }
+    hr	{
+      height: 1px;
+      border: 0;
+      color: #ddd;
+      background-color: #ddd;
+    }
+    
+    .app-desc {
+      clear: both;
+      margin-left: 20px;
+    }
+    .param-name {
+      width: 100%;
+    }
+    .license-info {
+      margin-left: 20px;
+    }
+    
+    .license-url {
+      margin-left: 20px;
+    }
+    
+    .model {
+      margin: 0 0 0px 20px;
+    }
+    
+    .method {
+      margin-left: 20px;
+    }
+    
+    .method-notes	{
+      margin: 10px 0 20px 0;
+      font-size: 90%;
+      color: #555;
+    }
+    
+    pre {
+      padding: 10px;
+      margin-bottom: 2px;
+    }
+    
+    .http-method {
+     text-transform: uppercase;
+    }
+    
+    pre.get {
+      background-color: #0f6ab4;
+    }
+    
+    pre.post {
+      background-color: #10a54a;
+    }
+    
+    pre.put {
+      background-color: #c5862b;
+    }
+    
+    pre.delete {
+      background-color: #a41e22;
+    }
+    
+    .huge	{
+      color: #fff;
+    }
+    
+    pre.example {
+      background-color: #f3f3f3;
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+    
+    code {
+      white-space: pre;
+    }
+    
+    .nickname {
+      font-weight: bold;
+    }
+    
+    .method-path {
+      font-size: 1.5em;
+      background-color: #0f6ab4;
+    }
+    
+    .up {
+      float:right;
+    }
+    
+    .parameter {
+      width: 500px;
+    }
+    
+    .param {
+      width: 500px;
+      padding: 10px 0 0 20px;
+      font-weight: bold;
+    }
+    
+    .param-desc {
+      width: 700px;
+      padding: 0 0 0 20px;
+      color: #777;
+    }
+    
+    .param-type {
+      font-style: italic;
+    }
+    
+    .param-enum-header {
+    width: 700px;
+    padding: 0 0 0 60px;
+    color: #777;
+    font-weight: bold;
+    }
+    
+    .param-enum {
+    width: 700px;
+    padding: 0 0 0 80px;
+    color: #777;
+    font-style: italic;
+    }
+    
+    .field-label {
+      padding: 0;
+      margin: 0;
+      clear: both;
+    }
+    
+    .field-items	{
+      padding: 0 0 15px 0;
+      margin-bottom: 15px;
+    }
+    
+    .return-type {
+      clear: both;
+      padding-bottom: 10px;
+    }
+    
+    .param-header {
+      font-weight: bold;
+    }
+    
+    .method-tags {
+      text-align: right;
+    }
+    
+    .method-tag {
+      background: none repeat scroll 0% 0% #24A600;
+      border-radius: 3px;
+      padding: 2px 10px;
+      margin: 2px;
+      color: #FFF;
+      display: inline-block;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+<h1>Graph Traversal API</h1>
+  <div class="app-desc">API for performing graph traversal operations.</div>
+  <div class="app-desc">More information: <a href="https://helloreverb.com">https://helloreverb.com</a></div>
+  <div class="app-desc">Contact Info: <a href="hello@helloreverb.com">hello@helloreverb.com</a></div>
+  <div class="app-desc">Version: 1.0.0</div>
+  
+  <div class="license-info">All rights reserved</div>
+  <div class="license-url">http://apache.org/licenses/LICENSE-2.0.html</div>
+<h2>Access</h2>
+
+<h2><a name="__Methods">Methods</a></h2>
+[ Jump to <a href="#__Models">Models</a> ]
+
+<h3>Table of Contents </h3>
+<div class="method-summary"></div>
+<h4><a href="#Default">Default</a></h4>
+<ul>
+<li><a href="#traversePost"><code><span class="http-method">post</span> /traverse</code></a></li>
+</ul>
+
+<h1><a name="Default">Default</a></h1>
+<div class="method"><a name="traversePost"></a>
+  <div class="method-path">
+  <a class="up" href="#__Methods">Up</a>
+  <pre class="post"><code class="huge"><span class="http-method">post</span> /traverse</code></pre></div>
+  <div class="method-summary">Perform graph traversal (<span class="nickname">traversePost</span>)</div>
+  <div class="method-notes">This endpoint performs a graph traversal based on the provided algorithm, heuristic (if applicable), start and end points, and the map.</div>
+
+
+  <h3 class="field-label">Consumes</h3>
+  This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+  <ul>
+    <li><code>application/json</code></li>
+  </ul>
+
+  <h3 class="field-label">Request body</h3>
+  <div class="field-items">
+    <div class="param">body <a href="#traverse_body">traverse_body</a> (required)</div>
+    
+          <div class="param-desc"><span class="param-type">Body Parameter</span> —  </div>
+              </div>  <!-- field-items -->
+
+
+
+
+  <h3 class="field-label">Return type</h3>
+  <div class="return-type">
+    <a href="#inline_response_200">inline_response_200</a>
+    
+  </div>
+
+  <!--Todo: process Response Object and its headers, schema, examples -->
+
+  <h3 class="field-label">Example data</h3>
+  <div class="example-data-content-type">Content-Type: application/json</div>
+  <pre class="example"><code>{
+"path" : [ 0, 0 ],
+"message" : "Traversal completed successfully.",
+"nodeOrder" : [ [ 1, 2 ], [ 2, 3 ] ]
+}</code></pre>
+
+  <h3 class="field-label">Produces</h3>
+  This API call produces the following media types according to the <span class="header">Accept</span> request header;
+  the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+  <ul>
+    <li><code>application/json</code></li>
+  </ul>
+
+  <h3 class="field-label">Responses</h3>
+  <h4 class="field-label">200</h4>
+  Successful traversal of the graph.
+      <a href="#inline_response_200">inline_response_200</a>
+  <h4 class="field-label">400</h4>
+  Bad request - invalid input.
+      <a href="#"></a>
+  <h4 class="field-label">500</h4>
+  Internal server error.
+      <a href="#"></a>
+</div> <!-- method -->
+<hr>
+
+<h2><a name="__Models">Models</a></h2>
+[ Jump to <a href="#__Methods">Methods</a> ]
+
+<h3>Table of Contents</h3>
+<ol>
+  <li><a href="#inline_response_200"><code>inline_response_200</code></a></li>
+  <li><a href="#traverse_body"><code>traverse_body</code></a></li>
+  <li><a href="#traverse_map"><code>traverse_map</code></a></li>
+</ol>
+
+<div class="model">
+  <h3><a name="inline_response_200"><code>inline_response_200</code></a> <a class="up" href="#__Models">Up</a></h3>
+  
+  <div class="field-items">
+    <div class="param">message (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+        <div class="param-desc"><span class="param-type">example: Traversal completed successfully.</span></div>
+<div class="param">path (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">array[Integer]</a></span> The path traversed as a list of node identifiers. </div>
+<div class="param">nodeOrder (optional)</div><div class="param-desc"><span class="param-type"><a href="#array">array[array[Integer]]</a></span> The order of nodes traversed as a list of node pairs. </div>
+        <div class="param-desc"><span class="param-type">example: [[1,2],[2,3]]</span></div>
+  </div>  <!-- field-items -->
+</div>
+<div class="model">
+  <h3><a name="traverse_body"><code>traverse_body</code></a> <a class="up" href="#__Models">Up</a></h3>
+  
+  <div class="field-items">
+    <div class="param">algorithm </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Name of the graph traversal algorithm. </div>
+        <div class="param-desc"><span class="param-type">example: Breadth-First Search</span></div>
+<div class="param">heuristic (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Optional name of the heuristic used for traversal. </div>
+        <div class="param-desc"><span class="param-type">example: Manhattan Distance</span></div>
+<div class="param">startPoints </div><div class="param-desc"><span class="param-type"><a href="#integer">array[Integer]</a></span> List of integers representing the start points. </div>
+        <div class="param-desc"><span class="param-type">example: [1,2]</span></div>
+<div class="param">endPoints </div><div class="param-desc"><span class="param-type"><a href="#integer">array[Integer]</a></span> List of integers representing the end points. </div>
+        <div class="param-desc"><span class="param-type">example: [3,4]</span></div>
+<div class="param">map </div><div class="param-desc"><span class="param-type"><a href="#traverse_map">array[traverse_map]</a></span> List of tuples representing the graph map. </div>
+        <div class="param-desc"><span class="param-type">example: [{"node":[1,2],"edge":3,"weight":4},{"node":[2,3],"edge":4,"weight":5}]</span></div>
+  </div>  <!-- field-items -->
+</div>
+<div class="model">
+  <h3><a name="traverse_map"><code>traverse_map</code></a> <a class="up" href="#__Models">Up</a></h3>
+  
+  <div class="field-items">
+    <div class="param">node </div><div class="param-desc"><span class="param-type"><a href="#integer">array[Integer]</a></span> List of two integers representing the node. </div>
+        <div class="param-desc"><span class="param-type">example: [1,2]</span></div>
+<div class="param">edge </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> Edge identifier. </div>
+<div class="param">weight </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> Weight of the edge. </div>
+  </div>  <!-- field-items -->
+</div>
+
+
+</body></html>
