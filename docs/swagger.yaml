@@ -1,0 +1,109 @@
+openapi: 3.0.0
+info:
+  title: Graph Traversal API
+  version: 1.0.0
+  description: API for performing graph traversal operations.
+
+paths:
+  /traverse:
+    post:
+      summary: Perform graph traversal
+      description: >
+        This endpoint performs a graph traversal based on the provided algorithm,
+        heuristic (if applicable), start and end points, and the map.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - algorithm
+                - startPoints
+                - endPoints
+                - map
+              properties:
+                algorithm:
+                  type: string
+                  description: Name of the graph traversal algorithm.
+                  example: "Breadth-First Search"
+                heuristic:
+                  type: string
+                  description: Optional name of the heuristic used for traversal.
+                  example: "Manhattan Distance"
+                  nullable: true
+                startPoints:
+                  type: array
+                  items:
+                    type: integer
+                  minItems: 2
+                  maxItems: 2
+                  description: List of integers representing the start points.
+                  example: [1, 2]
+                endPoints:
+                  type: array
+                  items:
+                    type: integer
+                  minItems: 2
+                  maxItems: 2
+                  description: List of integers representing the end points.
+                  example: [3, 4]
+                map:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - node
+                      - edge
+                      - weight
+                    properties:
+                      node:
+                        type: array
+                        items:
+                          type: integer
+                        minItems: 2
+                        maxItems: 2
+                        description: List of two integers representing the node.
+                        example: [1, 2]
+                      edge:
+                        type: integer
+                        description: Edge identifier.
+                      weight:
+                        type: integer
+                        description: Weight of the edge.
+                  description: List of tuples representing the graph map.
+                  example:
+                    [
+                      { "node": [1, 2], "edge": 3, "weight": 4 },
+                      { "node": [2, 3], "edge": 4, "weight": 5 },
+                    ]
+      responses:
+        "200":
+          description: Successful traversal of the graph.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Traversal completed successfully."
+                  path:
+                    type: array
+                    items:
+                      type: integer
+                    description: The path traversed as a list of node identifiers.
+                  nodeOrder:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: integer
+                      minItems: 2
+                      maxItems: 2
+                    description: The order of nodes traversed as a list of node pairs.
+                    example: [[1, 2], [2, 3]]
+        "400":
+          description: Bad request - invalid input.
+        "500":
+          description: Internal server error.
