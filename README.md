@@ -2,6 +2,10 @@
 
 GalacticPathFinder is an interactive web application designed to visualize and understand the A\* pathfinding and other pathfinding algorithms. It allows users to create grids, set start and end points, visualize the algorithm's step-by-step process, and experiment with different heuristics. This tool is ideal for students, educators, and anyone interested in algorithm visualization and AI pathfinding techniques. It is made with Django backend and React Typescript frontend.
 
+<div align="center">
+<img src="docs/images/GalacticPathfinderLogo.png" width="50%">
+</div>
+
 ## Features:
 
 - **Create Grids/Graphs:** Users can generate grids or graphs on which the A\* algorithm operates.
