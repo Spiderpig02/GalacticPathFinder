@@ -5,12 +5,12 @@ import sys
 
 def start_django() -> None:
     print("Starting Django backend...")
-    os.chdir('path/to/django_project')
+    os.chdir('backend')
     subprocess.Popen([sys.executable, 'manage.py', 'runserver'])
 
 def start_react() -> None:
     print("Starting React frontend...")
-    os.chdir('path/to/react_project')
+    os.chdir('frontend')
     if os.name == 'nt':  # If the OS is Windows
         subprocess.Popen('start npm start', shell=True)
     else:
