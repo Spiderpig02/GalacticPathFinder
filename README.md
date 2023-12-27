@@ -8,11 +8,11 @@ GalacticPathFinder is an interactive web application designed to visualize and u
 
 ## Features:
 
-- **Create Grids/Graphs:** Users can generate grids or graphs on which the A\* algorithm operates.
-- **Set Start and End Points:** Flexibility to define start and end points to visualize pathfinding.
-- **Visualize Algorithm:** Step-by-step visualization of the A\* algorithm in action.
-- **Customize Heuristics:** Experiment with different heuristics to see how they influence the pathfinding process.
-- **Web Deployment:** Accessible on the World Wide Web for widespread use and demonstration.
+- [ ] **Create Grids/Graphs:** Users can generate grids or graphs on which the A\* algorithm operates.
+- [ ] **Set Start and End Points:** Flexibility to define start and end points to visualize pathfinding.
+- [ ] **Visualize Algorithm:** Step-by-step visualization of the A\* algorithm in action.
+- [ ] **Customize Heuristics:** Experiment with different heuristics to see how they influence the pathfinding process.
+- [ ] **Web Deployment:** Accessible on the World Wide Web for widespread use and demonstration.
 
 ## Setup
 
