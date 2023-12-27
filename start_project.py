@@ -1,20 +1,33 @@
 import os
 import subprocess
 import sys
+import logging
+
+# Set up logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger("start_project.py")
 
 
 def start_django() -> None:
-    print("Starting Django backend...")
-    os.chdir('backend')
-    subprocess.Popen([sys.executable, 'manage.py', 'runserver'])
+    logger.info("Starting Django backend...")
+    try:
+        os.chdir('backend')
+        subprocess.Popen([sys.executable, 'manage.py', 'runserver'])
+    except FileNotFoundError:
+        logger.error("Script manage.py not found. Are you sure you are in the root directory?")
+        sys.exit(1)
+    
 
 def start_react() -> None:
-    print("Starting React frontend...")
-    os.chdir('frontend')
-    if os.name == 'nt':  # If the OS is Windows
-        subprocess.Popen('start npm start', shell=True)
-    else:
-        subprocess.Popen('npm start', shell=True)
+    logger.info("Starting React frontend...")
+    try:
+        os.chdir('frontend')
+        subprocess.Popen('npm run setup', shell=True)
+        subprocess.Popen('npm run dev', shell=True)
+
+    except FileNotFoundError:
+        logger.error("Manifest package.json not found. Are you sure you are in the root directory?")
+        sys.exit(1)
 
 if __name__ == '__main__':
     start_django()
