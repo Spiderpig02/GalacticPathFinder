@@ -1,3 +1,5 @@
+"""A setup script that starts the Django backend and React frontend in separate processes."""
+
 import os
 import subprocess
 import sys
