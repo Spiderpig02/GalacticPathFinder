@@ -18,3 +18,8 @@ We should adopt the Strategy Pattern for our pathfinding algorithms. This design
 - **Scalability:** As new pathfinding needs arise, the system can easily scale by adding new strategies without impacting existing functionality.
 - **Decoupling:** The Strategy Pattern decouples the algorithm implementation from its usage, reducing dependencies and increasing modularity.* 
 
+
+## Alternatives
+- **Hardcoding:** The algorithms could be hardcoded into the system, but this would make the system less flexible and more difficult to maintain.
+- **State Pattern:** The State Pattern is similar to the Strategy Pattern, but it is used to change the behavior of an object when its internal state changes. Since the pathfinding algorithms will not be changing their behavior, the State Pattern is not a good fit for this use case.
+- **Functional Programming:** By passing calleble functions as arguments, the algorithms could be implemented in a functional programming style. This approach would be more would be easy to implement in the python backend, but it could be hard to enforce the contract between the algorithms and the rest of the system.
