@@ -4,7 +4,11 @@ from rest_framework import status
 
 from graphtraversal.algorithms.pathfinder import Pathfinder
 from graphtraversal.map import RestMap
-from graphtraversal.factory import get_heuristics, get_graph_traversal_methods
+from graphtraversal.factory import (
+    get_heuristics,
+    get_graph_traversal_methods,
+    get_pathfinder,
+)
 
 
 @api_view(["POST"])
@@ -20,23 +24,29 @@ def post_graph_traversal(request):
         start_point: list[int, int] = request.data["startPoint"]
         end_point: list[int, int] = request.data["endPoint"]
         map: list[list[int, int]] = request.data["map"]
-        print(
-            f"graph_method_name: {graph_method_name}, start_point: {start_point}, end_point: {end_point}, map: {map}"
-        )
+        # print(
+        #     f"graph_method_name: {graph_method_name}, start_point: {start_point}, end_point: {end_point}, map: {map}"
+        # )
+        # Parse data
+        graph_method_name = (graph_method_name.lower()).strip()
+
         # Get optional heuristic
         heuristic: str = request.data.get("heuristic", None)
-        print(f"heuristic: {heuristic}")
+
         # Create a map object
         map = RestMap(map, start_point, end_point)
         # Check if the algorithm name is valid
         if graph_method_name not in get_graph_traversal_methods():
-            raise ValueError("Invalid algorithm name" + graph_method_name)
+            raise ValueError(
+                f"Invalid algorithm name {graph_method_name} Should be one of {str(get_graph_traversal_methods())}"
+            )
 
         if heuristic not in get_heuristics(graph_method_name):
             heuristic = None
 
         # Find path
-        # pathfinder: Pathfinder = get_graph_traversal_methods()[graph_method_name]
+        pathfinder: Pathfinder = get_pathfinder(graph_method_name)
+        print(f"pathfinder: {pathfinder}")
         # path, node_order = pathfinder.find_path(map, start_point, end_point, heuristic)
 
         # pathfinder_status: str = "success" if path is not None else "failure"
