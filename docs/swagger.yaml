@@ -132,9 +132,9 @@ paths:
 
   /graph-heuristics-methods:
     post:
-      summary: Fetch all legal graph traversal methods
+      summary: Fetch all available heuristics for the given graph traversal method.
       description: >
-        This endpoint retrieves all legal graph traversal methods that this service provides.
+        This endpoint retrieves all available heuristics for the graph traversal method chosen by the user.
       requestBody:
         required: true
         content:
@@ -150,7 +150,7 @@ paths:
                   example: "Manhattan Distance"
       responses:
         "200":
-          description: Successfully retrieved the list of graph traversal methods.
+          description: Successfully retrieved the list of available heuristics.
           content:
             application/json:
               schema:
@@ -160,7 +160,7 @@ paths:
                     type: array
                     items:
                       type: string
-                    description: A list of available graph traversal methods.
+                    description: A list of available heuristics.
                     example: ["Manhattan Distance", Euclidean Distance]
         "500":
           description: Internal server error.
