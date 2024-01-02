@@ -19,8 +19,8 @@ paths:
               type: object
               required:
                 - algorithm
-                - startPoints
-                - endPoints
+                - startPoint
+                - endPoint
                 - map
               properties:
                 algorithm:
