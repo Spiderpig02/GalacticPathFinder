@@ -6,7 +6,7 @@ from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
-from factory import get_heuristics, get_graph_traversal_methods
+from graphtraversal.factory import get_heuristics, get_graph_traversal_methods
 
 
 @api_view(["POST"])

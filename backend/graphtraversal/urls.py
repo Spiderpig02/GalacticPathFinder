@@ -17,10 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from backend.graphtraversal.views import fetch_graph_heuristics, post_graph_traversal
+from graphtraversal.views import fetch_graph_heuristics, post_graph_traversal
 
 urlpatterns = [
-    path('/traverse', ),
-    path('/graph-traversal-methods', post_graph_traversal),
-    path('/graph-heuristics-methods', fetch_graph_heuristics),
+    path(
+        "/traverse",
+    ),
+    path("/graph-traversal-methods", post_graph_traversal),
+    path("/graph-heuristics-methods", fetch_graph_heuristics),
 ]
