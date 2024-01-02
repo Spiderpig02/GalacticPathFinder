@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 type TileProps = {
   width: number;
   height: number;

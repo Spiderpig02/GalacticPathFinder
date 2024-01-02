@@ -4,7 +4,7 @@ import { useState } from "react";
 const MapSizeSlider = () => {
   const [size, setSize] = useState(50);
 
-  const handleSliderChange = (e) => {
+  const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSize(parseInt(e.target.value));
   };
 

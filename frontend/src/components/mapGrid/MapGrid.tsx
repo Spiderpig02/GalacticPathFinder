@@ -12,7 +12,7 @@ const MapGrid = () => {
 
   // Create a state to track the active state of each tile
   const [activeTiles, setActiveTiles] = useState(() => {
-    const tiles = {};
+    const tiles: { [key: string]: boolean } = {};
     for (let row = 0; row < height; row++) {
       for (let col = 0; col < size; col++) {
         tiles[`${row}-${col}`] = false;
@@ -22,7 +22,9 @@ const MapGrid = () => {
   });
 
   const [isMouseDown, setIsMouseDown] = useState(false);
-  const [initialDragState, setInitialDragState] = useState(null);
+  const [initialDragState, setInitialDragState] = useState<boolean | null>(
+    null
+  );
 
   // Modify mouse down handler to set initial drag state
   const handleMouseDown = (row: number, col: number) => {
