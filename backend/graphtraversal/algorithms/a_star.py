@@ -1,6 +1,15 @@
 from dataclasses import dataclass
 from typing import Callable
-from map import Map, Node, Position
+
+from graphtraversal.algorithms.pathfinder import Pathfinder
+from graphtraversal.map import Map, Node, Position
+
+
+class AStarPathfinder(Pathfinder):
+    def find_path(
+        self, map: Map, start_pos: Position, goal_pos: Position, heuristic: Callable
+    ) -> list[Position]:
+        return a_star(map, heuristic, start_pos, goal_pos)
 
 
 class Frontier:
