@@ -24,9 +24,7 @@ def post_graph_traversal(request):
         start_point: list[int, int] = request.data["startPoint"]
         end_point: list[int, int] = request.data["endPoint"]
         map: list[list[int, int]] = request.data["map"]
-        # print(
-        #     f"graph_method_name: {graph_method_name}, start_point: {start_point}, end_point: {end_point}, map: {map}"
-        # )
+
         # Parse data
         graph_method_name = (graph_method_name.lower()).strip()
 

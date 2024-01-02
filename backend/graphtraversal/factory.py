@@ -1,5 +1,4 @@
 """ This module contains the factory functions for the graph traversal algorithms """
-from graphtraversal.algorithms.weighted_a_star import WeightedAStarPathfinder
 from graphtraversal.algorithms.a_star import AStarPathfinder
 from graphtraversal.algorithms.pathfinder import Pathfinder
 
@@ -7,9 +6,7 @@ from graphtraversal.algorithms.pathfinder import Pathfinder
 graph_traversal_function_map: dict[str, Pathfinder] = {
     "dijkstra": None,
     "a star": AStarPathfinder(),
-    "weighted a star": WeightedAStarPathfinder(),
     "bfs": None,
-    "dfs": None,
     # and so on...
 }
 
@@ -35,7 +32,7 @@ def get_heuristics(graph_method_name: str) -> list[str]:
     """
     This function returns a list of heuristics that are valid for the given graph method name
     """
-    match graph_method_name:
+    match graph_method_name.lower():
         case "dijkstra":
             return []
         case "bfs":
