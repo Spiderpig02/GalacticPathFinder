@@ -35,13 +35,13 @@ def post_graph_traversal(request):
 
     try:
         # Check if all mandatory parameters are present
-        if "algorithm" not in request.data:
+        if request.data.get("algorithm", None) is None:
             raise ValueError("Invalid request. Missing 'algorithm' parameter")
-        if "startPoint" not in request.data:
+        if request.data.get("startPoint", None) is None:
             raise ValueError("Invalid request. Missing 'startPoint' parameter")
-        if "endPoint" not in request.data:
+        if request.data.get("endPoint", None) is None:
             raise ValueError("Invalid request. Missing 'endPoint' parameter")
-        if "map" not in request.data:
+        if request.data.get("map", None) is None:
             raise ValueError("Invalid request. Missing 'map' parameter")
 
         # Get mandatory parameters
@@ -86,10 +86,8 @@ def post_graph_traversal(request):
     except ValueError as va:
         print(va)
         return Response(status=status.HTTP_400_BAD_REQUEST)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
         print(e)
-        return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
@@ -108,14 +106,10 @@ def fetch_graph_traversal_methods(request):
     try:
         return Response(status=status.HTTP_200_OK, data=get_graph_traversal_methods())
 
-        return Response(status=status.HTTP_200_OK, data=get_graph_traversal_methods())
-
     except ValueError as va:
         print(va)
         return Response(status=status.HTTP_400_BAD_REQUEST)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
-        return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
@@ -139,15 +133,10 @@ def fetch_graph_heuristics(request):
         heuristics: list[str] = get_heuristics(request.data["methods"])
         return Response(status=status.HTTP_200_OK, data=heuristics)
 
-        return Response(status=status.HTTP_200_OK, data=heuristics)
-
     except ValueError as va:
         print(va)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
-        return Response(status=status.HTTP_400_BAD_REQUEST)
-
     except Exception as e:
         print(e)
-        return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)

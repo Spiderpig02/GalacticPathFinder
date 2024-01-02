@@ -52,3 +52,43 @@ class GraphHeuristicsTests(TestCase):
             {invalid_attribute_name: valid_method_name},
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+class TraversalTests(TestCase):
+    def test_traverse_map_given_invalid_data_without_heuristic(self):
+        client = Client()
+        valid_method_name = get_graph_traversal_methods()[0]
+        valid_start_position = [0, 0]
+        valid_end_position = [1, 1]
+        valid_map = [[[0, 0], 1], [[1, 1], 2]]
+
+        response = client.post(
+            f"{baseDir}/traverse",
+            {
+                "invalid": valid_method_name,
+                "invalid": valid_start_position,
+                "invalid": valid_end_position,
+                "invalid": valid_map,
+            },
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_traverse_map_given_invalid_data_with_heuristic(self):
+        client = Client()
+        valid_method_name = get_graph_traversal_methods()[0]
+        valid_start_position = [0, 0]
+        valid_end_position = [1, 1]
+        valid_map = [[[0, 0], 1], [[1, 1], 2]]
+        valid_heuristic = get_heuristics(valid_method_name)[0]
+
+        response = client.post(
+            f"{baseDir}/traverse",
+            {
+                "invalid": valid_method_name,
+                "invalid": valid_start_position,
+                "invalid": valid_end_position,
+                "invalid": valid_map,
+                "invalid": valid_heuristic,
+            },
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
