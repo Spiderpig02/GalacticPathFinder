@@ -1,0 +1,9 @@
+@startuml ClassDiagram
+package Backend {
+
+}
+
+package Frontend {
+
+}
+@enduml

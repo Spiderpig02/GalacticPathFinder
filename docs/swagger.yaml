@@ -54,7 +54,6 @@ paths:
                     type: object
                     required:
                       - node
-                      - edge
                       - weight
                     properties:
                       node:
@@ -65,17 +64,14 @@ paths:
                         maxItems: 2
                         description: List of two integers representing the node.
                         example: [1, 2]
-                      edge:
-                        type: integer
-                        description: Edge identifier.
                       weight:
                         type: integer
-                        description: Weight of the edge.
+                        description: Weight of the edge. If the weight is set to -1 then the node is not possible to move through.
                   description: List of tuples representing the graph map.
                   example:
                     [
-                      { "node": [1, 2], "edge": 3, "weight": 4 },
-                      { "node": [2, 3], "edge": 4, "weight": 5 },
+                      { "node": [1, 2], "weight": 4 },
+                      { "node": [2, 3], "weight": 5 },
                     ]
       responses:
         "200":
@@ -91,7 +87,12 @@ paths:
                   path:
                     type: array
                     items:
-                      type: integer
+                      type: array
+                      items:
+                        type: integer
+                      minItems: 2
+                      maxItems: 2
+                    example: [[1, 2], [2, 3]]
                     description: The path traversed as a list of node identifiers.
                   nodeOrder:
                     type: array
@@ -105,5 +106,66 @@ paths:
                     example: [[1, 2], [2, 3]]
         "400":
           description: Bad request - invalid input.
+        "500":
+          description: Internal server error.
+  /graph-traversal-methods:
+    get:
+      summary: Fetch all legal graph traversal methods
+      description: >
+        This endpoint retrieves all legal graph traversal methods that this service provides.
+      responses:
+        "200":
+          description: Successfully retrieved the list of graph traversal methods.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  methods:
+                    type: array
+                    items:
+                      type: string
+                    description: A list of available graph traversal methods.
+                    example:
+                      [
+                        "Breadth-First Search",
+                        "Depth-First Search",
+                        "A* Search",
+                      ]
+        "500":
+          description: Internal server error.
+
+  /graph-heuristics-methods:
+    post:
+      summary: Fetch all legal graph traversal methods
+      description: >
+        This endpoint retrieves all legal graph traversal methods that this service provides.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - method
+              properties:
+                method:
+                  type: string
+                  description: Optional name of the heuristic used for traversal.
+                  example: "A star"
+      responses:
+        "200":
+          description: Successfully retrieved the list of graph traversal methods.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  heuristics:
+                    type: array
+                    items:
+                      type: string
+                    description: A list of available graph traversal methods.
+                    example: ["Manhattan Distance", Euclidean Distance]
         "500":
           description: Internal server error.
