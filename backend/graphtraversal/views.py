@@ -1,11 +1,8 @@
 from django.shortcuts import render
-
-from django.shortcuts import render
-
-# from django.http import JsonResponse, HttpResponse, HttpRequest
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
+
 from graphtraversal.factory import get_heuristics, get_graph_traversal_methods
 
 
