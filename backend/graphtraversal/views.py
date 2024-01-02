@@ -1,5 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view
 from rest_framework import status
 
 from graphtraversal.algorithms.pathfinder import Pathfinder
@@ -61,8 +62,10 @@ def post_graph_traversal(request):
     except ValueError as va:
         print(va)
         return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
         print(e)
+        return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
@@ -74,10 +77,14 @@ def fetch_graph_traversal_methods(request):
     try:
         return Response(status=status.HTTP_200_OK, data=get_graph_traversal_methods())
 
+        return Response(status=status.HTTP_200_OK, data=get_graph_traversal_methods())
+
     except ValueError as va:
         print(va)
         return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
+        return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
@@ -90,10 +97,15 @@ def fetch_graph_heuristics(request):
         heuristics: list[str] = get_heuristics(request.data["graph_method_name"])
         return Response(status=status.HTTP_200_OK, data=heuristics)
 
+        return Response(status=status.HTTP_200_OK, data=heuristics)
+
     except ValueError as va:
         print(va)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
     except Exception as e:
         print(e)
+        return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)

@@ -1,4 +1,4 @@
-const baseAPIUrl: string = "http://localhost:8080/api";
+const baseAPIUrl: string = "http://127.0.0.1:8000/graphtraversal";
 
 const routes = {};
 

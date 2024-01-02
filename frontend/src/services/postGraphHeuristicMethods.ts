@@ -1,14 +1,14 @@
 import axios from "axios";
 import { apiRoutes } from "../routes/routeDefinitions.ts";
-interface graphHeuristicsResponse {
-  traversalNames: string[];
-}
 
 export const postGraphHeuristics = async (algorithmName: string) => {
   try {
-    const data = { heuristic: algorithmName };
+    const data = { methods: algorithmName };
     const response = await axios.post(apiRoutes.graphHeuristicsNames, data);
-    return response.data as graphHeuristicsResponse;
+    if (response.status !== 200) {
+      throw new Error("Error in postGraphHeuristics");
+    }
+    return response.data as string[];
   } catch (error) {
     console.error(error);
   }
