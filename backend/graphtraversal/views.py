@@ -2,6 +2,8 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 
+from graphtraversal.algorithms.pathfinder import Pathfinder
+from graphtraversal.map import RestMap
 from graphtraversal.factory import get_heuristics, get_graph_traversal_methods
 
 
@@ -23,9 +25,30 @@ def post_graph_traversal(request):
         )
         # Get optional heuristic
         heuristic: str = request.data.get("heuristic", None)
-
         print(f"heuristic: {heuristic}")
-        return Response(status=status.HTTP_200_OK, data=get_graph_traversal_methods())
+        # Create a map object
+        map = RestMap(map, start_point, end_point)
+        # Check if the algorithm name is valid
+        if graph_method_name not in get_graph_traversal_methods():
+            raise ValueError("Invalid algorithm name" + graph_method_name)
+
+        if heuristic not in get_heuristics(graph_method_name):
+            heuristic = None
+
+        # Find path
+        # pathfinder: Pathfinder = get_graph_traversal_methods()[graph_method_name]
+        # path, node_order = pathfinder.find_path(map, start_point, end_point, heuristic)
+
+        # pathfinder_status: str = "success" if path is not None else "failure"
+
+        ##### CREATE MOCK DATA #####
+        pathfinder_status = "success"
+        path = [[1, 1], [1, 2], [1, 3], [2, 3], [3, 3]]
+        node_order = [[1, 1], [1, 2], [1, 3], [2, 3], [3, 3]]
+        return Response(
+            status=status.HTTP_200_OK,
+            data={"message": pathfinder_status, "path": path, "nodeOrder": node_order},
+        )
 
     except ValueError as va:
         print(va)
