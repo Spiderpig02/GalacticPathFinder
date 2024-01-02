@@ -1,0 +1,15 @@
+.grid-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 80vw;
+    min-width: 80vw;
+    max-height: 80vh;
+    min-height: 80vh;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.grid {
+    display: flex;
+    flex-direction: column;
+}
