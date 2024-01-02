@@ -116,6 +116,9 @@ def fetch_graph_heuristics(request):
       - data: List of heuristics available for the specified graph traversal method
     """
     try:
+        if "methods" not in request.data:
+            raise ValueError("Invalid request. Missing 'methods' parameter")
+
         heuristics: list[str] = get_heuristics(request.data["methods"])
         return Response(status=status.HTTP_200_OK, data=heuristics)
 
