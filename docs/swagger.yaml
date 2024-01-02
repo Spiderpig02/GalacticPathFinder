@@ -107,3 +107,64 @@ paths:
           description: Bad request - invalid input.
         "500":
           description: Internal server error.
+  /graph-traversal-methods:
+    get:
+      summary: Fetch all legal graph traversal methods
+      description: >
+        This endpoint retrieves all legal graph traversal methods that this service provides.
+      responses:
+        "200":
+          description: Successfully retrieved the list of graph traversal methods.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  methods:
+                    type: array
+                    items:
+                      type: string
+                    description: A list of available graph traversal methods.
+                    example:
+                      [
+                        "Breadth-First Search",
+                        "Depth-First Search",
+                        "A* Search",
+                      ]
+        "500":
+          description: Internal server error.
+
+  /graph-heuristics-methods:
+    post:
+      summary: Fetch all legal graph traversal methods
+      description: >
+        This endpoint retrieves all legal graph traversal methods that this service provides.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - heuristic
+              properties:
+                heuristic:
+                  type: string
+                  description: Optional name of the heuristic used for traversal.
+                  example: "Manhattan Distance"
+      responses:
+        "200":
+          description: Successfully retrieved the list of graph traversal methods.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  methods:
+                    type: array
+                    items:
+                      type: string
+                    description: A list of available graph traversal methods.
+                    example: ["Manhattan Distance", Euclidean Distance]
+        "500":
+          description: Internal server error.
