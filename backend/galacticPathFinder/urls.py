@@ -16,8 +16,26 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.schemas import get_schema_view
+from django.views.generic import TemplateView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('graphtraversal/', include('graphtraversal.urls'), name="graphtraversal"),
+    path("admin/", admin.site.urls),
+    path("graphtraversal/", include("graphtraversal.urls"), name="graphtraversal"),
+    path(
+        "openapi",
+        get_schema_view(
+            title="Galactic Path Finder Graph Traversal API",
+            version="1.0.0",
+            description="API for performing graph traversal operations.",
+        ),
+        name="openapi",
+    ),
+    path(
+        "swagger-ui/",
+        TemplateView.as_view(
+            template_name="docs.html",
+            extra_context={"schema_url": "openapi"},
+        ),
+    ),
 ]
