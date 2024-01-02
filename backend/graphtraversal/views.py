@@ -116,7 +116,7 @@ def fetch_graph_heuristics(request):
       - data: List of heuristics available for the specified graph traversal method
     """
     try:
-        heuristics: list[str] = get_heuristics(request.data["graph_method_name"])
+        heuristics: list[str] = get_heuristics(request.data["methods"])
         return Response(status=status.HTTP_200_OK, data=heuristics)
 
     except ValueError as va:
