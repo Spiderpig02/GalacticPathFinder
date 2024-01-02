@@ -14,8 +14,22 @@ from graphtraversal.factory import (
 @api_view(["POST"])
 def post_graph_traversal(request):
     """
+    post:
     This endpoint performs a graph traversal based on the provided algorithm,
-        heuristic (if applicable), start and end points, and the map
+    heuristic (if applicable), start and end points, and the map.
+
+    - Parameters:
+      - algorithm: Name of the graph traversal algorithm
+      - startPoint: The starting point coordinates
+      - endPoint: The ending point coordinates
+      - map: The map layout
+      - heuristic (optional): The heuristic method to use
+
+    - Response:
+      - status: HTTP status code
+      - message: Status message
+      - path: Calculated path
+      - nodeOrder: Order of nodes visited
     """
 
     try:
