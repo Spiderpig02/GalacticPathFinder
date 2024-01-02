@@ -3,7 +3,7 @@ from abc import ABC, ABCMeta, abstractmethod
 from typing import Any
 
 
-@dataclass(frozen=True)
+@dataclass()
 class Position:
     """
     A position in the graph. Contains the x and y coordinates.
@@ -12,9 +12,19 @@ class Position:
     x: int
     y: int
 
-    def __init__(self, list: list[int]):
+    def __init__(self, list: list[int, int]):
         self.x = list[0]
         self.y = list[1]
+
+
+@dataclass(frozen=True)
+class Node:
+    """
+    A node in the search tree. Contains the position and the cost to reach it.
+    """
+
+    position: Position
+    cost: float
 
 
 class Map(ABC):
