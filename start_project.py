@@ -24,7 +24,7 @@ def start_react() -> None:
     logger.info("Starting React frontend...")
     try:
         os.chdir('frontend')
-        subprocess.Popen('npm run setup', shell=True)
+        subprocess.Popen('npm install', shell=True)
         subprocess.Popen('npm run dev', shell=True)
 
     except FileNotFoundError:
