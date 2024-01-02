@@ -69,6 +69,18 @@ The requirements.txt file contains a list of packages necessary to run GalacticP
 
 ## Usage
 
+### Frontend
+```bash	
+cd frontend
+npm run dev
+```
+
+### Backend
+```bash
+cd backend
+python manage.py runserver
+```
+
 ## Contributors
 
 <table align="center">

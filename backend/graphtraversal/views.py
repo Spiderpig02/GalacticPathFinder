@@ -15,8 +15,22 @@ from graphtraversal.factory import (
 @api_view(["POST"])
 def post_graph_traversal(request):
     """
+    post:
     This endpoint performs a graph traversal based on the provided algorithm,
-        heuristic (if applicable), start and end points, and the map
+    heuristic (if applicable), start and end points, and the map.
+
+    - Parameters:
+      - algorithm: Name of the graph traversal algorithm
+      - startPoint: The starting point coordinates
+      - endPoint: The ending point coordinates
+      - map: The map layout
+      - heuristic (optional): The heuristic method to use
+
+    - Response:
+      - status: HTTP status code
+      - message: Status message
+      - path: Calculated path
+      - nodeOrder: Order of nodes visited
     """
 
     try:
@@ -72,7 +86,14 @@ def post_graph_traversal(request):
 @api_view(["GET"])
 def fetch_graph_traversal_methods(request):
     """
+    get:
     This endpoint retrieves all legal graph traversal methods that this service provides.
+
+    This endpoint does not require any parameters.
+
+    - Response:
+      - status: HTTP status code
+      - data: List of available graph traversal methods
     """
     try:
         return Response(status=status.HTTP_200_OK, data=get_graph_traversal_methods())
@@ -92,9 +113,20 @@ def fetch_graph_traversal_methods(request):
 def fetch_graph_heuristics(request):
     """
     This endpoint returns a list of available heuristics for a given graph traversal method
+    post:
+
+    - Parameters:
+      - graph_method_name: Name of the graph traversal method for which heuristics are required
+
+    - Response:
+      - status: HTTP status code
+      - data: List of heuristics available for the specified graph traversal method
     """
     try:
-        heuristics: list[str] = get_heuristics(request.data["graph_method_name"])
+        if "methods" not in request.data:
+            raise ValueError("Invalid request. Missing 'methods' parameter")
+
+        heuristics: list[str] = get_heuristics(request.data["methods"])
         return Response(status=status.HTTP_200_OK, data=heuristics)
 
         return Response(status=status.HTTP_200_OK, data=heuristics)
