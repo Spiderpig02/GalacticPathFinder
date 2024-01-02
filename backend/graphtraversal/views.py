@@ -23,3 +23,15 @@ def post_graph_traversal(request):
     except Exception as e:
         print(e)
         return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(["GET"])
+@permission_classes([permissions.AllowAny])
+def get_graph_traversal_methods(request):
+    """
+    This endpoint retrieves all legal graph traversal methods that this service provides.
+    """
+    try:
+        print("Success")
+    except Exception as e:
+        print(e)
+        return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
