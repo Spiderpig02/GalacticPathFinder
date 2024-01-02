@@ -46,7 +46,7 @@ def fetch_graph_traversal_methods(request):
 
 @api_view(["POST"])
 @permission_classes([permissions.AllowAny])
-def fetch_graph_heuristics(request) -> HttpResponse[list[str]]:
+def fetch_graph_heuristics(request):
     """
     This endpoint returns a list of available heuristics for a given graph traversal method
     """
