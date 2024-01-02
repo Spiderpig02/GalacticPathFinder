@@ -19,8 +19,8 @@ paths:
               type: object
               required:
                 - algorithm
-                - startPoint
-                - endPoint
+                - startPoints
+                - endPoints
                 - map
               properties:
                 algorithm:
@@ -87,7 +87,12 @@ paths:
                   path:
                     type: array
                     items:
-                      type: integer
+                      type: array
+                      items:
+                        type: integer
+                      minItems: 2
+                      maxItems: 2
+                    example: [[1, 2], [2, 3]]
                     description: The path traversed as a list of node identifiers.
                   nodeOrder:
                     type: array
@@ -132,9 +137,9 @@ paths:
 
   /graph-heuristics-methods:
     post:
-      summary: Fetch all available heuristics for the given graph traversal method.
+      summary: Fetch all legal graph traversal methods
       description: >
-        This endpoint retrieves all available heuristics for the graph traversal method chosen by the user.
+        This endpoint retrieves all legal graph traversal methods that this service provides.
       requestBody:
         required: true
         content:
@@ -142,25 +147,25 @@ paths:
             schema:
               type: object
               required:
-                - heuristic
+                - method
               properties:
-                heuristic:
+                method:
                   type: string
                   description: Optional name of the heuristic used for traversal.
-                  example: "Manhattan Distance"
+                  example: "A star"
       responses:
         "200":
-          description: Successfully retrieved the list of available heuristics.
+          description: Successfully retrieved the list of graph traversal methods.
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  methods:
+                  heuristics:
                     type: array
                     items:
                       type: string
-                    description: A list of available heuristics.
+                    description: A list of available graph traversal methods.
                     example: ["Manhattan Distance", Euclidean Distance]
         "500":
           description: Internal server error.
