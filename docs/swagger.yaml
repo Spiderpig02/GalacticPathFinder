@@ -54,7 +54,6 @@ paths:
                     type: object
                     required:
                       - node
-                      - edge
                       - weight
                     properties:
                       node:
@@ -65,17 +64,14 @@ paths:
                         maxItems: 2
                         description: List of two integers representing the node.
                         example: [1, 2]
-                      edge:
-                        type: integer
-                        description: Edge identifier.
                       weight:
                         type: integer
-                        description: Weight of the edge.
+                        description: Weight of the edge. If the weight is set to -1 then the node is not possible to move through.
                   description: List of tuples representing the graph map.
                   example:
                     [
-                      { "node": [1, 2], "edge": 3, "weight": 4 },
-                      { "node": [2, 3], "edge": 4, "weight": 5 },
+                      { "node": [1, 2], "weight": 4 },
+                      { "node": [2, 3], "weight": 5 },
                     ]
       responses:
         "200":
