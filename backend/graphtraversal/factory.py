@@ -23,7 +23,9 @@ def get_heuristics(graph_method_name: str) -> list[str]:
     match graph_method_name:
         case "dijkstra":
             return []
-        case "a_star":
+        case "bfs":
+            return []
+        case "a star":
             return ["euclidean", "manhattan"]
         case _:
             raise ValueError(f"Invalid graph method name: {graph_method_name}")
