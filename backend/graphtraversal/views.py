@@ -33,6 +33,16 @@ def post_graph_traversal(request):
     """
 
     try:
+        # Check if all mandatory parameters are present
+        if "algorithm" not in request.data:
+            raise ValueError("Invalid request. Missing 'algorithm' parameter")
+        if "startPoint" not in request.data:
+            raise ValueError("Invalid request. Missing 'startPoint' parameter")
+        if "endPoint" not in request.data:
+            raise ValueError("Invalid request. Missing 'endPoint' parameter")
+        if "map" not in request.data:
+            raise ValueError("Invalid request. Missing 'map' parameter")
+
         # Get mandatory parameters
         graph_method_name: str = request.data["algorithm"]
         start_point: list[int, int] = request.data["startPoint"]
