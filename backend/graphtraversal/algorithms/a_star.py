@@ -1,29 +1,23 @@
 from dataclasses import dataclass
 from typing import Callable
-from map import Map, Position
+from map import Map, Node, Position
 
-@dataclass(frozen=True)
-class Node:
-    """
-    A node in the search tree. Contains the position and the cost to reach it.
-    """
-    position: Position
-    cost: float
 
 class Frontier:
     """
     The frontier is a priority queue of nodes. The nodes are sorted by it cost.
     """
+
     def __init__(self, start_pos: Position, goal_pos: Position):
-        """ Instantiate a frontier object. """
+        """Instantiate a frontier object."""
         self.frontier = [Node(start_pos, 0)]
         self.goal_pos = goal_pos
 
     def get_frontier(self) -> Position:
-        """ Getter for the frontier """
+        """Getter for the frontier"""
         return self.frontier
-    
-    def insert(self, position: Position, cost: float=0):
+
+    def insert(self, position: Position, cost: float = 0):
         """
         Inserts a node into the frontier. The node is inserted in the
         correct position based on its cost and distance towards the goal.
@@ -32,7 +26,10 @@ class Frontier:
             cost (float, optional): The cost to reach the node. Defaults to 0.
         """
         self.frontier.append(Node(position, cost))
-        self.frontier.sort(reverse=True, key=lambda node: node.cost + a_star_heuristic(node.position, self.goal_pos))
+        self.frontier.sort(
+            reverse=True,
+            key=lambda node: node.cost + a_star_heuristic(node.position, self.goal_pos),
+        )
 
     def pop(self):
         """
@@ -41,12 +38,15 @@ class Frontier:
         """
         node: Node = self.frontier.pop()
         return node.position
-    
+
     def is_empty(self):
-        """ Checks if the frontier is empty """
+        """Checks if the frontier is empty"""
         return len(self.frontier) == 0
 
-def a_star(map: Map, heuristic: Callable, start_pos: Position=None, goal_pos: Position=None) -> list[Position]:
+
+def a_star(
+    map: Map, heuristic: Callable, start_pos: Position = None, goal_pos: Position = None
+) -> list[Position]:
     """
     A* algorithm implementation
 
@@ -57,7 +57,7 @@ def a_star(map: Map, heuristic: Callable, start_pos: Position=None, goal_pos: Po
     Returns:
         The path from the start to the goal node or None if no path exists
     """
-    
+
     # Set start and goal positions if they are given or use the ones from the map
     if start_pos is not None:
         map.set_start_pos(start_pos)
@@ -91,25 +91,30 @@ def a_star(map: Map, heuristic: Callable, start_pos: Position=None, goal_pos: Po
         for neighbor in map.get_neighbors(current):
             # Calculate the cost to reach the neighbor through current
             # tentative_cost_to_reach is the distance from start to the neighbor through current
-            tentative_cost_to_reach = cost_to_reach_position[tuple(current)] + map.get_cell_value(neighbor)
+            tentative_cost_to_reach = cost_to_reach_position[
+                tuple(current)
+            ] + map.get_cell_value(neighbor)
             current_cost = cost_to_reach_position.get(tuple(neighbor))
-            
+
             if current_cost is None or tentative_cost_to_reach < current_cost:
                 # This path to neighbor is better than any previous one. Record it!
-                
+
                 came_from[tuple(neighbor)] = tuple(current)
                 cost_to_reach_position[tuple(neighbor)] = tentative_cost_to_reach
-                estimated_remaining_distance[tuple(neighbor)] = tentative_cost_to_reach + a_star_heuristic(neighbor, goal_pos)
-                
+                estimated_remaining_distance[
+                    tuple(neighbor)
+                ] = tentative_cost_to_reach + a_star_heuristic(neighbor, goal_pos)
+
                 # Add the neighbor to the frontier if it is not explored yet
                 if neighbor not in frontier.get_frontier():
                     frontier.insert(neighbor, tentative_cost_to_reach)
     return None
 
+
 def reconstruct_path(came_from: dict, current: Position) -> list[Position]:
     """
     Reconstructs the path from the start to the goal node
-    
+
     Args:
         came_from (dict):  Dictionary with the path from the start to the goal node
         current (Position): The goal node
@@ -143,4 +148,3 @@ def a_star_heuristic(current_pos: Position, goal_pos: Position) -> float:
     x_distance = abs(current_pos.x - goal_pos.x)
     y_distance = abs(current_pos.y - goal_pos.y)
     return x_distance + y_distance
-    
