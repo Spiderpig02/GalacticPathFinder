@@ -6,7 +6,7 @@ from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
-from factory import get_heuristics
+from factory import get_heuristics, get_graph_traversal_methods
 
 
 @api_view(["POST"])
@@ -20,10 +20,28 @@ def post_graph_traversal(request):
         print("Success")
     except ValueError as va:
         print(va)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
         print(e)
-        return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return HttpResponse(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(["GET"])
+@permission_classes([permissions.AllowAny])
+def fetch_graph_traversal_methods(request):
+    """
+    This endpoint retrieves all legal graph traversal methods that this service provides.
+    """
+    try:
+        return HttpResponse(
+            data=get_graph_traversal_methods(), status=status.HTTP_200_OK
+        )
+    except ValueError as va:
+        print(va)
+        return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        print(e)
+        return HttpResponse(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 @api_view(["POST"])
