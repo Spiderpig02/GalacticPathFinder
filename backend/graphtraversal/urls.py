@@ -20,7 +20,7 @@ from django.urls import path, include
 from graphtraversal.views import fetch_graph_heuristics, post_graph_traversal
 
 urlpatterns = [
-    path("/traverse", post_graph_traversal),
-    path("/graph-traversal-methods", post_graph_traversal),
-    path("/graph-heuristics-methods", fetch_graph_heuristics),
+    path("traverse", post_graph_traversal),
+    path("graph-traversal-methods", post_graph_traversal),
+    path("graph-heuristics-methods", fetch_graph_heuristics),
 ]
