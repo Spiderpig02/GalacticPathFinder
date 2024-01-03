@@ -58,45 +58,48 @@ class GraphHeuristicsTests(TestCase):
 class TraversalTests(TestCase):
     def test_traverse_map_given_valid_data_without_heuristic(self):
         client = Client()
-        data = {
-            "algorithm": "a star",
-            "startPoint": {"x": 0, "y": 0, "weight": 1},
-            "endPoint": {"x": 1, "y": 1, "weight": 1},
-            "map": [
-                {"x": 0, "y": 0, "weight": 0},
-                {"x": 0, "y": 1, "weight": 1},
-                {"x": 1, "y": 0, "weight": 2},
-                {"x": 1, "y": 1, "weight": 3},
-            ],
-        }
+        for algorithm in get_graph_traversal_methods():
+            data = {
+                "algorithm": algorithm,
+                "startPoint": {"x": 0, "y": 0, "weight": 1},
+                "endPoint": {"x": 1, "y": 1, "weight": 1},
+                "map": [
+                    {"x": 0, "y": 0, "weight": 0},
+                    {"x": 0, "y": 1, "weight": 1},
+                    {"x": 1, "y": 0, "weight": 2},
+                    {"x": 1, "y": 1, "weight": 3},
+                ],
+            }
 
-        response = client.post(
-            f"{baseDir}/traverse",
-            json.dumps(data),  # Send request data as a JSON string
-            content_type="application/json",  # Specify the content type as JSON
-        )
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+            response = client.post(
+                f"{baseDir}/traverse",
+                json.dumps(data),  # Send request data as a JSON string
+                content_type="application/json",  # Specify the content type as JSON
+            )
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_traverse_map_given_valid_data_with_heuristic(self):
         client = Client()
-        data = {
-            "algorithm": "a star",
-            "startPoint": {"x": 0, "y": 0, "weight": 1},
-            "endPoint": {"x": 1, "y": 1, "weight": 1},
-            "map": [
-                {"x": 0, "y": 0, "weight": 0},
-                {"x": 0, "y": 1, "weight": 1},
-                {"x": 1, "y": 0, "weight": 2},
-                {"x": 1, "y": 1, "weight": 3},
-            ],
-            "heuristic": "manhattan",
-        }
-        response = client.post(
-            f"{baseDir}/traverse",
-            json.dumps(data),
-            content_type="application/json",
-        )
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        for algorithm in get_graph_traversal_methods():
+            for heuristic in get_heuristics(algorithm):
+                data = {
+                    "algorithm": algorithm,
+                    "startPoint": {"x": 0, "y": 0, "weight": 1},
+                    "endPoint": {"x": 1, "y": 1, "weight": 1},
+                    "map": [
+                        {"x": 0, "y": 0, "weight": 0},
+                        {"x": 0, "y": 1, "weight": 1},
+                        {"x": 1, "y": 0, "weight": 2},
+                        {"x": 1, "y": 1, "weight": 3},
+                    ],
+                    "heuristic": heuristic,
+                }
+                response = client.post(
+                    f"{baseDir}/traverse",
+                    json.dumps(data),
+                    content_type="application/json",
+                )
+                self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_traverse_map_given_invalid_data_without_heuristic(self):
         client = Client()
