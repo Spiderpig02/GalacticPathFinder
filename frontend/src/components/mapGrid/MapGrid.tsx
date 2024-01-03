@@ -52,18 +52,20 @@ const MapGrid = () => {
 
   // Handle clicking a tile to toggle it
   const handleTileClick = (row: number, col: number) => {
+    console.log("selectionModeSignal.value = ", selectionModeSignal.value);
     if (selectionModeSignal.value) {
       if (!startPoint) {
         setStartPoint(`${row}-${col}`);
       } else if (!endPoint) {
         setEndPoint(`${row}-${col}`);
         selectionModeSignal.value = false;
-      } else {
-        setActiveTiles((prev) => ({
-          ...prev,
-          [`${row}-${col}`]: !prev[`${row}-${col}`],
-        }));
       }
+    } else {
+      console.log("Er her");
+      setActiveTiles((prev) => ({
+        ...prev,
+        [`${row}-${col}`]: !prev[`${row}-${col}`],
+      }));
     }
   };
 
