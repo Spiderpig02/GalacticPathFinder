@@ -18,7 +18,7 @@ GalacticPathFinder is an interactive web application designed to visualize and u
 
 ### Prerequisites
 - [Git](https://git-scm.com/downloads)
-- [Python 3.8](https://www.python.org/downloads/release/python-380/)
+- [Python 3.10 or newer](https://www.python.org/downloads/release/python-380/)
 - [Node.js 20.x or newer](https://nodejs.org/en/download/)
 
 ### Clone repository
