@@ -13,7 +13,7 @@ class Position:
     y: int
 
     def to_dict(self):
-        return {"position": self.position.to_dict(), "cost": self.cost}
+        return asdict(self)
 
 
 @dataclass(frozen=True)
@@ -23,10 +23,10 @@ class Node:
     """
 
     position: Position
-    cost: float
+    weight: float
 
     def to_dict(self):
-        return asdict(self)
+        return {"x": self.position.x, "y": self.position.y, "weight": self.weight}
 
 
 class Map(ABC):
