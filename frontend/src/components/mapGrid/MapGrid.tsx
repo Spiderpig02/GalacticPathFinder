@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { sliderSignal } from "../../pages/HomePage.tsx";
 import Tile from "../Tile.tsx";
 import "./MapGrid.css";
