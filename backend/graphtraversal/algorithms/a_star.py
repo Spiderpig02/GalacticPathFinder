@@ -1,5 +1,5 @@
-from dataclasses import dataclass
 from typing import Callable
+from graphtraversal.algorithms.heuristics import manhattan_distance
 
 from graphtraversal import factory
 from graphtraversal.algorithms.pathfinder import Pathfinder
@@ -53,7 +53,7 @@ class AStarPathfinder(Pathfinder):
         self, map: Map, start: Node, goal: Node, heuristic: Callable
     ) -> tuple[list[Node], list[Node]]:
         if heuristic is None:
-            heuristic = factory.get_heuristic_function("a star")[0]
+            heuristic = manhattan_distance
         print(f"heuristic in a star pathfinder: {heuristic}")
         return a_star(map, start, goal, heuristic)
 
