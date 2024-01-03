@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from abc import ABC, ABCMeta, abstractmethod
 from typing import Any, Callable
 
-from graphtraversal.map import Map, Position
+from graphtraversal.map import Map, Node
 
 
 class Pathfinder(ABC):
@@ -23,10 +23,10 @@ class Pathfinder(ABC):
     def find_path(
         self,
         map: Map,
-        start_pos: Position,
-        goal_pos: Position,
+        start_pos: Node,
+        goal_pos: Node,
         heuristic: Callable,
-    ) -> list[Position]:
+    ) -> list[Node]:
         """
         Find a path from start_pos to goal_pos on the map using the algorithm
         It will use the heuristic if it is provided and the algorithm supports it.
