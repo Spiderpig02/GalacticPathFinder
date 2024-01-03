@@ -7,9 +7,6 @@ from graphtraversal.algorithms.pathfinder import Pathfinder
 
 graph_traversal_function_map: dict[str, Pathfinder] = {
     "a star": AStarPathfinder(),
-    "dijkstra": None,
-    "bfs": None,
-    # and so on...
 }
 
 
@@ -35,11 +32,7 @@ def get_heuristics(graph_method_name: str) -> list[str]:
     """
     match graph_method_name.lower():
         case "a star":
-            return ["manhattan", "euclidean"]
-        case "dijkstra":
-            return []
-        case "bfs":
-            return []
+            return ["manhattan"]
         case _:
             raise ValueError(f"Invalid graph method name: {graph_method_name}")
 
