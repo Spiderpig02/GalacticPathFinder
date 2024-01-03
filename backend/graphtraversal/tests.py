@@ -89,7 +89,7 @@ class TraversalTests(TestCase):
                 {"x": 1, "y": 0, "weight": 2},
                 {"x": 1, "y": 1, "weight": 3},
             ],
-            "heuristic": "euclidean",
+            "heuristic": "manhattan",
         }
         response = client.post(
             f"{baseDir}/traverse",
