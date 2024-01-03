@@ -119,11 +119,13 @@ def post_graph_traversal(request):
 
     except ValueError as va:
         print(va)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_400_BAD_REQUEST, data={"error": str(va)})
     except Exception as e:
         print("====================================")
         print("Exception: ", e)
-        return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response(
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR, data={"error": str(e)}
+        )
 
 
 @api_view(["GET"])
