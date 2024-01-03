@@ -3,12 +3,17 @@ import { useCallback, useState } from "react";
 import { sliderSignal } from "../../pages/HomePage.tsx";
 import Tile from "../Tile.tsx";
 import "./MapGrid.css";
+import { selectionModeSignal } from "../StartAndEndPointsButton.tsx";
 
 const MapGrid = () => {
-  const size = sliderSignal.value;
-  const height = Math.round(size * (9 / 16));
-  const tileWidth = 80 / size;
-  const tileHeight = 80 / height;
+  const size = sliderSignal.value; // Get the current size of the grid
+  const height = Math.round(size * (9 / 16)); // Set aspect ratio of grid to 16:9
+  const tileWidth = 80 / size; // 80 is the width of the grid container
+  const tileHeight = 80 / height; // 80 is the height of the grid container
+
+  // State to track the start and end point
+  const [startPoint, setStartPoint] = useState<string | null>(null);
+  const [endPoint, setEndPoint] = useState<string | null>(null);
 
   // Create a state to track the active state of each tile
   const [activeTiles, setActiveTiles] = useState(() => {
@@ -26,17 +31,16 @@ const MapGrid = () => {
     null
   );
 
-  // Modify mouse down handler to set initial drag state
+  // Handle dragging the mouse to toggle tiles
   const handleMouseDown = (row: number, col: number) => {
     setIsMouseDown(true);
     setInitialDragState(activeTiles[`${row}-${col}`]);
   };
 
-  // Update the tile enter function
+  // Handle dragging the mouse to toggle tiles
   const handleTileEnter = useCallback(
     (row: number, col: number) => {
       if (isMouseDown) {
-        // Check against the initial drag state
         setActiveTiles((prev) => ({
           ...prev,
           [`${row}-${col}`]: initialDragState ? false : true,
@@ -46,14 +50,24 @@ const MapGrid = () => {
     [isMouseDown, initialDragState]
   );
 
+  // Handle clicking a tile to toggle it
   const handleTileClick = (row: number, col: number) => {
-    // Toggles the tile regardless of the mouse down state
-    setActiveTiles((prev) => ({
-      ...prev,
-      [`${row}-${col}`]: !prev[`${row}-${col}`],
-    }));
+    if (selectionModeSignal.value) {
+      if (!startPoint) {
+        setStartPoint(`${row}-${col}`);
+      } else if (!endPoint) {
+        setEndPoint(`${row}-${col}`);
+        selectionModeSignal.value = false;
+      } else {
+        setActiveTiles((prev) => ({
+          ...prev,
+          [`${row}-${col}`]: !prev[`${row}-${col}`],
+        }));
+      }
+    }
   };
 
+  // Render the grid of tiles
   const renderGrid = () => {
     const grid = [];
     for (let row = 0; row < height; row++) {
@@ -68,6 +82,8 @@ const MapGrid = () => {
             onTileEnter={() => handleTileEnter(row, col)}
             onTileClick={() => handleTileClick(row, col)}
             onMouseDown={() => handleMouseDown(row, col)}
+            isStartPoint={startPoint === `${row}-${col}`}
+            isEndPoint={endPoint === `${row}-${col}`}
           />
         );
       }
