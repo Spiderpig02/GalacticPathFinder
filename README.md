@@ -1,4 +1,4 @@
-# GalacticPathFinder
+﻿# GalacticPathFinder
 
 GalacticPathFinder is an interactive web application designed to visualize and understand the A\* pathfinding and other pathfinding algorithms. It allows users to create grids, set start and end points, visualize the algorithm's step-by-step process, and experiment with different heuristics. This tool is ideal for students, educators, and anyone interested in algorithm visualization and AI pathfinding techniques. It is made with Django backend and React Typescript frontend.
 
@@ -28,16 +28,20 @@ git clone https://github.com/Spiderpig02/GalacticPathFinder.git
 ```
 
 ### Frontend
-
+To setup the frontend one must install all the dependencies:
+```bash
+cd frontend
+npm install
+```
 
 
 ### Backend
-
+To setup the backends one must install all the dependencies:
 ```bash
 cd backend
 ```
 
-### Virtual Environment (Recommended)
+#### Virtual Environment (Recommended)
 
 <details> 
 <summary><strong>🚀 A better way to set up repositories </strong></summary>
