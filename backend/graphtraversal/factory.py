@@ -1,6 +1,6 @@
 """ This module contains the factory functions for the graph traversal algorithms """
 from typing import Callable
-from graphtraversal.algorithms.heuristics import manhattan_distance
+from graphtraversal.algorithms.heuristics import euclidean_distance, manhattan_distance
 from graphtraversal.algorithms.a_star import AStarPathfinder
 from graphtraversal.algorithms.pathfinder import Pathfinder
 
@@ -32,7 +32,7 @@ def get_heuristics(graph_method_name: str) -> list[str]:
     """
     match graph_method_name.lower():
         case "a star":
-            return ["manhattan"]
+            return ["manhattan", "euclidean"]
         case _:
             raise ValueError(f"Invalid graph method name: {graph_method_name}")
 
@@ -44,5 +44,7 @@ def get_heuristic_function(heuristic_name: str) -> Callable:
     match heuristic_name.lower():
         case "manhattan":
             return manhattan_distance
+        case "euclidean":
+            return euclidean_distance
         case _:
             raise ValueError(f"Invalid heuristic name: {heuristic_name}")
