@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 from abc import ABC, ABCMeta, abstractmethod
 from typing import Any
 
@@ -12,9 +12,8 @@ class Position:
     x: int
     y: int
 
-    def __init__(self, list: list[int, int]):
-        self.x = list[0]
-        self.y = list[1]
+    def to_dict(self):
+        return {"position": self.position.to_dict(), "cost": self.cost}
 
 
 @dataclass(frozen=True)
@@ -25,6 +24,9 @@ class Node:
 
     position: Position
     cost: float
+
+    def to_dict(self):
+        return asdict(self)
 
 
 class Map(ABC):
@@ -39,14 +41,6 @@ class Map(ABC):
         return (
             hasattr(subclass, "get_neighbors")
             and callable(subclass.get_neighbors)
-            and hasattr(subclass, "set_start_pos")
-            and callable(subclass.set_start_pos)
-            and hasattr(subclass, "set_goal_pos")
-            and callable(subclass.set_goal_pos)
-            and hasattr(subclass, "get_start_pos")
-            and callable(subclass.get_start_pos)
-            and hasattr(subclass, "get_goal_pos")
-            and callable(subclass.get_goal_pos)
             and hasattr(subclass, "get_cell_value")
             and callable(subclass.get_cell_value)
         )
@@ -54,25 +48,6 @@ class Map(ABC):
     @abstractmethod
     def get_neighbors(self, position: Position) -> list[Position]:
         """Find all legal neighbors of a position"""
-        pass
-
-    @abstractmethod
-    def set_start_pos(start_pos: Position):
-        """Setter for the starting position"""
-        pass
-
-    @abstractmethod
-    def set_goal_pos(goal_pos: Position):
-        """Setter for the goal position"""
-        pass
-
-    @abstractmethod
-    def get_start_pos():
-        """Getter for the starting position of the current task"""
-        pass
-
-    @abstractmethod
-    def get_goal_pos():
         pass
 
     @abstractmethod
@@ -86,30 +61,8 @@ class RestMap(Map):
     """A map made from the REST API"""
 
     map: list[Node]
-    start_pos: Position
-    goal_pos: Position
-
-    def __init__(
-        self,
-        raw_map: list[list[int, int], int],
-        start_pos: list[int, int],
-        goal_pos: list[int, int],
-    ):
-        """
-        Create a map from the raw representation of the map.
-
-        Args:
-            raw_map (list[list[int, int], int]): The raw representation of the map of the form [[x, y], cost]
-            start_pos (list[int, int]): The starting position
-            goal_pos (list[int, int]): The goal position
-        """
-        self.map = []
-        for raw_cell in raw_map:
-            node = Node(Position(raw_cell[0]), raw_cell[1])
-            self.map.append(node)
-
-        self.start_pos = Position(start_pos)
-        self.goal_pos = Position(goal_pos)
+    start_pos: Node
+    goal_pos: Node
 
     def get_neighbors(self, position: Position) -> list[Position]:
         """Find all legal neighbors of a position"""
@@ -125,21 +78,6 @@ class RestMap(Map):
         if y < len(self.map[0]) - 1:
             neighbors.append(Position([x, y + 1]))
         return neighbors
-
-    def set_start_pos(self, start_pos: Position):
-        """Setter for the starting position"""
-        self.start_pos = start_pos
-
-    def set_goal_pos(self, goal_pos: Position):
-        """Setter for the goal position"""
-        self.goal_pos = goal_pos
-
-    def get_start_pos(self):
-        """Getter for the starting position of the current task"""
-        return self.start_pos
-
-    def get_goal_pos(self):
-        return self.goal_pos
 
     def get_cell_value(self, position: Position) -> int:
         """Getter for the value (cost) of the cell at `pos`"""
