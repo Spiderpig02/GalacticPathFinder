@@ -26,7 +26,7 @@ class Pathfinder(ABC):
         start_pos: Node,
         goal_pos: Node,
         heuristic: Callable,
-    ) -> list[Node]:
+    ) -> tuple[list[Node], list[Node]]:
         """
         Find a path from start_pos to goal_pos on the map using the algorithm
         It will use the heuristic if it is provided and the algorithm supports it.
@@ -37,6 +37,7 @@ class Pathfinder(ABC):
             goal_pos (Position): The goal position
             heuristic (Callable): The heuristic function to use
         Returns:
-            The path from the start to the goal node or None if no path exists
+            - The path from the start to the goal node or None if no path exists
+            - The order in which the nodes were visited
         """
         pass
