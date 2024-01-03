@@ -24,7 +24,7 @@ class Pathfinder(ABC):
         self,
         map: Map,
         start: Node,
-        goa: Node,
+        goal: Node,
         heuristic: Callable,
     ) -> tuple[list[Node], list[Node]]:
         """
