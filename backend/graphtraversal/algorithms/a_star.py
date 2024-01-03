@@ -1,15 +1,9 @@
 from dataclasses import dataclass
 from typing import Callable
 
+from graphtraversal import factory
 from graphtraversal.algorithms.pathfinder import Pathfinder
 from graphtraversal.map import Map, Node, Position
-
-
-class AStarPathfinder(Pathfinder):
-    def find_path(
-        self, map: Map, start_pos: Position, goal_pos: Position, heuristic: Callable
-    ) -> list[Position]:
-        return a_star(map, heuristic, start_pos, goal_pos)
 
 
 class Frontier:
@@ -17,7 +11,7 @@ class Frontier:
     The frontier is a priority queue of nodes. The nodes are sorted by it cost.
     """
 
-    def __init__(self, start_pos: Position, goal_pos: Position):
+    def __init__(self, start_pos: Position, goal_pos: Position, heuristic: Callable):
         """Instantiate a frontier object."""
         self.frontier = [Node(start_pos, 0)]
         self.goal_pos = goal_pos
@@ -37,7 +31,7 @@ class Frontier:
         self.frontier.append(Node(position, cost))
         self.frontier.sort(
             reverse=True,
-            key=lambda node: node.cost + a_star_heuristic(node.position, self.goal_pos),
+            key=lambda node: node.cost + self.heuristic(node.position, self.goal_pos),
         )
 
     def pop(self):
@@ -53,8 +47,17 @@ class Frontier:
         return len(self.frontier) == 0
 
 
+class AStarPathfinder(Pathfinder):
+    def find_path(
+        self, map: Map, start_pos: Node, goal_pos: Node, heuristic: Callable
+    ) -> tuple[list[Node], list[Node]]:
+        if heuristic is None:
+            heuristic = factory.get_heuristic("a star")[0]
+        return a_star(map, start_pos, goal_pos, heuristic)
+
+
 def a_star(
-    map: Map, heuristic: Callable, start_pos: Position = None, goal_pos: Position = None
+    map: Map, start_pos: Node, goal_pos: Node, heuristic: Callable
 ) -> list[Position]:
     """
     A* algorithm implementation
@@ -66,18 +69,11 @@ def a_star(
     Returns:
         The path from the start to the goal node or None if no path exists
     """
-
-    # Set start and goal positions if they are given or use the ones from the map
-    if start_pos is not None:
-        map.set_start_pos(start_pos)
-    if goal_pos is not None:
-        map.set_goal_pos(goal_pos)
-
-    start_pos = map.get_start_pos()
-    goal_pos = map.get_goal_pos()
+    start_pos: Position = start_pos.position
+    goal_pos: Position = goal_pos.position
 
     # Initialize the frontier with the start position
-    frontier = Frontier(start_pos, goal_pos)
+    frontier = Frontier(start_pos, goal_pos, heuristic)
     # Initialize the came_from dictionary
     # For node n, came_from[n] is the node immediately preceding it on the cheapest path from the start to n currently known.
 
@@ -112,7 +108,7 @@ def a_star(
                 cost_to_reach_position[tuple(neighbor)] = tentative_cost_to_reach
                 estimated_remaining_distance[
                     tuple(neighbor)
-                ] = tentative_cost_to_reach + a_star_heuristic(neighbor, goal_pos)
+                ] = tentative_cost_to_reach + heuristic(neighbor, goal_pos)
 
                 # Add the neighbor to the frontier if it is not explored yet
                 if neighbor not in frontier.get_frontier():
