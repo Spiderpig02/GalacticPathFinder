@@ -23,8 +23,8 @@ class Pathfinder(ABC):
     def find_path(
         self,
         map: Map,
-        start_pos: Node,
-        goal_pos: Node,
+        start: Node,
+        goa: Node,
         heuristic: Callable,
     ) -> tuple[list[Node], list[Node]]:
         """

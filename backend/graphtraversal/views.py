@@ -1,11 +1,13 @@
+from typing import Callable
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 import json
 
 from graphtraversal.algorithms.pathfinder import Pathfinder
-from graphtraversal.map import RestMap, Node, Position
+from graphtraversal.map import Map, RestMap, Node, Position
 from graphtraversal.factory import (
+    get_heuristic_function,
     get_heuristics,
     get_graph_traversal_methods,
     get_pathfinder,
@@ -77,7 +79,7 @@ def post_graph_traversal(request):
 
             nodes.append(Node(Position(x, y), weight))
 
-        map: RestMap = RestMap(
+        map: Map = RestMap(
             nodes,
             start_point,
             end_point,
@@ -88,27 +90,24 @@ def post_graph_traversal(request):
         if heuristic not in get_heuristics(algorithm):
             heuristic = None
 
+        if heuristic is not None:
+            heuristic: str = (heuristic.lower()).strip()
+            heuristic: Callable = get_heuristic_function(heuristic)
+
         # Find path
         pathfinder: Pathfinder = get_pathfinder(algorithm)
-        print(f"pathfinder: {pathfinder}")
-        # path, node_order = pathfinder.find_path(map, start_point, end_point, heuristic)
+        path, node_order = pathfinder.find_path(map, start_point, end_point, heuristic)
 
-        # pathfinder_status: str = "success" if path is not None else "failure"
+        print(f"path: {path}")
+        print(f"node_order: {node_order}")
+        pathfinder_status: str = "success" if path is not None else "failure"
 
-        # show the parsed data
-        print(f"algorithm: {algorithm}")
-        print(f"start_point: {start_point}")
-        print(f"end_point: {end_point}")
-        print(f"map: {map}")
-
-        ##### CREATE MOCK DATA #####
-        pathfinder_status = "success"
         # Serialize the list of dictionaries to a JSON string
-        path = [node.to_dict() for node in nodes]
-        serialized_path = json.dumps(path)
+        path_dicts = [node.to_dict() for node in path]
+        serialized_path = json.dumps(path_dicts)
 
-        node_order = [node.to_dict() for node in nodes]
-        serialized_node_order = json.dumps(node_order)
+        node_order_dicts = [node.to_dict() for node in node_order]
+        serialized_node_order = json.dumps(node_order_dicts)
         return Response(
             status=status.HTTP_200_OK,
             data={

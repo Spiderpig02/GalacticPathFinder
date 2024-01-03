@@ -1,9 +1,9 @@
 from dataclasses import dataclass, asdict
 from abc import ABC, ABCMeta, abstractmethod
-from typing import Any
+from typing import Any, Dict
 
 
-@dataclass()
+@dataclass(frozen=True)
 class Position:
     """
     A position in the graph. Contains the x and y coordinates.
@@ -64,22 +64,36 @@ class RestMap(Map):
     start_pos: Node
     goal_pos: Node
 
+    def __post_init__(self):
+        """
+        After the map is initialized, we can cache the neighbors and values so we don't have to recalculate them every time.
+        """
+        self._neighbor_cache: Dict[Position, list[Position]] = {}
+        self._value_cache: Dict[Position, int] = {}
+
     def get_neighbors(self, position: Position) -> list[Position]:
         """Find all legal neighbors of a position"""
+        if position in self._neighbor_cache:
+            return self._neighbor_cache[position]
+
         neighbors = []
-        x = position.x
-        y = position.y
-        if x > 0:
-            neighbors.append(Position([x - 1, y]))
-        if x < len(self.map) - 1:
-            neighbors.append(Position([x + 1, y]))
-        if y > 0:
-            neighbors.append(Position([x, y - 1]))
-        if y < len(self.map[0]) - 1:
-            neighbors.append(Position([x, y + 1]))
+        for node in self.map:
+            if node.position.x == position.x and node.position.y == position.y:
+                continue
+            if (
+                abs(node.position.x - position.x) <= 1
+                and abs(node.position.y - position.y) <= 1
+            ):
+                neighbors.append(node.position)
         return neighbors
 
     def get_cell_value(self, position: Position) -> int:
-        """Getter for the value (cost) of the cell at `pos`"""
-        node = self.map[position.x][position.y]
-        return node.cost
+        """Getter for the value (weight) of the cell at `pos`"""
+        if position in self._value_cache:
+            return self._value_cache[position]
+
+        for n in self.map:
+            if n.position == position:
+                node = n
+                break
+        return node.weight

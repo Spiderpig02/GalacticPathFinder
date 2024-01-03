@@ -15,6 +15,7 @@ class Frontier:
         """Instantiate a frontier object."""
         self.frontier = [Node(start_pos, 0)]
         self.goal_pos = goal_pos
+        self.heuristic = heuristic
 
     def get_frontier(self) -> Position:
         """Getter for the frontier"""
@@ -49,28 +50,27 @@ class Frontier:
 
 class AStarPathfinder(Pathfinder):
     def find_path(
-        self, map: Map, start_pos: Node, goal_pos: Node, heuristic: Callable
+        self, map: Map, start: Node, goal: Node, heuristic: Callable
     ) -> tuple[list[Node], list[Node]]:
         if heuristic is None:
-            heuristic = factory.get_heuristic("a star")[0]
-        return a_star(map, start_pos, goal_pos, heuristic)
+            heuristic = factory.get_heuristic_function("a star")[0]
+        print(f"heuristic in a star pathfinder: {heuristic}")
+        return a_star(map, start, goal, heuristic)
 
 
-def a_star(
-    map: Map, start_pos: Node, goal_pos: Node, heuristic: Callable
-) -> list[Position]:
+def a_star(map: Map, start: Node, goal: Node, heuristic: Callable) -> list[Position]:
     """
     A* algorithm implementation
 
     Args:
         map (Map): The map on which the algorithm is run
-        start_pos (Position, optional): The start position. Defaults to None.
-        goal_pos (Position, optional): The goal position. Defaults to None.
+        start_pos (Position): The start Node with position.
+        goal_pos (Position): The goal Node with position.
     Returns:
         The path from the start to the goal node or None if no path exists
     """
-    start_pos: Position = start_pos.position
-    goal_pos: Position = goal_pos.position
+    start_pos: Position = start.position
+    goal_pos: Position = goal.position
 
     # Initialize the frontier with the start position
     frontier = Frontier(start_pos, goal_pos, heuristic)
@@ -81,33 +81,35 @@ def a_star(
     # Initialize the cost_to_reach_position dictionary, the first node has no cost
     # The sentinel value is not infinity but rather None, So all values not explicitly set are None
     cost_to_reach_position = {}
-    cost_to_reach_position[tuple(start_pos)] = 0
+    cost_to_reach_position[start_pos] = 0
 
     estimated_remaining_distance = {}
-    estimated_remaining_distance[tuple(start_pos)] = heuristic(start_pos, goal_pos)
+    estimated_remaining_distance[start_pos] = heuristic(start_pos, goal_pos)
 
     while not frontier.is_empty():
         # Get the node with the lowest estimated distance from goal_pos from the frontier
         # And remove it from the frontier
         current = frontier.pop()
         if current == goal_pos:
-            return reconstruct_path(came_from, tuple(current))
+            path = reconstruct_path(came_from, current)
+            order = list(came_from.keys())
+            return path, order
 
         for neighbor in map.get_neighbors(current):
             # Calculate the cost to reach the neighbor through current
             # tentative_cost_to_reach is the distance from start to the neighbor through current
             tentative_cost_to_reach = cost_to_reach_position[
-                tuple(current)
+                current
             ] + map.get_cell_value(neighbor)
-            current_cost = cost_to_reach_position.get(tuple(neighbor))
+            current_cost = cost_to_reach_position.get(neighbor)
 
             if current_cost is None or tentative_cost_to_reach < current_cost:
                 # This path to neighbor is better than any previous one. Record it!
 
-                came_from[tuple(neighbor)] = tuple(current)
-                cost_to_reach_position[tuple(neighbor)] = tentative_cost_to_reach
+                came_from[neighbor] = current
+                cost_to_reach_position[neighbor] = tentative_cost_to_reach
                 estimated_remaining_distance[
-                    tuple(neighbor)
+                    neighbor
                 ] = tentative_cost_to_reach + heuristic(neighbor, goal_pos)
 
                 # Add the neighbor to the frontier if it is not explored yet

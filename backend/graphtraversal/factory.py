@@ -44,7 +44,7 @@ def get_heuristics(graph_method_name: str) -> list[str]:
             raise ValueError(f"Invalid graph method name: {graph_method_name}")
 
 
-def get_heuristic(heuristic_name: str) -> Callable:
+def get_heuristic_function(heuristic_name: str) -> Callable:
     """
     This function returns the heuristic function for the given heuristic name
     """
