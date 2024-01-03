@@ -122,7 +122,7 @@ class TraversalTests(TestCase):
 
             response = client.post(
                 f"{baseDir}/traverse",
-                data=json.dumps(data),
+                json.dumps(data),
                 content_type="application/json",
             )
             self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
