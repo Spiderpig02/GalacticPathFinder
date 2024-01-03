@@ -4,6 +4,7 @@ from graphtraversal.algorithms.heuristics import manhattan_distance
 from graphtraversal import factory
 from graphtraversal.algorithms.pathfinder import Pathfinder
 from graphtraversal.map import Map, Node, Position
+from graphtraversal.algorithms.search_utils import reconstruct_path
 
 
 class Frontier:
@@ -116,42 +117,3 @@ def a_star(map: Map, start: Node, goal: Node, heuristic: Callable) -> list[Posit
                 if neighbor not in frontier.get_frontier():
                     frontier.insert(neighbor, tentative_cost_to_reach)
     return None
-
-
-def reconstruct_path(came_from: dict, current: Position) -> list[Position]:
-    """
-    Reconstructs the path from the start to the goal node
-
-    Args:
-        came_from (dict):  Dictionary with the path from the start to the goal node
-        current (Position): The goal node
-
-    Returns:
-        list[Position]
-        The path from the start to the goal node
-    """
-    total_path = [current]
-    while current in came_from.keys():
-        # Stop if there is a cycle in the path
-        if current == came_from[current]:
-            break
-        current = came_from[current]
-        total_path.append(current)
-    return total_path
-
-
-def a_star_heuristic(current_pos: Position, goal_pos: Position) -> float:
-    """
-    A heuristic function for A*. Calculates the manhattan distance
-
-    Args:
-        current_pos (Position): The current position
-        goal_pos (Position): The goal position
-    Returns:
-        float: The heuristic value
-    """
-    # Calculate the heuristic value for the given position
-    # Manhatten distance = |x1 - x2| + |y1 - y2|
-    x_distance = abs(current_pos.x - goal_pos.x)
-    y_distance = abs(current_pos.y - goal_pos.y)
-    return x_distance + y_distance
