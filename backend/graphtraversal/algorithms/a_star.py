@@ -31,7 +31,7 @@ class Frontier:
         self.frontier.append(Node(position, cost))
         self.frontier.sort(
             reverse=True,
-            key=lambda node: node.cost + self.heuristic(node.position, self.goal_pos),
+            key=lambda node: node.weight + self.heuristic(node.position, self.goal_pos),
         )
 
     def pop(self):
