@@ -1,6 +1,7 @@
 import { signal } from "@preact/signals-react";
 import MapGrid from "../components/mapGrid/MapGrid";
 import MapSizeSlider from "../components/MapSizeSlider";
+import StartAndEndPointsButton from "../components/StartAndEndPointsButton";
 
 export const sliderSignal = signal<number>(50);
 
@@ -10,8 +11,9 @@ const HomePage = () => {
       <div style={{ height: "fit-content" }}>
         <MapGrid />
       </div>
-      <div className="h-5 mt-5">
+      <div className="flex h-5 mt-5">
         <MapSizeSlider />
+        <StartAndEndPointsButton />
       </div>
     </div>
   );

@@ -5,6 +5,8 @@ type TileProps = {
   onTileEnter: () => void;
   onTileClick: () => void;
   onMouseDown: () => void;
+  isStartPoint: boolean;
+  isEndPoint: boolean;
 };
 const Tile = ({
   width,
@@ -13,12 +15,18 @@ const Tile = ({
   onTileEnter,
   onTileClick,
   onMouseDown,
+  isStartPoint,
+  isEndPoint,
 }: TileProps) => {
+  let backgroundColor = isActive ? "black" : "white";
+  if (isStartPoint) backgroundColor = "green";
+  if (isEndPoint) backgroundColor = "red";
+
   const tileStyle = {
     width: `${width}vw`,
     height: `${height}vh`,
     border: "0.5px solid",
-    backgroundColor: isActive ? "black" : "white",
+    backgroundColor: backgroundColor,
   };
 
   return (
