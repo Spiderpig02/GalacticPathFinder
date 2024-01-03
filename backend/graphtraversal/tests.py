@@ -141,19 +141,14 @@ class TraversalTests(TestCase):
         valid_heuristic = get_heuristics(valid_method_name)[0]
         data = {
             "invalid": valid_method_name,
-            "invalid": {"x": 0, "y": 0, "weight": 1},
-            "invalid": {"x": 1, "y": 1, "weight": 1},
-            "invalid": [
-                {"x": 0, "y": 0, "weight": 0},
-                {"x": 0, "y": 1, "weight": 1},
-                {"x": 1, "y": 0, "weight": 2},
-                {"x": 1, "y": 1, "weight": 3},
-            ],
+            "invalid": valid_start_position,
+            "invalid": valid_end_position,
+            "invalid": valid_map,
             "invalid": valid_heuristic,
         }
         response = client.post(
             f"{baseDir}/traverse",
-            data.json.dumps(data),
+            json.dumps(data),
             content_type="application/json",
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
