@@ -1,12 +1,18 @@
 """ This module contains the factory functions for the graph traversal algorithms """
 from typing import Callable
 from graphtraversal.algorithms.heuristics import euclidean_distance, manhattan_distance
+from graphtraversal.algorithms.uninformed_search import (
+    BFSPathfinder,
+    DFSPathfinder,
+)
 from graphtraversal.algorithms.a_star import AStarPathfinder
 from graphtraversal.algorithms.pathfinder import Pathfinder
 
 
 graph_traversal_function_map: dict[str, Pathfinder] = {
     "a star": AStarPathfinder(),
+    "breadth first search": BFSPathfinder(),
+    "depth first search": DFSPathfinder(),
 }
 
 
@@ -33,6 +39,10 @@ def get_heuristics(graph_method_name: str) -> list[str]:
     match graph_method_name.lower():
         case "a star":
             return ["manhattan", "euclidean"]
+        case "breadth first search":
+            return []
+        case "depth first search":
+            return []
         case _:
             raise ValueError(f"Invalid graph method name: {graph_method_name}")
 
