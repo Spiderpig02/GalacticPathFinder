@@ -9,7 +9,7 @@ from .views import (
 
 # Create your tests here.
 
-baseDir = "http://127.0.0.1:8000/graphtraversal"
+baseDir = "/graphtraversal"
 
 
 class GraphTraversalMethodsTests(TestCase):
