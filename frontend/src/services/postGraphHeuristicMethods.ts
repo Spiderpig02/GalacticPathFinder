@@ -5,7 +5,7 @@ export const postGraphHeuristics = async (
   algorithmName: string
 ): Promise<string[] | null> => {
   try {
-    const data = { methods: algorithmName };
+    const data = { method: algorithmName };
     const response: AxiosResponse<string[]> = await axios.post(
       apiRoutes.graphHeuristicsNames,
       data
