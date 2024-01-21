@@ -9,6 +9,8 @@ import MapHandler from "../components/filehandler/MapFileHandler";
 import AlgorithmsMenu from "../components/algorithmsMenu/AlgorithmsMenu";
 import HeuristicsMenu from "../components/heuristicsMenu/HeuristicsMenu";
 import { Colors } from "../../colors";
+import GButton from "../components/GButton";
+import TextFieldAndButton from "../components/TextFieldAndButton";
 import StartAndEndPointsButton from "../components/StartAndEndPointsButton";
 
 export const sliderSignal = signal<number>(50);
@@ -20,6 +22,7 @@ const HomePage = () => {
 
   const [algorithms, setAlgorithms] = useState<string[]>([]);
   const [heuristics, setHeuristics] = useState<string[]>([]);
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState<string>("");
 
   useEffect(() => {
     getGraphTraversalMethods()
@@ -30,7 +33,6 @@ const HomePage = () => {
   useEffect(() => {
     console.log("Selected algorithm: ", selectedAlgorithm.value);
     if (selectedAlgorithm.value === "") return;
-    console.log("Kommer hit");
     postGraphHeuristics(selectedAlgorithm.value)
       .then((res) => setHeuristics(res))
       .catch((err) => console.log(err));
@@ -62,12 +64,26 @@ const HomePage = () => {
       >
         <AlgorithmsMenu content={algorithms} />
         <HeuristicsMenu content={heuristics ? heuristics : []} />
+        <MapHandler />
         <div style={{ height: "fit-content", width: "250px" }}>
           <MapSizeSlider />
         </div>
         <StartAndEndPointsButton />
         <button>START</button>
-        <MapHandler />
+        <GButton
+          onClick={() => {
+            console.log("clicked");
+          }}
+          text={"Generate noise"}
+        />
+        <TextFieldAndButton
+          value={selectedAlgorithm}
+          setValue={setSelectedAlgorithm}
+          placeholder={"Enter algorithm"}
+          buttonText={"Add algorithm"}
+          infoText="Enter the name of the algorithm you want to add to the list of algorithms."
+          fieldName="Algorithm name"
+        />
       </div>
     </div>
   );
