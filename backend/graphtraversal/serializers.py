@@ -17,7 +17,7 @@ class GraphTraversalResponseSerializer(serializers.Serializer):
     cost = serializers.FloatField(help_text="Cost of the path")
 
 class GraphTraversalMethodSerializer(serializers.Serializer):
-    methods = serializers.ListField(child=serializers.CharField(), help_text="List of available graph traversal methods")
+    method = serializers.CharField(help_text="Name of the graph traversal method")
 
 class GraphHeuristicsSerializer(serializers.Serializer):
     heuristics = serializers.ListField(
