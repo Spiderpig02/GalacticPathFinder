@@ -5,7 +5,7 @@ import { getGraphTraversalMethods } from "../services/getGraphTraversalMethods";
 import { postGraphHeuristics } from "../services/postGraphHeuristicMethods";
 import { selectedAlgorithm } from "../components/algorithmsMenu/AlgorithmsMenu";
 import { useEffect, useState } from "react";
-import MapHandler from "../components/filehandler/MapHandler";
+import MapHandler from "../components/filehandler/MapFileHandler";
 import AlgorithmsMenu from "../components/algorithmsMenu/AlgorithmsMenu";
 import HeuristicsMenu from "../components/heuristicsMenu/HeuristicsMenu";
 import { Colors } from "../../colors";
@@ -67,7 +67,7 @@ const HomePage = () => {
         </div>
         <StartAndEndPointsButton />
         <button>START</button>
-        {/* <MapHandler /> */}
+        <MapHandler />
       </div>
     </div>
   );
