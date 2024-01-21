@@ -1,25 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { apiRoutes } from "../routes/routeDefinitions.ts";
-
-interface Node {
-  x: number;
-  y: number;
-  weight: number;
-}
-
-interface PostTraversalProps {
-  algorithm: string;
-  heuristic: string;
-  startPoint: Node;
-  endPoint: Node;
-  map: Node[];
-}
-
-interface PostTraversalResponse {
-  message: string;
-  path: Node[];
-  nodeOrder: Node[];
-}
+import { PostTraversalProps, PostTraversalResponse } from "../types.ts";
 
 export const postTraversal = async ({
   algorithm,
