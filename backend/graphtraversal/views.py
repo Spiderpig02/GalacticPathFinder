@@ -46,19 +46,20 @@ def post_graph_traversal(request):
       - nodeOrder: Order of nodes visited
     """
     # Parse and validate the data
-    data = JSONParser().parse(request)
-    serializer = GraphTraversalSerializer(data=data)
+    serializer = GraphTraversalSerializer(data=request.data)
     if serializer.is_valid():
         # Check if all mandatory parameters are present
-        if request.data.get("algorithm", None) is None:
-            raise ValueError("Invalid request. Missing 'algorithm' parameter")
-        if request.data.get("startPoint", None) is None:
-            raise ValueError("Invalid request. Missing 'startPoint' parameter")
-        if request.data.get("endPoint", None) is None:
-            raise ValueError("Invalid request. Missing 'endPoint' parameter")
-        if request.data.get("map", None) is None:
-            raise ValueError("Invalid request. Missing 'map' parameter")
-
+        try:
+            if request.data.get("algorithm", None) is None:
+                raise ValueError("Invalid request. Missing 'algorithm' parameter")
+            if request.data.get("startPoint", None) is None:
+                raise ValueError("Invalid request. Missing 'startPoint' parameter")
+            if request.data.get("endPoint", None) is None:
+                raise ValueError("Invalid request. Missing 'endPoint' parameter")
+            if request.data.get("map", None) is None:
+                raise ValueError("Invalid request. Missing 'map' parameter")
+        except ValueError as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST, data={"message": str(e)})
         # Get mandatory parameters
         algorithm: str = request.data["algorithm"]
         start_point = request.data["startPoint"]
@@ -153,10 +154,13 @@ def fetch_graph_traversal_methods(request):
 @api_view(["POST"])
 def fetch_graph_heuristics(request):
     
-    data = JSONParser().parse(request)
-    serializer = GraphTraversalMethodSerializer(data=data)
+    serializer = GraphTraversalMethodSerializer(data=request.data)
     if serializer.is_valid():
-        heuristics: list[str] = get_heuristics(request.data["methods"])
+        heuristic = request.data.get("method", None)
+        if heuristic is None:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        
+        heuristics: list[str] = get_heuristics(heuristic)
         return Response(status=status.HTTP_200_OK, data=heuristics)
 
     else:
