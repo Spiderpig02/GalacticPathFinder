@@ -3,8 +3,11 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 import json
+from drf_yasg.utils import swagger_auto_schema
+from rest_framework.parsers import JSONParser
 
 from graphtraversal.algorithms.pathfinder import Pathfinder
+from graphtraversal.serializers import GraphHeuristicsSerializer, GraphTraversalMethodSerializer, GraphTraversalSerializer
 from graphtraversal.map import Map, RestMap, Node, Position
 from graphtraversal.factory import (
     get_heuristic_function,
@@ -13,7 +16,15 @@ from graphtraversal.factory import (
     get_pathfinder,
 )
 
-
+@swagger_auto_schema(
+    method="post",
+    request_body=GraphTraversalSerializer,
+    responses={
+        # 200: GraphTraversalSerializer,
+        400: "Invalid request",
+        500: "Internal server error",
+    },
+)
 @api_view(["POST"])
 def post_graph_traversal(request):
     """
@@ -34,8 +45,10 @@ def post_graph_traversal(request):
       - path: Calculated path
       - nodeOrder: Order of nodes visited
     """
-
-    try:
+    # Parse and validate the data
+    data = JSONParser().parse(request)
+    serializer = GraphTraversalSerializer(data=data)
+    if serializer.is_valid():
         # Check if all mandatory parameters are present
         if request.data.get("algorithm", None) is None:
             raise ValueError("Invalid request. Missing 'algorithm' parameter")
@@ -117,63 +130,34 @@ def post_graph_traversal(request):
             },
         )
 
-    except ValueError as va:
-        print(va)
-        return Response(status=status.HTTP_400_BAD_REQUEST, data={"error": str(va)})
-    except Exception as e:
-        print("====================================")
-        print("Exception: ", e)
-        return Response(
-            status=status.HTTP_500_INTERNAL_SERVER_ERROR, data={"error": str(e)}
-        )
+    else:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
-
+@swagger_auto_schema(
+    method="get",
+    operation_summary="Get all legal graph traversal methods",
+    operation_description="This endpoint retrieves all legal graph traversal methods that this service provides.",
+    responses={200: GraphTraversalMethodSerializer },
+)
 @api_view(["GET"])
 def fetch_graph_traversal_methods(request):
-    """
-    get:
-    This endpoint retrieves all legal graph traversal methods that this service provides.
+    return Response(status=status.HTTP_200_OK, data=get_graph_traversal_methods())
 
-    This endpoint does not require any parameters.
-
-    - Response:
-      - status: HTTP status code
-      - data: List of available graph traversal methods
-    """
-    try:
-        return Response(status=status.HTTP_200_OK, data=get_graph_traversal_methods())
-
-    except ValueError as va:
-        print(va)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
-    except Exception as e:
-        return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-
+@swagger_auto_schema(
+    method="post",
+    operation_summary="Get all legal heuristics for a given graph traversal method",
+    operation_description="This endpoint retrieves all legal heuristics for a given graph traversal method that this service provides.",
+    request_body=GraphTraversalMethodSerializer,
+    responses={200: GraphHeuristicsSerializer },
+)
 @api_view(["POST"])
 def fetch_graph_heuristics(request):
-    """
-    This endpoint returns a list of available heuristics for a given graph traversal method
-    post:
-
-    - Parameters:
-      - graph_method_name: Name of the graph traversal method for which heuristics are required
-
-    - Response:
-      - status: HTTP status code
-      - data: List of heuristics available for the specified graph traversal method
-    """
-    try:
-        if "methods" not in request.data:
-            raise ValueError("Invalid request. Missing 'methods' parameter")
-
+    
+    data = JSONParser().parse(request)
+    serializer = GraphTraversalMethodSerializer(data=data)
+    if serializer.is_valid():
         heuristics: list[str] = get_heuristics(request.data["methods"])
         return Response(status=status.HTTP_200_OK, data=heuristics)
 
-    except ValueError as va:
-        print(va)
+    else:
         return Response(status=status.HTTP_400_BAD_REQUEST)
-
-    except Exception as e:
-        print(e)
-        return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)

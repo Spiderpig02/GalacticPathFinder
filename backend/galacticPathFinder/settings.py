@@ -38,9 +38,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # External
     "rest_framework",
-    "corsheaders",
     "rest_framework_swagger",
+    'drf_yasg',
+    "corsheaders",
+    # Internal
     "graphtraversal",
 ]
 
