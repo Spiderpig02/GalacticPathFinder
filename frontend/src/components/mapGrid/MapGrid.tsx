@@ -4,6 +4,7 @@ import { sliderSignal } from "../../pages/HomePage.tsx";
 import Tile from "../Tile.tsx";
 import "./MapGrid.css";
 import { selectionModeSignal } from "../StartAndEndPointsButton.tsx";
+import { Node as traversalNode } from "../../types.ts";
 
 const MapGrid = () => {
   const size = sliderSignal.value; // Get the current size of the grid
@@ -67,6 +68,18 @@ const MapGrid = () => {
         [`${row}-${col}`]: !prev[`${row}-${col}`],
       }));
     }
+  };
+
+  const getGrid = (): traversalNode[] => {
+    const grid: traversalNode[] = [];
+    for (let row = 0; row < height; row++) {
+      for (let col = 0; col < size; col++) {
+        if (activeTiles[`${row}-${col}`]) {
+          grid.push({ x: row, y: col, weight: 0 });
+        }
+      }
+    }
+    return grid;
   };
 
   // Render the grid of tiles

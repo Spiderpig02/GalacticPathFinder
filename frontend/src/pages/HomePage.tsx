@@ -9,6 +9,7 @@ import MapHandler from "../components/filehandler/MapHandler";
 import AlgorithmsMenu from "../components/algorithmsMenu/AlgorithmsMenu";
 import HeuristicsMenu from "../components/heuristicsMenu/HeuristicsMenu";
 import { Colors } from "../../colors";
+import StartAndEndPointsButton from "../components/StartAndEndPointsButton";
 
 export const sliderSignal = signal<number>(50);
 // export const algorithms = signal<string>("");
@@ -61,9 +62,11 @@ const HomePage = () => {
       >
         <AlgorithmsMenu content={algorithms} />
         <HeuristicsMenu content={heuristics ? heuristics : []} />
-        <div style={{ height: "1.25rem", width: "250px" }}>
+        <div style={{ height: "fit-content", width: "250px" }}>
           <MapSizeSlider />
         </div>
+        <StartAndEndPointsButton />
+        <button>START</button>
         {/* <MapHandler /> */}
       </div>
     </div>
