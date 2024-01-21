@@ -1,30 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { ArrowUpIcon } from "../../assets/icons/ArrowUpIcon";
 import { Colors } from "../../../colors";
-import "./DropDownMenu.css";
+import "./AlgorithmsMenu.css";
 import { effect, signal } from "@preact/signals-react";
 
 interface DropDownMenuProps {
-  text: string;
-  serviceHook: () => Promise<string[] | null>;
+  content?: string[];
 }
 
 export const selectedAlgorithm = signal<string>("");
 
-const DropDownMenu: React.FC<DropDownMenuProps> = ({ text, serviceHook }) => {
+const AlgorithmsMenu: React.FC<DropDownMenuProps> = ({ content }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [content, setContent] = useState([]);
   const [selected, setSelected] = useState("");
-
-  useEffect(() => {
-    serviceHook()
-      .then((res) => setContent(res))
-      .catch((err) => console.log(err));
-  }, []);
-
-  // effect(() => {
-  //   selectedAlgorithm.value = selected;
-  // });
 
   console.log(content);
 
@@ -37,20 +25,23 @@ const DropDownMenu: React.FC<DropDownMenuProps> = ({ text, serviceHook }) => {
         style={{ backgroundColor: backgroundColor }}
         onClick={() => setIsOpen(!isOpen)}
       >
-        <div className="text-wrapper">{selected ? selected : text}</div>
+        <div className="text-wrapper">
+          {selected ? selected : "Select algorithm"}
+        </div>
         <ArrowUpIcon
           className={`vuesax-linear-arrow ${isOpen ? "rotated" : ""}`}
         />
       </button>
       {isOpen && (
         <div className="dropdown-menu-sorting">
-          {content.map((item) => (
+          {content?.map((item) => (
             <button
               className="dropdown-item-sorting"
               key={item}
               onClick={() => {
                 setSelected(item);
                 setIsOpen(false);
+                selectedAlgorithm.value = item;
               }}
             >
               {item}
@@ -62,4 +53,4 @@ const DropDownMenu: React.FC<DropDownMenuProps> = ({ text, serviceHook }) => {
   );
 };
 
-export default DropDownMenu;
+export default AlgorithmsMenu;

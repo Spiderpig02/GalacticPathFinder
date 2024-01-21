@@ -1,18 +1,37 @@
 import { signal } from "@preact/signals-react";
 import MapGrid from "../components/mapGrid/MapGrid";
 import MapSizeSlider from "../components/MapSizeSlider";
-import DropDownMenu from "../components/dropdownMenu/DropDownMenu";
 import { getGraphTraversalMethods } from "../services/getGraphTraversalMethods";
 import { postGraphHeuristics } from "../services/postGraphHeuristicMethods";
-import { selectedAlgorithm } from "../components/dropdownMenu/DropDownMenu";
-import { useEffect } from "react";
+import { selectedAlgorithm } from "../components/algorithmsMenu/AlgorithmsMenu";
+import { useEffect, useState } from "react";
+import AlgorithmsMenu from "../components/algorithmsMenu/AlgorithmsMenu";
+import HeuristicsMenu from "../components/heuristicsMenu/HeuristicsMenu";
 
 export const sliderSignal = signal<number>(50);
-export const algorithms = signal<string>("");
-export const heuristics = signal<string>("");
+// export const algorithms = signal<string>("");
+// export const heuristics = signal<string>("");
 
 const HomePage = () => {
-  console.log(selectedAlgorithm.value);
+  const [algorithms, setAlgorithms] = useState<string[]>([]);
+  const [heuristics, setHeuristics] = useState<string[]>([]);
+  console.log("Algorithms = ", algorithms);
+  useEffect(() => {
+    getGraphTraversalMethods()
+      .then((res) => setAlgorithms(res))
+      .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    console.log("Selected algorithm: ", selectedAlgorithm.value);
+    if (selectedAlgorithm.value === "") return;
+    console.log("Kommer hit");
+    postGraphHeuristics(selectedAlgorithm.value)
+      .then((res) => setHeuristics(res))
+      .catch((err) => console.log(err));
+  }, [selectedAlgorithm.value]);
+
+  // console.log("Selected algorithm: ", selectedAlgorithm.value);
   return (
     <div
       style={{
@@ -38,14 +57,8 @@ const HomePage = () => {
           width: "100%",
         }}
       >
-        <DropDownMenu
-          text="Select algorithm"
-          serviceHook={getGraphTraversalMethods}
-        />
-        <DropDownMenu
-          text="Select heuristic"
-          serviceHook={postGraphHeuristics}
-        />
+        <AlgorithmsMenu content={algorithms} />
+        <HeuristicsMenu content={heuristics ? heuristics : []} />
       </div>
     </div>
   );
