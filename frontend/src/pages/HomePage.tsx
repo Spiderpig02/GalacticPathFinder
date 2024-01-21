@@ -1,19 +1,51 @@
 import { signal } from "@preact/signals-react";
 import MapGrid from "../components/mapGrid/MapGrid";
 import MapSizeSlider from "../components/MapSizeSlider";
-import StartAndEndPointsButton from "../components/StartAndEndPointsButton";
+import DropDownMenu from "../components/dropdownMenu/DropDownMenu";
+import { getGraphTraversalMethods } from "../services/getGraphTraversalMethods";
+import { postGraphHeuristics } from "../services/postGraphHeuristicMethods";
+import { selectedAlgorithm } from "../components/dropdownMenu/DropDownMenu";
+import { useEffect } from "react";
 
 export const sliderSignal = signal<number>(50);
+export const algorithms = signal<string>("");
+export const heuristics = signal<string>("");
 
 const HomePage = () => {
+  console.log(selectedAlgorithm.value);
   return (
-    <div className="flex flex-col w-screen h-screen">
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        width: "100vw",
+        height: "100vh",
+      }}
+    >
       <div style={{ height: "fit-content" }}>
         <MapGrid />
+        <div style={{ height: "1.25rem", marginTop: "1.25rem" }}>
+          <MapSizeSlider />
+        </div>
       </div>
-      <div className="flex h-5 mt-5">
-        <MapSizeSlider />
-        <StartAndEndPointsButton />
+      {/* lalalala */}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          // backgroundColor: "blue",
+          width: "100%",
+        }}
+      >
+        <DropDownMenu
+          text="Select algorithm"
+          serviceHook={getGraphTraversalMethods}
+        />
+        <DropDownMenu
+          text="Select heuristic"
+          serviceHook={postGraphHeuristics}
+        />
       </div>
     </div>
   );
