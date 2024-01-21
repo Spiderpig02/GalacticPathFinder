@@ -22,5 +22,4 @@ class GraphTraversalMethodSerializer(serializers.Serializer):
 class GraphHeuristicsSerializer(serializers.Serializer):
     heuristics = serializers.ListField(
         child=serializers.CharField(), 
-        help_text="List of available heuristics for a given graph traversal method",
-        instance=["euclidean", "manhattan"])
+        help_text="List of available heuristics for a given graph traversal method")
