@@ -30,7 +30,7 @@ class GraphHeuristicsTests(TestCase):
         ]  # replace with a valid method name
         response = client.post(
             f"{baseDir}/graph-heuristics-methods",
-            {"methods": valid_method_name},
+            {"method": valid_method_name},
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, get_heuristics(valid_method_name))
