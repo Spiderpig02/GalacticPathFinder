@@ -6,6 +6,7 @@ import { getGraphTraversalMethods } from "../services/getGraphTraversalMethods";
 import { postGraphHeuristics } from "../services/postGraphHeuristicMethods";
 import { selectedAlgorithm } from "../components/dropdownMenu/DropDownMenu";
 import { useEffect } from "react";
+import MapHandler from "../components/filehandler/MapHandler";
 
 export const sliderSignal = signal<number>(50);
 export const algorithms = signal<string>("");
@@ -47,6 +48,7 @@ const HomePage = () => {
           serviceHook={postGraphHeuristics}
         />
       </div>
+      <MapHandler />
     </div>
   );
 };
