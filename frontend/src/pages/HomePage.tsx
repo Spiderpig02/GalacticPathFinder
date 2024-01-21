@@ -5,6 +5,7 @@ import { getGraphTraversalMethods } from "../services/getGraphTraversalMethods";
 import { postGraphHeuristics } from "../services/postGraphHeuristicMethods";
 import { selectedAlgorithm } from "../components/algorithmsMenu/AlgorithmsMenu";
 import { useEffect, useState } from "react";
+import MapHandler from "../components/filehandler/MapHandler";
 import AlgorithmsMenu from "../components/algorithmsMenu/AlgorithmsMenu";
 import HeuristicsMenu from "../components/heuristicsMenu/HeuristicsMenu";
 
@@ -60,6 +61,7 @@ const HomePage = () => {
         <AlgorithmsMenu content={algorithms} />
         <HeuristicsMenu content={heuristics ? heuristics : []} />
       </div>
+      <MapHandler />
     </div>
   );
 };
