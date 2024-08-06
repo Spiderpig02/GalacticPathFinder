@@ -52,6 +52,7 @@ const HomePage = () => {
       <div style={{ height: "fit-content" }}>
         <MapGrid />
       </div>
+      {/* lalalala */}
       <div
         style={{
           display: "flex",
