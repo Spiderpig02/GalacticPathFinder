@@ -8,6 +8,7 @@ type TileProps = {
   isStartPoint: boolean;
   isEndPoint: boolean;
 };
+
 const Tile = ({
   width,
   height,
