@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useEffect, useState } from "react";
-import { sliderSignal } from "../../pages/HomePage.tsx";
+import { sliderSignal } from "../../pages/homePage/HomePage.tsx";
 import Tile from "../Tile.tsx";
 import "./MapGrid.css";
-import { selectionModeSignal } from "../StartAndEndPointsButton.tsx";
+import { selectionModeSignal } from "../startAndEndPointsButton/StartAndEndPointsButton.tsx";
 import { Node } from "../../types.ts";
 import { signal } from "@preact/signals-react";
 

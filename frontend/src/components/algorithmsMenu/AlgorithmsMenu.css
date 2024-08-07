@@ -1,4 +1,4 @@
-.button {
+.select-menu {
     all: unset;
     align-items: center;
     border: 1px solid;
@@ -6,23 +6,22 @@
     border-radius: 56px;
     box-sizing: border-box;
     display: inline-flex;
-    gap: 8px;
+    justify-content: flex-start ;
     width: 268px;
     height: 59px;
-    margin-top: 20px;
-    padding: 8px 40px;
+    padding: 4px 20px;
     position: relative;
     cursor: pointer;
+    background-color: var(--ss-blue-grotto);
   }
   
-  .button .text-wrapper {
+  .select-menu .text-wrapper {
     color: #0a0a0a;
     font-family: "Gotham SSm-Bold", Helvetica;
-    font-size: 20px;
-    font-weight: 700;
+    font-size: 22px;
+    font-weight: 400;
     letter-spacing: 0;
     line-height: normal;
-    margin-top: -0.5px;
     position: relative;
     white-space: nowrap;
     width: fit-content;

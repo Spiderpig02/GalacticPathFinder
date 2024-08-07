@@ -1,0 +1,32 @@
+.text-field-group-outer-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    width: 268px;
+    gap: 16px;
+}
+
+.text-field-group-title-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+}
+
+.text-field-group-title {
+    color: #f7f8f9;
+    font-family: "Actor-Regular", Helvetica;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.text-field {
+    height: 47px;
+}
+
+.text-field-and-setbutton-container {
+    display: flex;
+    gap: 17px;
+}
+

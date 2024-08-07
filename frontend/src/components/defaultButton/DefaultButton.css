@@ -1,0 +1,15 @@
+.default-button-container {
+    display: flex;
+    background-color: var(--ss-blue-grotto);
+    width: 270px;
+    height: 54px;
+    border-radius: 1.5rem; /* 3xl */
+    color: var(--black);
+    border: 1px solid var(--black);
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem; /* Adjust gap as needed */
+    font-size: 1.25rem; /* text-xl */
+    cursor: pointer;
+  }
+  

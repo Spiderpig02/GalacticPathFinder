@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./MapSizeSlider.css";
-import { sliderSignal } from "../../pages/HomePage";
+import { sliderSignal } from "../../pages/homePage/HomePage";
 
 const MapSizeSlider = () => {
   const [size, setSize] = useState<number>(sliderSignal.value);

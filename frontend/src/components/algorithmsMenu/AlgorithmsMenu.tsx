@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { ArrowUpIcon } from "../../assets/icons/ArrowUpIcon";
-import { Colors } from "../../../colors";
 import "./AlgorithmsMenu.css";
 import { effect, signal } from "@preact/signals-react";
 
@@ -16,17 +15,11 @@ const AlgorithmsMenu: React.FC<DropDownMenuProps> = ({ content }) => {
 
   console.log(content);
 
-  const backgroundColor = Colors.SS_BLUE_GROTTO;
-
   return (
     <div className="dropdown-wrapper">
-      <button
-        className="button"
-        style={{ backgroundColor: backgroundColor }}
-        onClick={() => setIsOpen(!isOpen)}
-      >
+      <button className="select-menu" onClick={() => setIsOpen(!isOpen)}>
         <div className="text-wrapper">
-          {selected ? selected : "Select algorithm"}
+          {selected ? selected : "Choose algorithm"}
         </div>
         <ArrowUpIcon
           className={`vuesax-linear-arrow ${isOpen ? "rotated" : ""}`}

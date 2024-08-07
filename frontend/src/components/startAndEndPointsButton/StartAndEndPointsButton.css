@@ -1,0 +1,14 @@
+.start-and-end-points-container {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.start-and-end-points-text {
+    color: #f7f8f9;
+    font-family: "Actor-Regular", Helvetica;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: normal;
+}

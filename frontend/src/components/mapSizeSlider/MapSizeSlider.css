@@ -1,39 +1,40 @@
 .map-size-slider-container {
     display: flex;
     flex-direction: column;
-    padding: 10px;
-    background-color: #004466; 
   }
   
   .slider-label {
-    color: white;
+    color: #f7f8f9;
+    font-family: "Actor-Regular", Helvetica;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: normal;
     margin-bottom: 15px;
-    font-size: 16px;
   }
   
   .slider {
-    width: 90%; 
+    width: 100%; 
     -webkit-appearance: none;
     appearance: none;
     background: #00cccc;
     outline: none;
     transition: opacity 0.2s;
-    height: 25px; 
+    height: 35px; 
   }
   
   .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 30px; 
-    height: 30px;
+    width: 35px; 
+    height: 35px;
     background: #ffffff; 
     cursor: pointer;
     border: 1px solid #000000; 
   }
   
   .slider::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
+    width: 35px;
+    height: 35px;
     background: #ffffff;
     cursor: pointer;
     border: 1px solid #000000;

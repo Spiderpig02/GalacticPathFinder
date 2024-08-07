@@ -1,0 +1,14 @@
+.download-upload-container {
+    display: flex;
+    flex-direction: column;
+    width: 268px;
+    gap: 14px;
+}
+
+.download-upload-text {
+    color: #f7f8f9;
+    font-family: "Actor-Regular", Helvetica;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: normal;
+}

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { ArrowUpIcon } from "../../assets/icons/ArrowUpIcon";
-import { Colors } from "../../../colors";
 import "./HeuristicsMenu.css";
 
 interface DropDownMenuProps {
@@ -12,17 +11,11 @@ const HeuristicsMenu: React.FC<DropDownMenuProps> = ({ content }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState("");
 
-  const backgroundColor = Colors.SS_BLUE_GROTTO;
-
   return (
     <div className="dropdown-wrapper">
-      <button
-        className="button"
-        style={{ backgroundColor: backgroundColor }}
-        onClick={() => setIsOpen(!isOpen)}
-      >
+      <button className="select-menu" onClick={() => setIsOpen(!isOpen)}>
         <div className="text-wrapper">
-          {selected ? selected : "Select heuristic"}
+          {selected ? selected : "Choose heuristic"}
         </div>
         <ArrowUpIcon
           className={`vuesax-linear-arrow ${isOpen ? "rotated" : ""}`}
