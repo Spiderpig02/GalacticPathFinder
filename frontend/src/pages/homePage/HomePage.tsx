@@ -19,7 +19,6 @@ export const sliderSignal = signal<number>(50);
 
 const HomePage = () => {
   //TODO: Make a global colors.css-file and import this in the CSS instead
-  // const backgroundColor = Colors.SS_NAVY_BLUE as string;
 
   const [algorithms, setAlgorithms] = useState<string[]>([]);
   const [heuristics, setHeuristics] = useState<string[]>([]);
@@ -47,7 +46,6 @@ const HomePage = () => {
     console.log("Generated maze");
   };
 
-  // console.log("Selected algorithm: ", selectedAlgorithm.value);
   return (
     <div className="outer-container-homepage">
       <div className="grid-container-homepage">
@@ -69,10 +67,9 @@ const HomePage = () => {
           />
           <DefaultButton text={"Generate maze"} onClick={handleGenerateMaze} />
         </div>
-        {/* <button>START</button> */}
         <div className="text-fields-container-homepage">
           <TextFieldAndButton text={"Place obstacles"} />
-          <TextFieldAndButton text={"Select animation sped"} />
+          <TextFieldAndButton text={"Select animation speed"} />
         </div>
         <StartAndEndPointsButton />
       </div>
