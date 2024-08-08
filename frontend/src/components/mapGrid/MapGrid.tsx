@@ -27,25 +27,25 @@ const MapGrid = () => {
     null
   );
 
-  // Update the content of the grid whenever the number of columns changes (i.e. when the slider is moved)
+  // Initialize the grid, always keep track of all tiles regardless of viewable grid-size, i.e. value of sliderSignal-signal
   useEffect(() => {
-    const newTiles: Node[] = [];
-    for (let row = 0; row < height; row++) {
-      for (let col = 0; col < numOfColumns; col++) {
-        const existingTile = tiles
-          .peek()
-          .find((tile) => tile.x === row && tile.y === col);
-        newTiles.push(existingTile || { x: row, y: col, weight: 0 });
+    // Check if the tiles array has been initialized
+    if (tiles.value.length === 0) {
+      // Initialize the tiles array with all possible tiles
+      const newTiles: Node[] = [];
+      for (let row = 0; row < height; row++) {
+        for (let col = 0; col < numOfColumns; col++) {
+          newTiles.push({ x: row, y: col, weight: 0 });
+        }
       }
+      tiles.value = newTiles;
     }
-    tiles.value = newTiles;
-  }, [sliderSignal.value, height]);
+  }, []);
 
   // Check if a tile is active
   const isTileActive = (row: number, col: number) => {
-    return tiles.value.some(
-      (tile) => tile.x === row && tile.y === col && tile.weight === 1
-    );
+    const tile = tiles.value.find((tile) => tile.x === row && tile.y === col);
+    return tile ? tile.weight === 1 : false;
   };
 
   // Handle dragging the mouse to toggle tiles
@@ -87,11 +87,6 @@ const MapGrid = () => {
           : tile
       );
     }
-  };
-
-  // Is this really needed now that the tiles-state is a list of Node-objects?
-  const getGrid = (): Node[] => {
-    return tiles.value;
   };
 
   return (
