@@ -12,6 +12,7 @@ import TextFieldAndButton from "../../components/textFieldAndButton/TextFieldAnd
 import StartAndEndPointsButton from "../../components/startAndEndPointsButton/StartAndEndPointsButton";
 import "./HomePage.css";
 import DefaultButton from "../../components/defaultButton/DefaultButton";
+import StartButton from "../../components/startButton/StartButton";
 
 export const sliderSignal = signal<number>(50);
 // export const algorithms = signal<string>("");
@@ -72,6 +73,7 @@ const HomePage = () => {
           <TextFieldAndButton text={"Select animation speed"} />
         </div>
         <StartAndEndPointsButton />
+        <StartButton />
       </div>
     </div>
   );

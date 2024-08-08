@@ -2,7 +2,7 @@
     display: flex;
     background-color: var(--ss-blue-grotto);
     width: 270px;
-    height: 54px;
+    height: 50px;
     border-radius: 1.5rem; /* 3xl */
     color: var(--black);
     border: 1px solid var(--black);

@@ -8,7 +8,7 @@
     display: inline-flex;
     justify-content: flex-start ;
     width: 268px;
-    height: 59px;
+    height: 50px;
     padding: 4px 20px;
     position: relative;
     cursor: pointer;
@@ -17,8 +17,8 @@
   
   .select-menu .text-wrapper {
     color: #0a0a0a;
-    font-family: "Gotham SSm-Bold", Helvetica;
-    font-size: 22px;
+    font-family: "Actor-Regular", Helvetica;
+    font-size: 20px;
     font-weight: 400;
     letter-spacing: 0;
     line-height: normal;

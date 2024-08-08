@@ -19,22 +19,22 @@
     background: #00cccc;
     outline: none;
     transition: opacity 0.2s;
-    height: 35px; 
+    height: 30px; 
   }
   
   .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 35px; 
-    height: 35px;
+    width: 30px; 
+    height: 30px;
     background: #ffffff; 
     cursor: pointer;
     border: 1px solid #000000; 
   }
   
   .slider::-moz-range-thumb {
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     background: #ffffff;
     cursor: pointer;
     border: 1px solid #000000;

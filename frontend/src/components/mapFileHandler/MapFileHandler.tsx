@@ -25,8 +25,8 @@ const MapHandler = () => {
           className="button-circle bg-ss-blue-grotto"
         >
           <svg
-            width="32"
-            height="33"
+            width="26"
+            height="27"
             viewBox="0 0 42 43"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -46,8 +46,8 @@ const MapHandler = () => {
         >
           <div className=" br-rado"></div>
           <svg
-            width="32"
-            height="33"
+            width="26"
+            height="27"
             viewBox="0 0 42 43"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -68,8 +68,8 @@ const MapHandler = () => {
                     align-items: center;
                     justify-content: center;
                     margin: 0 10px; /* Adjust the space between buttons */
-                    width: 70px; /* Width of the button */
-                    height: 70px; /* Height of the button, equal to width for circle */
+                    width: 60px; /* Width of the button */
+                    height: 60px; /* Height of the button, equal to width for circle */
                     border-radius: 50%; /* Make it circular */
                     border: none; /* Remove border */
                     cursor: pointer; /* Change cursor on hover */
