@@ -3,7 +3,6 @@ import MapGrid from "../../components/mapGrid/MapGrid";
 import MapSizeSlider from "../../components/mapSizeSlider/MapSizeSlider";
 import { getGraphTraversalMethods } from "../../services/getGraphTraversalMethods";
 import { postGraphHeuristics } from "../../services/postGraphHeuristicMethods";
-import { selectedAlgorithm } from "../../components/algorithmsMenu/AlgorithmsMenu";
 import { useEffect, useState } from "react";
 import MapHandler from "../../components/mapFileHandler/MapFileHandler";
 import AlgorithmsMenu from "../../components/algorithmsMenu/AlgorithmsMenu";
@@ -11,10 +10,9 @@ import HeuristicsMenu from "../../components/heuristicsMenu/HeuristicsMenu";
 import TextFieldAndButton from "../../components/textFieldAndButton/TextFieldAndButton";
 import StartAndEndPointsButton from "../../components/startAndEndPointsButton/StartAndEndPointsButton";
 import "./HomePage.css";
-import DefaultButton from "../../components/defaultButton/DefaultButton";
 import StartButton from "../../components/startButton/StartButton";
 import AlgorithmStepSlider from "../../components/algorithmStepSlider/AlgorithmStepSlider";
-import GenerateObstacleButtons from "../../generateObstacleButtons/GenerateObstacleButtons";
+import GenerateObstacleButtons from "../../components/generateObstacleButtons/GenerateObstacleButtons";
 
 export const mapSizeSliderSignal = signal<number>(50);
 export const algorithmStepSliderSignal = signal<number>(0);
@@ -41,14 +39,6 @@ const HomePage = () => {
       .then((res) => setHeuristics(res))
       .catch((err) => console.log(err));
   }, [selectedAlgorithm]);
-
-  const handleGenerateObstacles = () => {
-    console.log("Generated obstacles");
-  };
-
-  const handleGenerateMaze = () => {
-    console.log("Generated maze");
-  };
 
   return (
     <div className="outer-container-homepage">
