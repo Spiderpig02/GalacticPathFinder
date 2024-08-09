@@ -5,9 +5,6 @@ import { getGraphTraversalMethods } from "../../services/getGraphTraversalMethod
 import { postGraphHeuristics } from "../../services/postGraphHeuristicMethods";
 import { useEffect, useState } from "react";
 import MapHandler from "../../components/mapFileHandler/MapFileHandler";
-import AlgorithmsMenu, {
-  selectedAlgorithm,
-} from "../../components/algorithmsMenu/AlgorithmsMenu";
 import HeuristicsMenu from "../../components/heuristicsMenu/HeuristicsMenu";
 import TextAndSelect from "../../components/textAndSelect/TextAndSelect";
 import StartAndEndPointsButton from "../../components/startAndEndPointsButton/StartAndEndPointsButton";
@@ -16,11 +13,12 @@ import StartButton from "../../components/startButton/StartButton";
 import AlgorithmStepSlider from "../../components/algorithmStepSlider/AlgorithmStepSlider";
 import GenerateObstacleButtons from "../../components/generateObstacleButtons/GenerateObstacleButtons";
 import TextFieldAndButton from "../../textFieldAndButton/TextFieldAndButton";
+import AlgorithmsMenu from "../../components/algorithmsMenu/AlgorithmsMenu";
 
 export const mapSizeSliderSignal = signal<number>(50);
 export const algorithmStepSliderSignal = signal<number>(0);
-// export const algorithms = signal<string>("");
-// export const heuristics = signal<string>("");
+export const selectedAlgorithm = signal<string>("");
+export const selectedHeuristic = signal<string>("");
 
 const HomePage = () => {
   //TODO: Make a global colors.css-file and import this in the CSS instead

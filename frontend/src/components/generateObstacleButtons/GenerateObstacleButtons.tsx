@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-import React, { useState } from "react";
+import React from "react";
 import DefaultButton from "../defaultButton/DefaultButton";
 import "./GenerateObstacleButtons.css";
 import { Noise } from "noisejs";

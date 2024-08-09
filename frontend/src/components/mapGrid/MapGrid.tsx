@@ -10,6 +10,8 @@ import { signal } from "@preact/signals-react";
 // Track the state of each tile
 // Note to self: Signals must be outside components in order to trigget correct re-rendering/component updates
 export const tiles = signal<Node[]>([]);
+export const startPoint = signal<Node>({ x: 0, y: 0, weight: 0 });
+export const endPoint = signal<Node>({ x: 0, y: 10, weight: 0 });
 
 const MapGrid = () => {
   const maxNumOfColumns = 80; // Maximum number of columns
@@ -21,8 +23,8 @@ const MapGrid = () => {
   const tileHeight = 80 / height; // 80 is the height of the grid container
 
   // State to track the start and end point
-  const [startPoint, setStartPoint] = useState<Node | null>(null);
-  const [endPoint, setEndPoint] = useState<Node | null>(null);
+  const [startPointTemp, setStartPoint] = useState<Node | null>(null);
+  const [endPointTemp, setEndPoint] = useState<Node | null>(null);
 
   // States to handle the placing of obstacles
   const [isMouseDown, setIsMouseDown] = useState(false);
@@ -75,9 +77,9 @@ const MapGrid = () => {
   const handleTileClick = (row: number, col: number) => {
     // Place start or end point
     if (selectionModeSignal.value) {
-      if (!startPoint) {
+      if (!startPointTemp) {
         setStartPoint({ x: row, y: col, weight: 1 });
-      } else if (!endPoint) {
+      } else if (!endPointTemp) {
         setEndPoint({ x: row, y: col, weight: 1 });
         selectionModeSignal.value = false;
       }
@@ -112,8 +114,8 @@ const MapGrid = () => {
                 onTileEnter={() => handleTileEnter(row, col)}
                 onTileClick={() => handleTileClick(row, col)}
                 onMouseDown={() => handleMouseDown(row, col)}
-                isStartPoint={startPoint?.x === row && startPoint?.y === col}
-                isEndPoint={endPoint?.x === row && endPoint?.y === col}
+                isStartPoint={startPointTemp?.x === row && startPointTemp?.y === col}
+                isEndPoint={endPointTemp?.x === row && endPointTemp?.y === col}
               />
             ))}
           </div>
