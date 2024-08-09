@@ -24,7 +24,7 @@ const HomePage = () => {
 
   const [algorithms, setAlgorithms] = useState<string[]>([]);
   const [heuristics, setHeuristics] = useState<string[]>([]);
-  const [selectedAlgorithm, setSelectedAlgorithm] = useState<string>("");
+  const [selectedAlgorithm] = useState<string>("");
 
   useEffect(() => {
     getGraphTraversalMethods()
