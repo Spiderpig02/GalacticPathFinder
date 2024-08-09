@@ -1,4 +1,4 @@
-type TileProps = {
+type GridTileProps = {
   width: number;
   height: number;
   isActive: boolean;
@@ -9,7 +9,7 @@ type TileProps = {
   isEndPoint: boolean;
 };
 
-const Tile = ({
+const GridTile = ({
   width,
   height,
   isActive,
@@ -18,7 +18,7 @@ const Tile = ({
   onMouseDown,
   isStartPoint,
   isEndPoint,
-}: TileProps) => {
+}: GridTileProps) => {
   let backgroundColor = isActive ? "black" : "white";
   if (isStartPoint) backgroundColor = "green";
   if (isEndPoint) backgroundColor = "red";
@@ -40,4 +40,4 @@ const Tile = ({
   );
 };
 
-export default Tile;
+export default GridTile;

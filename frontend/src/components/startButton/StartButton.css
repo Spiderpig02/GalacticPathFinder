@@ -1,0 +1,25 @@
+.start-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; 
+    width: 268px;
+}
+
+.start-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px; 
+    width: 60px; 
+    height: 60px; 
+    border-radius: 50%;
+    border: none; 
+    cursor: pointer; 
+    background-color: var(--ss-blue-grotto);
+
+}
+
+.play-icon {
+    width: 100%;
+    height: 100%;
+  }

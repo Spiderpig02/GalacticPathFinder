@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useEffect, useState } from "react";
-import { sliderSignal } from "../../pages/homePage/HomePage.tsx";
-import Tile from "../Tile.tsx";
+import { mapSizeSliderSignal } from "../../pages/homePage/HomePage.tsx";
+import Tile from "../gridTile/GridTile.tsx";
 import "./MapGrid.css";
 import { selectionModeSignal } from "../startAndEndPointsButton/StartAndEndPointsButton.tsx";
 import { Node } from "../../types.ts";
@@ -12,7 +12,10 @@ import { signal } from "@preact/signals-react";
 export const tiles = signal<Node[]>([]);
 
 const MapGrid = () => {
-  const numOfColumns = sliderSignal.value; // Get the current size of the grid
+  const maxNumOfColumns = 80; // Maximum number of columns
+  const maxHeight = Math.round(maxNumOfColumns * (9 / 16)); // Maximum height of the grid
+
+  const numOfColumns = mapSizeSliderSignal.value; // Get the current size of the grid
   const height = Math.round(numOfColumns * (9 / 16)); // Set aspect ratio of grid to 16:9
   const tileWidth = 80 / numOfColumns; // 80 is the width of the grid container
   const tileHeight = 80 / height; // 80 is the height of the grid container
@@ -27,25 +30,25 @@ const MapGrid = () => {
     null
   );
 
-  // Update the content of the grid whenever the number of columns changes (i.e. when the slider is moved)
+  // Initialize the grid, always keep track of all tiles regardless of viewable grid-size, i.e. value of mapSizeSliderSignal-signal
   useEffect(() => {
-    const newTiles: Node[] = [];
-    for (let row = 0; row < height; row++) {
-      for (let col = 0; col < numOfColumns; col++) {
-        const existingTile = tiles
-          .peek()
-          .find((tile) => tile.x === row && tile.y === col);
-        newTiles.push(existingTile || { x: row, y: col, weight: 0 });
+    // Check if the tiles array has been initialized
+    if (tiles.value.length === 0) {
+      // Initialize the tiles array with all possible tiles
+      const newTiles: Node[] = [];
+      for (let row = 0; row < maxHeight; row++) {
+        for (let col = 0; col < maxNumOfColumns; col++) {
+          newTiles.push({ x: row, y: col, weight: 0 });
+        }
       }
+      tiles.value = newTiles;
     }
-    tiles.value = newTiles;
-  }, [sliderSignal.value, height]);
+  }, []);
 
   // Check if a tile is active
   const isTileActive = (row: number, col: number) => {
-    return tiles.value.some(
-      (tile) => tile.x === row && tile.y === col && tile.weight === 1
-    );
+    const tile = tiles.value.find((tile) => tile.x === row && tile.y === col);
+    return tile ? tile.weight === 1 : false;
   };
 
   // Handle dragging the mouse to toggle tiles
@@ -87,11 +90,6 @@ const MapGrid = () => {
           : tile
       );
     }
-  };
-
-  // Is this really needed now that the tiles-state is a list of Node-objects?
-  const getGrid = (): Node[] => {
-    return tiles.value;
   };
 
   return (

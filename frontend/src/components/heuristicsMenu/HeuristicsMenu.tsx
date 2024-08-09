@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ArrowUpIcon } from "../../assets/icons/ArrowUpIcon";
 import "./HeuristicsMenu.css";
 
 interface DropDownMenuProps {
-  text: string;
   content?: string[];
 }
 

@@ -10,7 +10,10 @@
 }
 
 .grid-container-homepage {
+    display: flex;
+    flex-direction: column;
     width: 90%;
+    gap: 24px;
 }
 
 .side-menu-homepage {
@@ -24,7 +27,7 @@
 .algorithms-and-heuristics-container {
     display: flex;
     flex-direction: column;
-    gap: 28px;
+    gap: 14px;
     margin-bottom: 18px;
 }
 
@@ -33,12 +36,12 @@
     margin-top: 16px;
 }
 
-.generate-obstacles-buttons-container {
+/* .generate-obstacles-buttons-container {
     display: flex;
     flex-direction: column;
     margin-top: 24px;
-    gap: 16px;;
-}
+    gap: 16px;
+} */
 
 .text-fields-container-homepage {
     width: 268px;

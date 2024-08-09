@@ -1,32 +1,41 @@
+import React from "react";
 import { downloadMap, uploadMap } from "../../services/mapHandling";
 import "./MapFileHandler.css";
 
-const MapHandler = () => {
-  const handleUpload = () => {
-    // Implement upload logic
-    // Get file from user
-    let csv_raw: string = "";
+const MapHandler: React.FC = () => {
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
 
-    console.log("Upload");
-  };
+    if (!file) return;
 
-  const handleDownload = () => {
-    // Implement download logic
-    downloadMap();
-    console.log("Download");
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      const text = e.target?.result as string;
+      uploadMap(text);
+    };
+
+    reader.readAsText(file);
   };
 
   return (
     <div className="download-upload-container">
       <p className="download-upload-text">Download or upload map</p>
       <div className="flex flex-row justify-center items-center">
-        <button
-          onClick={handleUpload}
+        <input
+          type="file"
+          accept=".csv"
+          onChange={handleFileChange}
+          style={{ display: "none" }}
+          id="upload-file"
+        />
+        <label
+          htmlFor="upload-file"
           className="button-circle bg-ss-blue-grotto"
         >
           <svg
-            width="32"
-            height="33"
+            width="26"
+            height="27"
             viewBox="0 0 42 43"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -39,15 +48,15 @@ const MapHandler = () => {
               strokeLinejoin="round"
             />
           </svg>
-        </button>
+        </label>
         <button
-          onClick={handleDownload}
+          onClick={downloadMap}
           className="button-circle bg-ss-blue-grotto"
         >
           <div className=" br-rado"></div>
           <svg
-            width="32"
-            height="33"
+            width="26"
+            height="27"
             viewBox="0 0 42 43"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -63,26 +72,26 @@ const MapHandler = () => {
         </button>
       </div>
       <style>{`
-                .button-circle {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    margin: 0 10px; /* Adjust the space between buttons */
-                    width: 70px; /* Width of the button */
-                    height: 70px; /* Height of the button, equal to width for circle */
-                    border-radius: 50%; /* Make it circular */
-                    border: none; /* Remove border */
-                    cursor: pointer; /* Change cursor on hover */
-                }
+        .button-circle {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 10px; /* Adjust the space between buttons */
+          width: 60px; /* Width of the button */
+          height: 60px; /* Height of the button, equal to width for circle */
+          border-radius: 50%; /* Make it circular */
+          border: none; /* Remove border */
+          cursor: pointer; /* Change cursor on hover */
+        }
 
-                .button-circle svg {
-                    transition: transform 0.2s ease; /* Smooth transition for click */
-                }
+        .button-circle svg {
+          transition: transform 0.2s ease; /* Smooth transition for click */
+        }
 
-                .button-circle:active svg {
-                    transform: scale(0.9); /* Slightly scale down the icon when clicked */
-                }
-            `}</style>
+        .button-circle:active svg {
+          transform: scale(0.9); /* Slightly scale down the icon when clicked */
+        }
+      `}</style>
     </div>
   );
 };

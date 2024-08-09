@@ -3,7 +3,7 @@
     flex-direction: column;
     margin-top: 20px;
     width: 268px;
-    gap: 16px;
+    gap: 6px;
 }
 
 .text-field-group-title-container {
@@ -22,11 +22,11 @@
 }
 
 .text-field {
-    height: 47px;
+    height: 35px;
 }
 
 .text-field-and-setbutton-container {
     display: flex;
-    gap: 17px;
+    gap: 16px;
 }
 

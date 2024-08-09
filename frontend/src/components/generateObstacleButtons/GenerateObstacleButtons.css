@@ -1,0 +1,6 @@
+.generate-obstacles-buttons-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 24px;
+    gap: 16px;
+}

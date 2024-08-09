@@ -1,4 +1,4 @@
-.map-size-slider-container {
+.algorithm-step-slider-container {
     display: flex;
     flex-direction: column;
   }
@@ -19,22 +19,22 @@
     background: #00cccc;
     outline: none;
     transition: opacity 0.2s;
-    height: 30px; 
+    height: 35px; 
   }
   
   .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 30px; 
-    height: 30px;
+    width: 35px; 
+    height: 35px;
     background: #ffffff; 
     cursor: pointer;
     border: 1px solid #000000; 
   }
   
   .slider::-moz-range-thumb {
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     background: #ffffff;
     cursor: pointer;
     border: 1px solid #000000;
