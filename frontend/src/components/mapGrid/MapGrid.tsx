@@ -13,10 +13,10 @@ export const tiles = signal<Node[]>([]);
 
 const MapGrid = () => {
   const maxNumOfColumns = 80; // Maximum number of columns
-  const maxHeight = 45;
+  const maxHeight = Math.round(maxNumOfColumns * (9 / 16)); // Maximum height of the grid
+
   const numOfColumns = mapSizeSliderSignal.value; // Get the current size of the grid
   const height = Math.round(numOfColumns * (9 / 16)); // Set aspect ratio of grid to 16:9
-  console.log("Height = ", height);
   const tileWidth = 80 / numOfColumns; // 80 is the width of the grid container
   const tileHeight = 80 / height; // 80 is the height of the grid container
 
