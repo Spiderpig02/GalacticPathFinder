@@ -5,7 +5,8 @@ const MapHandler = () => {
   const handleUpload = () => {
     // Implement upload logic
     // Get file from user
-    let csv_raw: string = "";
+    const csv_raw: string = "";
+    uploadMap(csv_raw);
 
     console.log("Upload");
   };

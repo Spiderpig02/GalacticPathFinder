@@ -3,7 +3,6 @@ import { ArrowUpIcon } from "../../assets/icons/ArrowUpIcon";
 import "./HeuristicsMenu.css";
 
 interface DropDownMenuProps {
-  text: string;
   content?: string[];
 }
 

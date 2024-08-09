@@ -28,7 +28,7 @@ const HomePage = () => {
 
   useEffect(() => {
     getGraphTraversalMethods()
-      .then((res) => setAlgorithms(res))
+      .then((res) => setAlgorithms(res || []))
       .catch((err) => console.log(err));
   }, []);
 
@@ -36,7 +36,7 @@ const HomePage = () => {
     console.log("Selected algorithm: ", selectedAlgorithm);
     if (selectedAlgorithm === "") return;
     postGraphHeuristics(selectedAlgorithm)
-      .then((res) => setHeuristics(res))
+      .then((res) => setHeuristics(res || []))
       .catch((err) => console.log(err));
   }, [selectedAlgorithm]);
 

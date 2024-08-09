@@ -1,11 +1,4 @@
-import { useState } from "react";
 import "./TextFieldAndButton.css";
-import { PopupTip } from "@fremtind/jkl-tooltip-react";
-// Importer stilark via JavaScript med CSS-loader.
-import "@fremtind/jkl-tooltip/tooltip.min.css";
-
-// Du må også importere stilarket til ikonene for å vise komponenten riktig:
-import "@fremtind/jkl-icons/icons.min.css";
 import SmallButton from "../../smallButton/SmallButton";
 
 interface TextFieldAndButtonProps {

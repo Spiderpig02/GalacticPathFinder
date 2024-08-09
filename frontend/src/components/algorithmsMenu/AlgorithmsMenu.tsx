@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ArrowUpIcon } from "../../assets/icons/ArrowUpIcon";
 import "./AlgorithmsMenu.css";
-import { effect, signal } from "@preact/signals-react";
+import { signal } from "@preact/signals-react";
 
 interface DropDownMenuProps {
   content?: string[];
