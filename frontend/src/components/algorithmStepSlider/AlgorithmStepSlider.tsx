@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import "./MapSizeSlider.css";
-import { mapSizeSliderSignal } from "../../pages/homePage/HomePage";
+import "./AlgorithmStepSlider.css";
+import { algorithmStepSliderSignal } from "../../pages/homePage/HomePage";
 
-const MapSizeSlider = () => {
-  const [size, setSize] = useState<number>(mapSizeSliderSignal.value);
+const AlgorithmStepSlider = () => {
+  const [size, setSize] = useState<number>(algorithmStepSliderSignal.value);
 
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSize(parseInt(e.target.value));
@@ -11,18 +11,18 @@ const MapSizeSlider = () => {
 
   const handleCommitChange = () => {
     console.log("Size = ", size);
-    mapSizeSliderSignal.value = size;
+    algorithmStepSliderSignal.value = size;
   };
 
   return (
-    <div className="map-size-slider-container">
+    <div className="algorithm-step-slider-container">
       <label htmlFor="myRange" className="slider-label">
-        Adjust map size
+        Adjust step
       </label>
       <input
         type="range"
-        min="20"
-        max="80"
+        min="0"
+        max="50"
         value={size}
         className="slider"
         id="myRange"
@@ -34,4 +34,4 @@ const MapSizeSlider = () => {
   );
 };
 
-export default MapSizeSlider;
+export default AlgorithmStepSlider;

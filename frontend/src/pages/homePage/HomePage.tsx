@@ -13,8 +13,10 @@ import StartAndEndPointsButton from "../../components/startAndEndPointsButton/St
 import "./HomePage.css";
 import DefaultButton from "../../components/defaultButton/DefaultButton";
 import StartButton from "../../components/startButton/StartButton";
+import AlgorithmStepSlider from "../../components/algorithmStepSlider/AlgorithmStepSlider";
 
-export const sliderSignal = signal<number>(50);
+export const mapSizeSliderSignal = signal<number>(50);
+export const algorithmStepSliderSignal = signal<number>(0);
 // export const algorithms = signal<string>("");
 // export const heuristics = signal<string>("");
 
@@ -32,12 +34,12 @@ const HomePage = () => {
   }, []);
 
   useEffect(() => {
-    console.log("Selected algorithm: ", selectedAlgorithm.value);
-    if (selectedAlgorithm.value === "") return;
-    postGraphHeuristics(selectedAlgorithm.value)
+    console.log("Selected algorithm: ", selectedAlgorithm);
+    if (selectedAlgorithm === "") return;
+    postGraphHeuristics(selectedAlgorithm)
       .then((res) => setHeuristics(res))
       .catch((err) => console.log(err));
-  }, [selectedAlgorithm.value]);
+  }, [selectedAlgorithm]);
 
   const handleGenerateObstacles = () => {
     console.log("Generated obstacles");
@@ -51,6 +53,7 @@ const HomePage = () => {
     <div className="outer-container-homepage">
       <div className="grid-container-homepage">
         <MapGrid />
+        <AlgorithmStepSlider />
       </div>
       <div className="side-menu-homepage">
         <div className="algorithms-and-heuristics-container">

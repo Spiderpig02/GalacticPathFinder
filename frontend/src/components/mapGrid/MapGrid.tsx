@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useEffect, useState } from "react";
-import { sliderSignal } from "../../pages/homePage/HomePage.tsx";
-import Tile from "../Tile.tsx";
+import { mapSizeSliderSignal } from "../../pages/homePage/HomePage.tsx";
+import Tile from "../gridTile/GridTile.tsx";
 import "./MapGrid.css";
 import { selectionModeSignal } from "../startAndEndPointsButton/StartAndEndPointsButton.tsx";
 import { Node } from "../../types.ts";
@@ -12,7 +12,7 @@ import { signal } from "@preact/signals-react";
 export const tiles = signal<Node[]>([]);
 
 const MapGrid = () => {
-  const numOfColumns = sliderSignal.value; // Get the current size of the grid
+  const numOfColumns = mapSizeSliderSignal.value; // Get the current size of the grid
   const height = Math.round(numOfColumns * (9 / 16)); // Set aspect ratio of grid to 16:9
   const tileWidth = 80 / numOfColumns; // 80 is the width of the grid container
   const tileHeight = 80 / height; // 80 is the height of the grid container
@@ -27,7 +27,7 @@ const MapGrid = () => {
     null
   );
 
-  // Initialize the grid, always keep track of all tiles regardless of viewable grid-size, i.e. value of sliderSignal-signal
+  // Initialize the grid, always keep track of all tiles regardless of viewable grid-size, i.e. value of mapSizeSliderSignal-signal
   useEffect(() => {
     // Check if the tiles array has been initialized
     if (tiles.value.length === 0) {

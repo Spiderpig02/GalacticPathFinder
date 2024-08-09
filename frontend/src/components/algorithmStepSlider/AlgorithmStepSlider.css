@@ -1,0 +1,48 @@
+.algorithm-step-slider-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .slider-label {
+    color: #f7f8f9;
+    font-family: "Actor-Regular", Helvetica;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 15px;
+  }
+  
+  .slider {
+    width: 100%; 
+    -webkit-appearance: none;
+    appearance: none;
+    background: #00cccc;
+    outline: none;
+    transition: opacity 0.2s;
+    height: 35px; 
+  }
+  
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 35px; 
+    height: 35px;
+    background: #ffffff; 
+    cursor: pointer;
+    border: 1px solid #000000; 
+  }
+  
+  .slider::-moz-range-thumb {
+    width: 35px;
+    height: 35px;
+    background: #ffffff;
+    cursor: pointer;
+    border: 1px solid #000000;
+  }
+  
+
+  .slider:hover,
+  .slider:focus {
+    cursor: pointer;
+  }
+  
