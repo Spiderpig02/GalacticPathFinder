@@ -43,10 +43,10 @@ const GenerateObstacleButtons: React.FC = () => {
     const getNeighbors = (x: number, y: number) => {
       const neighbors = [];
       if (x > 0 && unvisited.has(`${x - 2}-${y}`)) neighbors.push([x - 2, y]);
-      if (x < height - 2 && unvisited.has(`${x + 2}-${y}`))
+      if (x < height - 1 && unvisited.has(`${x + 2}-${y}`))
         neighbors.push([x + 2, y]);
       if (y > 0 && unvisited.has(`${x}-${y - 2}`)) neighbors.push([x, y - 2]);
-      if (y < numOfColumns - 2 && unvisited.has(`${x}-${y + 2}`))
+      if (y < numOfColumns - 1 && unvisited.has(`${x}-${y + 2}`))
         neighbors.push([x, y + 2]);
       return neighbors;
     };
