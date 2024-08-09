@@ -26,7 +26,7 @@ Clone the repository to your local machine:
 git clone https://github.com/Spiderpig02/GalacticPathFinder.git
 ```
 
-## Usage
+## How to run
 
 ```bash	
 docker compose up --build
