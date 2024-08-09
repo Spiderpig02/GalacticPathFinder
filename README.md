@@ -26,10 +26,16 @@ Clone the repository to your local machine:
 git clone https://github.com/Spiderpig02/GalacticPathFinder.git
 ```
 
-## How to run
-
+## Usage
+To run the application, navigate to the root directory of the project and run the following command:
 ```bash	
 docker compose up --build
+```
+
+## Testing
+To run the E2E tests, navigate to the `frontend` directory of the project and run the following command:
+```bash
+npm run test:e2e
 ```
 
 ## Contributors
