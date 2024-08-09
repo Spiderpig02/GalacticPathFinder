@@ -14,6 +14,7 @@ import "./HomePage.css";
 import DefaultButton from "../../components/defaultButton/DefaultButton";
 import StartButton from "../../components/startButton/StartButton";
 import AlgorithmStepSlider from "../../components/algorithmStepSlider/AlgorithmStepSlider";
+import GenerateObstacleButtons from "../../generateObstacleButtons/GenerateObstacleButtons";
 
 export const mapSizeSliderSignal = signal<number>(50);
 export const algorithmStepSliderSignal = signal<number>(0);
@@ -64,13 +65,14 @@ const HomePage = () => {
         <div className="map-size-slider-container-homepage">
           <MapSizeSlider />
         </div>
-        <div className="generate-obstacles-buttons-container">
+        {/* <div className="generate-obstacles-buttons-container">
           <DefaultButton
             text={"Generate obstacles"}
             onClick={handleGenerateObstacles}
           />
           <DefaultButton text={"Generate maze"} onClick={handleGenerateMaze} />
-        </div>
+        </div> */}
+        <GenerateObstacleButtons />
         <div className="text-fields-container-homepage">
           <TextFieldAndButton text={"Place obstacles"} />
           <TextFieldAndButton text={"Select animation speed"} />
