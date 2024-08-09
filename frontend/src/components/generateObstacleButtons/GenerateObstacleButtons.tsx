@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import React from "react";
+import React, { useState } from "react";
 import DefaultButton from "../defaultButton/DefaultButton";
-import Noise from "noisejs";
 import "./GenerateObstacleButtons.css";
+import { Noise } from "noisejs";
 import { tiles } from "../mapGrid/MapGrid";
 import { mapSizeSliderSignal } from "../../pages/homePage/HomePage";
 
@@ -20,7 +20,7 @@ const GenerateObstacleButtons: React.FC = () => {
     const scale = 0.2; // Adjust the scale to control the frequency of obstacles
 
     // Only modify the tiles that are within the viewable grid (based on the current mapSizeSliderSignal-value)
-    tiles.value = tiles.value.map((tile) => {
+    const updatedTiles = tiles.value.map((tile) => {
       if (tile.x < height && tile.y < numOfColumns) {
         const noiseValue = noise.perlin2(tile.x * scale, tile.y * scale);
         const isObstacle = noiseValue > 0.1 ? 1 : 0; // Adjust threshold as needed
@@ -28,6 +28,8 @@ const GenerateObstacleButtons: React.FC = () => {
       }
       return tile; // Leave tiles outside the viewable area unchanged
     });
+
+    tiles.value = updatedTiles;
 
     console.log("Generated obstacles");
   };

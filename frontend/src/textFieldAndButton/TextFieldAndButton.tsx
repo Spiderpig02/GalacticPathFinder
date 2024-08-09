@@ -1,5 +1,5 @@
+import SmallButton from "../smallButton/SmallButton";
 import "./TextFieldAndButton.css";
-import SmallButton from "../../smallButton/SmallButton";
 
 interface TextFieldAndButtonProps {
   text: string;

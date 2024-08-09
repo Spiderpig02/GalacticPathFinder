@@ -9,12 +9,13 @@ import AlgorithmsMenu, {
   selectedAlgorithm,
 } from "../../components/algorithmsMenu/AlgorithmsMenu";
 import HeuristicsMenu from "../../components/heuristicsMenu/HeuristicsMenu";
-import TextFieldAndButton from "../../components/textFieldAndButton/TextFieldAndButton";
+import TextAndSelect from "../../components/textAndSelect/TextAndSelect";
 import StartAndEndPointsButton from "../../components/startAndEndPointsButton/StartAndEndPointsButton";
 import "./HomePage.css";
 import StartButton from "../../components/startButton/StartButton";
 import AlgorithmStepSlider from "../../components/algorithmStepSlider/AlgorithmStepSlider";
 import GenerateObstacleButtons from "../../components/generateObstacleButtons/GenerateObstacleButtons";
+import TextFieldAndButton from "../../textFieldAndButton/TextFieldAndButton";
 
 export const mapSizeSliderSignal = signal<number>(50);
 export const algorithmStepSliderSignal = signal<number>(0);
@@ -56,17 +57,14 @@ const HomePage = () => {
         <div className="map-size-slider-container-homepage">
           <MapSizeSlider />
         </div>
-        {/* <div className="generate-obstacles-buttons-container">
-          <DefaultButton
-            text={"Generate obstacles"}
-            onClick={handleGenerateObstacles}
-          />
-          <DefaultButton text={"Generate maze"} onClick={handleGenerateMaze} />
-        </div> */}
         <GenerateObstacleButtons />
         <div className="text-fields-container-homepage">
-          <TextFieldAndButton text={"Place obstacles"} />
-          <TextFieldAndButton text={"Select animation speed"} />
+          <TextAndSelect
+            title={"Place obstacles with weight"}
+            text={"Choose weight"}
+            content={["1", "2", "3", "4", "5"]}
+          />
+          <TextFieldAndButton text={"Set animation speed"} />
         </div>
         <StartAndEndPointsButton />
         <StartButton />
