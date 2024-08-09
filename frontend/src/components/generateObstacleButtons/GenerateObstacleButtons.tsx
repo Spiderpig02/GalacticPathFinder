@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import React from "react";
 import DefaultButton from "../defaultButton/DefaultButton";
-import { Noise } from "noisejs";
+import Noise from "noisejs";
 import "./GenerateObstacleButtons.css";
 import { tiles } from "../mapGrid/MapGrid";
 import { mapSizeSliderSignal } from "../../pages/homePage/HomePage";
