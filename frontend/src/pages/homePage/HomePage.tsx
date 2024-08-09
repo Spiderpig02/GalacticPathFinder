@@ -5,7 +5,9 @@ import { getGraphTraversalMethods } from "../../services/getGraphTraversalMethod
 import { postGraphHeuristics } from "../../services/postGraphHeuristicMethods";
 import { useEffect, useState } from "react";
 import MapHandler from "../../components/mapFileHandler/MapFileHandler";
-import AlgorithmsMenu from "../../components/algorithmsMenu/AlgorithmsMenu";
+import AlgorithmsMenu, {
+  selectedAlgorithm,
+} from "../../components/algorithmsMenu/AlgorithmsMenu";
 import HeuristicsMenu from "../../components/heuristicsMenu/HeuristicsMenu";
 import TextFieldAndButton from "../../components/textFieldAndButton/TextFieldAndButton";
 import StartAndEndPointsButton from "../../components/startAndEndPointsButton/StartAndEndPointsButton";
@@ -24,7 +26,6 @@ const HomePage = () => {
 
   const [algorithms, setAlgorithms] = useState<string[]>([]);
   const [heuristics, setHeuristics] = useState<string[]>([]);
-  const [selectedAlgorithm] = useState<string>("");
 
   useEffect(() => {
     getGraphTraversalMethods()
@@ -33,12 +34,12 @@ const HomePage = () => {
   }, []);
 
   useEffect(() => {
-    console.log("Selected algorithm: ", selectedAlgorithm);
-    if (selectedAlgorithm === "") return;
-    postGraphHeuristics(selectedAlgorithm)
+    console.log("Selected algorithm: ", selectedAlgorithm.value);
+    if (selectedAlgorithm.value === "") return;
+    postGraphHeuristics(selectedAlgorithm.value)
       .then((res) => setHeuristics(res || []))
       .catch((err) => console.log(err));
-  }, [selectedAlgorithm]);
+  }, [selectedAlgorithm.value]);
 
   return (
     <div className="outer-container-homepage">
