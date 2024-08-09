@@ -18,11 +18,6 @@ const MapHandler: React.FC = () => {
     reader.readAsText(file);
   };
 
-  const handleDownload = () => {
-    // Implement download logic
-    downloadMap();
-    console.log("Download");
-  };
 
   return (
     <div className="download-upload-container">
@@ -53,7 +48,7 @@ const MapHandler: React.FC = () => {
           </svg>
         </label>
         <button
-          onClick={handleDownload}
+          onClick={downloadMap}
           className="button-circle bg-ss-blue-grotto"
         >
           <div className=" br-rado"></div>
