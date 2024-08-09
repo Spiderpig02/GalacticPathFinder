@@ -1,5 +1,4 @@
-export let storedMap: Node[] = []; // This is a placeholder for actual storage mechanism
-
+import { tiles } from "../components/mapGrid/MapGrid.tsx";
 /**
  * Uploads a csv of the map to the storage
  * @param map The map to upload
@@ -14,14 +13,14 @@ export const uploadMap = (csvMap: string) => {
     return;
   }
 
-  storedMap = map;
+  tiles.value = map;
   console.log("Map uploaded:", map);
 };
 
 function parseCSV(csvText: string): Node[] {
   const lines = csvText.split("\n");
   const nodes = [];
-  for (let line of lines) {
+  for (const line of lines) {
     const [x, y, weight] = line.split(",");
     nodes.push({
       x: parseFloat(x),
@@ -36,10 +35,12 @@ function parseCSV(csvText: string): Node[] {
  * Downloads a map from to the client
  */
 export const downloadMap = () => {
-  console.log("Map downloaded:", storedMap);
+  console.log("Map downloaded:", tiles);
   // Convert the nodes to a CSV
-  let csvContent: string = parseNodes(storedMap);
-  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+  const csvContent: string = parseNodes(tiles.value);
+  console.log(csvContent);
+
+  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-16BE;" });
 
   // Create a link and trigger the download
   const url = URL.createObjectURL(blob);
@@ -56,7 +57,7 @@ export const downloadMap = () => {
 
 function parseNodes(map: Node[]): string {
   let csvText = "";
-  for (let node of map) {
+  for (const node of map) {
     csvText += `${node.x},${node.y},${node.weight}\n`;
   }
   return csvText;
