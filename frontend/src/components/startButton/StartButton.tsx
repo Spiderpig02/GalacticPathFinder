@@ -1,10 +1,21 @@
 import React from "react";
 import "./StartButton.css";
 import { handleTraverse } from "../../services/animationService";
+import { tiles } from "../mapGrid/MapGrid";
 
 const StartButton: React.FC = () => {
   const startAnimation = () => {
+    handleClearEarlierTraversals();
     handleTraverse();
+  };
+
+  const handleClearEarlierTraversals = () => {
+    tiles.value = tiles.value.map((tile) => {
+      if (tile.isPath) {
+        return { ...tile, weight: 0, isPath: false };
+      }
+      return tile;
+    });
   };
 
   return (
