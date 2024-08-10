@@ -22,10 +22,10 @@ export const startPoint = signal<Node>({
   isPath: false,
 });
 export const endPoint = signal<Node>({ x: 0, y: 10, weight: 0, isPath: false });
+export const aspectRatio = (9/16)
 
 const MapGrid = () => {
   const maxNumOfColumns = 80; // Maximum number of columns
-  const aspectRatio = (9/16)
   const maxHeight = Math.round(maxNumOfColumns * aspectRatio); // Maximum height of the grid
 
   const numOfColumns = mapSizeSliderSignal.value; // Get the current size of the grid

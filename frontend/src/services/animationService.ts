@@ -1,9 +1,15 @@
-import { endPoint, startPoint, tiles } from "../components/mapGrid/MapGrid";
+import {
+  endPoint,
+  startPoint,
+  tiles,
+  aspectRatio,
+} from "../components/mapGrid/MapGrid";
 import {
   selectedAlgorithm,
   selectedHeuristic,
   animationSpeed,
   algorithmStepSliderSignal,
+  mapSizeSliderSignal,
 } from "../pages/homePage/HomePage";
 import { PostTraversalProps, PostTraversalResponse } from "../types";
 import { postTraversal } from "./postTraversal";
@@ -20,12 +26,19 @@ export const handleTraverse = () => {
   // Clear any existing timeouts before starting a new animation
   clearPreviousAnimations();
 
+  // Only send the visible tiles to the backend
+
+  const map = tiles.value.filter(
+    (tile) =>
+      tile.x <= Math.round(mapSizeSliderSignal.value) * aspectRatio &&
+      tile.y <= mapSizeSliderSignal.value
+  );
   const postTraversalProps: PostTraversalProps = {
     algorithm: selectedAlgorithm.value,
     heuristic: selectedHeuristic.value,
     startPoint: startPoint.value,
     endPoint: endPoint.value,
-    map: tiles.value,
+    map: map,
   };
 
   console.log(postTraversalProps);
