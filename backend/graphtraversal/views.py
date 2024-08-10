@@ -5,6 +5,7 @@ from rest_framework import status
 import json
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.parsers import JSONParser
+from datetime import datetime
 
 from graphtraversal.algorithms.pathfinder import Pathfinder
 from graphtraversal.serializers import (
@@ -53,6 +54,7 @@ def post_graph_traversal(request):
     # Parse and validate the data
     serializer = GraphTraversalSerializer(data=request.data)
     if serializer.is_valid():
+        current_time = datetime.now().timestamp()
         # Get mandatory parameters
         algorithm: str = request.data["algorithm"]
         start_point = request.data["startPoint"]
@@ -104,7 +106,7 @@ def post_graph_traversal(request):
         # Find path
         pathfinder: Pathfinder = get_pathfinder(algorithm)
         path, node_order = pathfinder.find_path(map, start_point, end_point, heuristic)
-
+        time_taken = datetime.now().timestamp() - current_time
         print(f"path: {path}")
         print(f"node_order: {node_order}")
         pathfinder_status: str = "success" if path is not None else "failure"
@@ -121,6 +123,7 @@ def post_graph_traversal(request):
                 "status": pathfinder_status,
                 "path": serialized_path,
                 "nodeOrder": serialized_node_order,
+                "timeTaken": time_taken,
             },
         )
 
