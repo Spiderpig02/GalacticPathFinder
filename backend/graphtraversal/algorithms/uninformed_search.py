@@ -1,4 +1,5 @@
 """ Contains the uninformed search algorithms. """
+
 from typing import Callable
 
 from graphtraversal.algorithms.search_utils import reconstruct_path
@@ -9,7 +10,7 @@ from graphtraversal.map import Map, Node, Position
 class BFSPathfinder(Pathfinder):
     def find_path(
         self, map: Map, start: Node, goal: Node, heuristic: Callable
-    ) -> tuple[list[Node], list[Node]]:
+    ) -> tuple[list[Position], list[Node]]:
         # Does not use heuristic in BFS
         return BFS(map, start, goal)
 
@@ -17,7 +18,7 @@ class BFSPathfinder(Pathfinder):
 class DFSPathfinder(Pathfinder):
     def find_path(
         self, map: Map, start: Node, goal: Node, heuristic: Callable
-    ) -> tuple[list[Node], list[Node]]:
+    ) -> tuple[list[Position], list[Node]]:
         # Does not use heuristic in DFS
         return DFS(map, start, goal)
 
@@ -85,19 +86,19 @@ class StackFrontier:
         return object in self.frontier
 
 
-def BFS(map: Map, start: Node, goal: Node) -> tuple[list[Node], list[Node]]:
+def BFS(map: Map, start: Node, goal: Node) -> tuple[list[Position], list[Node]]:
     """Breadth first search"""
     return _search(map, start, goal, QueueFrontier)
 
 
-def DFS(map: Map, start: Node, goal: Node) -> tuple[list[Node], list[Node]]:
+def DFS(map: Map, start: Node, goal: Node) -> tuple[list[Position], list[Node]]:
     """Depth first search"""
     return _search(map, start, goal, StackFrontier)
 
 
 def _search(
     map: Map, start: Node, goal: Node, frontier_type: Callable
-) -> tuple[list[Node], list[Node]]:
+) -> tuple[list[Position], list[Node]]:
     """
     This function performs a breadth first search on the given map.
     """
