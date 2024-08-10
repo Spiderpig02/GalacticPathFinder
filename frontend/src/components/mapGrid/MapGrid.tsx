@@ -128,8 +128,8 @@ const MapGrid = () => {
     endPoint.value = { x: 0, y: 10, weight: 0, isPath: false };
   });
 
-  const getIsPath = (row: number, col: number) => {
-    return tiles.value.find((tile) => tile.x === col && tile.y === row)?.isPath;
+  const getIsPath = (row: number, col: number): boolean => {
+    return !!tiles.value.find((tile) => tile.x === col && tile.y === row)?.isPath;
   };
 
   const getIsExplored = (row: number, col: number) => {
