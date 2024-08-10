@@ -14,8 +14,10 @@ import AlgorithmStepSlider from "../../components/algorithmStepSlider/AlgorithmS
 import GenerateObstacleButtons from "../../components/generateObstacleButtons/GenerateObstacleButtons";
 import TextFieldAndButton from "../../textFieldAndButton/TextFieldAndButton";
 import AlgorithmsMenu from "../../components/algorithmsMenu/AlgorithmsMenu";
+import AnimationSpeedSlider from "../../components/animationStepSlider/AnimationSpeedSlider";
 
 export const mapSizeSliderSignal = signal<number>(50);
+export const animationSpeedSignal = signal<number>(1);
 export const algorithmStepSliderSignal = signal<number>(0);
 export const selectedAlgorithm = signal<string>("");
 export const selectedHeuristic = signal<string>("");
@@ -62,6 +64,7 @@ const HomePage = () => {
             text={"Choose weight"}
             content={["1", "2", "3", "4", "5"]}
           />
+          <AnimationSpeedSlider />
           <TextFieldAndButton text={"Set animation speed"} />
         </div>
         <StartAndEndPointsButton />
