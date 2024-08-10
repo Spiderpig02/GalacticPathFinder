@@ -109,7 +109,7 @@ def post_graph_traversal(request):
         time_taken = datetime.now().timestamp() - current_time
         print(f"path: {path}")
         print(f"node_order: {node_order}")
-        pathfinder_status: str = "success" if len(path) == 0 else "failure"
+        pathfinder_status: str = "success" if len(path) != 0 else "failure"
 
         # Serialize the list of dictionaries to a JSON string
         path_dicts = [node.to_dict() for node in path]
