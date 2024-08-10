@@ -1,5 +1,8 @@
 import json
 from django.test import TestCase, Client
+from graphtraversal.algorithms.pathfinder import Pathfinder
+from graphtraversal.factory import get_pathfinder
+from graphtraversal.map import Map, Node, Position, RestMap
 from rest_framework import status
 from .views import (
     get_graph_traversal_methods,
@@ -78,6 +81,52 @@ class TraversalTests(TestCase):
             )
             self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+    def test_traverse_map_with_sentinel_obstacles(self):
+
+        for algorithm in get_graph_traversal_methods():
+            print(f" SENTINAL algorithm: {algorithm}", flush=True)
+            # Map
+            # 0 0 0
+            # 0 X 0
+            # S X E
+            start_point = Node(Position(0, 2), 0)
+            end_point = Node(Position(2, 2), 0)
+            nodes = [
+                Node(Position(0, 0), 0),
+                Node(Position(0, 1), 0),
+                Node(Position(0, 2), 0),
+                Node(Position(1, 0), 0),
+                Node(Position(1, 1), -1),
+                Node(Position(1, 2), -1),
+                Node(Position(2, 0), 0),
+                Node(Position(2, 1), 0),
+                Node(Position(2, 2), 0),
+            ]
+
+            map: Map = RestMap(
+                nodes,
+                start_point,
+                end_point,
+            )
+            pathfinder: Pathfinder = get_pathfinder(algorithm)
+            heuristic = None
+            path, node_order = pathfinder.find_path(
+                map, start_point, end_point, heuristic
+            )
+
+            expected_path = [
+                Position(0, 2),
+                Position(0, 1),
+                Position(0, 0),
+                Position(1, 0),
+                Position(2, 0),
+                Position(2, 1),
+                Position(2, 2),
+            ]
+
+            # Compare the path from the response to the expected path
+            self.assertEqual(path, expected_path)
+
     def test_traverse_map_given_valid_data_with_heuristic(self):
         client = Client()
         for algorithm in get_graph_traversal_methods():
@@ -151,4 +200,4 @@ class TraversalTests(TestCase):
             json.dumps(data),
             content_type="application/json",
         )
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)  #
