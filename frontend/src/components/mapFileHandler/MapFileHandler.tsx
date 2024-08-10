@@ -21,17 +21,18 @@ const MapHandler: React.FC = () => {
   return (
     <div className="download-upload-container">
       <p className="download-upload-text">Download or upload map</p>
-      <div className="flex flex-row justify-center items-center">
+      <div className="flex flex-row justify-center items-center ">
         <input
           type="file"
           accept=".csv"
           onChange={handleFileChange}
           style={{ display: "none" }}
+          className="hover:bg-ss-blue-grotto-hover"
           id="upload-file"
         />
         <label
           htmlFor="upload-file"
-          className="button-circle bg-ss-blue-grotto"
+          className="button-circle bg-ss-blue-grotto hover:bg-ss-blue-grotto-hover"
         >
           <svg
             width="26"
@@ -51,7 +52,7 @@ const MapHandler: React.FC = () => {
         </label>
         <button
           onClick={downloadMap}
-          className="button-circle bg-ss-blue-grotto"
+          className="button-circle bg-ss-blue-grotto hover:bg-ss-blue-grotto-hover"
         >
           <div className=" br-rado"></div>
           <svg

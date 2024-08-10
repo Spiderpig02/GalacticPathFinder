@@ -1,24 +1,27 @@
 .start-button-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px; 
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .start-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 10px; 
-    width: 60px; 
-    height: 60px; 
-    border-radius: 50%;
-    border: none; 
-    cursor: pointer; 
-    background-color: var(--ss-blue-grotto);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 10px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background-color: var(--ss-blue-grotto);
+}
 
+.start-button:hover {
+  background-color: var(--ss-blue-grotto-hover);
 }
 
 .play-icon {
-    width: 100%;
-    height: 100%;
-  }
+  width: 100%;
+  height: 100%;
+}

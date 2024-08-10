@@ -3,9 +3,13 @@ import { useCallback, useEffect, useState } from "react";
 import { mapSizeSliderSignal } from "../../pages/homePage/HomePage.tsx";
 import Tile from "../gridTile/GridTile.tsx";
 import "./MapGrid.css";
-import { selectionModeSignal } from "../startAndEndPointsButton/StartAndEndPointsButton.tsx";
+import {
+  clearSignal,
+  selectionModeSignal,
+  startEndSignal,
+} from "../startAndEndPointsButton/StartAndEndPointsButton.tsx";
 import { Node } from "../../types.ts";
-import { signal } from "@preact/signals-react";
+import { signal, useSignalEffect } from "@preact/signals-react";
 import { tileWeightSignal } from "../textAndSelect/TextAndSelect.tsx";
 
 // Track the state of each tile
@@ -91,10 +95,12 @@ const MapGrid = () => {
       if (!startPointTemp) {
         setStartPoint({ x: col, y: row, weight: 0, isPath: false });
         startPoint.value = { x: col, y: row, weight: 0, isPath: false };
+        startEndSignal.value = 2;
       } else if (!endPointTemp) {
         setEndPoint({ x: col, y: row, weight: 0, isPath: false });
         endPoint.value = { x: col, y: row, weight: 0, isPath: false };
         selectionModeSignal.value = false;
+        startEndSignal.value = 0;
       }
     }
     // Place or remove obstacle
@@ -112,6 +118,14 @@ const MapGrid = () => {
       );
     }
   };
+
+  useSignalEffect(() => {
+    clearSignal.value;
+    setEndPoint(null);
+    setStartPoint(null);
+    startPoint.value = { x: 0, y: 0, weight: 0, isPath: false };
+    endPoint.value = { x: 0, y: 10, weight: 0, isPath: false };
+  });
 
   const getIsPath = (row: number, col: number) => {
     return tiles.value.find((tile) => tile.x === col && tile.y === row)?.isPath;
