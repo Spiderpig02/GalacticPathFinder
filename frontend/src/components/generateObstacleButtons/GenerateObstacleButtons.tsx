@@ -20,7 +20,7 @@ const GenerateObstacleButtons: React.FC = () => {
 
     // Only modify the tiles that are within the viewable grid (based on the current mapSizeSliderSignal-value)
     const updatedTiles = tiles.value.map((tile) => {
-      if (tile.x < height && tile.y < numOfColumns) {
+      if (tile.x < numOfColumns && tile.y < height) {
         const noiseValue = noise.perlin2(tile.x * scale, tile.y * scale);
         const isObstacle = noiseValue > 0.1 ? -1 : 0; // Adjust threshold as needed
         return { ...tile, weight: isObstacle };
