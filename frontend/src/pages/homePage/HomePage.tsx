@@ -17,9 +17,15 @@ import AnimationSpeedSlider from "../../components/animationStepSlider/Animation
 
 export const mapSizeSliderSignal = signal<number>(50);
 export const animationSpeed = signal<number>(1);
-export const algorithmStepSliderSignal = signal<number>(0);
+// export const algorithmStepSliderSignal = signal<number>(0);
 export const selectedAlgorithm = signal<string>("");
 export const selectedHeuristic = signal<string>("");
+
+export const algorithmStepSliderSignal = signal({
+  currentValue: 0,
+  min: 0,
+  max: 0,
+});
 
 const HomePage = () => {
   //TODO: Make a global colors.css-file and import this in the CSS instead

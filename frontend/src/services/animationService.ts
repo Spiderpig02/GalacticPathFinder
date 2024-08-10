@@ -3,12 +3,14 @@ import {
   selectedAlgorithm,
   selectedHeuristic,
   animationSpeed,
+  algorithmStepSliderSignal,
 } from "../pages/homePage/HomePage";
 import { PostTraversalProps, PostTraversalResponse } from "../types";
 import { postTraversal } from "./postTraversal";
 import { Node } from "../types";
 
 let timeoutIds: number[] = [];
+let nodeOrder: Node[] = [];
 
 export const handleTraverse = () => {
   console.log("Traversing the grid");
@@ -34,10 +36,18 @@ export const handleTraverse = () => {
           try {
             // Parse the path and nodeOrder JSON strings into arrays
             const parsedPath: Node[] = JSON.parse(res.path);
-            const parsedNodeOrder: Node[] = JSON.parse(res.nodeOrder);
+            nodeOrder = JSON.parse(res.nodeOrder); // Store nodeOrder for later use
+            console.log("NodeOrder = ", nodeOrder);
+
+            // Create a copy of the signal and update min, max, and currentValue
+            const updatedSignal = { ...algorithmStepSliderSignal.value };
+            updatedSignal.currentValue = 0;
+            updatedSignal.min = 0;
+            updatedSignal.max = nodeOrder.length - 1;
+            algorithmStepSliderSignal.value = updatedSignal;
 
             // Animate node exploration
-            animateNodeOrder(parsedNodeOrder, () => {
+            animateNodeOrder(nodeOrder, () => {
               // After node exploration, animate the path
               animatePath(parsedPath);
             });
@@ -50,10 +60,21 @@ export const handleTraverse = () => {
     .catch((err) => console.log(err));
 };
 
-const clearPreviousAnimations = () => {
+export const clearPreviousAnimations = () => {
   // Clear all timeouts stored in the timeoutIds array
   timeoutIds.forEach(clearTimeout);
   timeoutIds = []; // Reset the array
+};
+
+// Function to render a specific step
+export const renderStep = (step: number) => {
+  tiles.value = tiles.value.map((tile) => {
+    const node = nodeOrder[step];
+    if (node && tile.x === node.x && tile.y === node.y) {
+      return { ...tile, isPath: false, isExplored: true }; // Mark as explored up to the specified step
+    }
+    return tile;
+  });
 };
 
 // Function to animate the nodeOrder
@@ -62,16 +83,29 @@ const animateNodeOrder = (nodeOrder: Node[], callback: () => void) => {
 
   nodeOrder.forEach((node, index) => {
     const timeoutId = setTimeout(() => {
-      tiles.value = tiles.value.map((tile) => {
-        if (tile.x === node.x && tile.y === node.y) {
-          return { ...tile, isPath: false, isExplored: true }; // Mark as explored
-        }
-        return tile;
-      });
+      // Check if the current index matches the slider value
+      if (index === algorithmStepSliderSignal.value.currentValue) {
+        tiles.value = tiles.value.map((tile) => {
+          if (tile.x === node.x && tile.y === node.y) {
+            return { ...tile, isPath: false, isExplored: true }; // Mark as explored
+          }
+          return tile;
+        });
 
-      // If this is the last node, call the callback to start animating the path
-      if (index === nodeOrder.length - 1) {
-        callback();
+        // Increment the algorithm step slider signal
+        const updatedSignal = { ...algorithmStepSliderSignal.value };
+        updatedSignal.currentValue += 1;
+        algorithmStepSliderSignal.value = updatedSignal;
+
+        console.log(
+          "Current value: ",
+          algorithmStepSliderSignal.value.currentValue
+        );
+
+        // If this is the last node, call the callback to start animating the path
+        if (index === nodeOrder.length - 1) {
+          callback();
+        }
       }
     }, index * delay); // Apply calculated delay
 
