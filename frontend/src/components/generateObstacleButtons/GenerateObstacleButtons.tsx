@@ -62,7 +62,7 @@ const GenerateObstacleButtons: React.FC = () => {
     // Accumulate changes to apply them after the loop
     const updatedTiles = tiles.value.map((tile) => {
       // Initially set all tiles as obstacles (walls)
-      return { ...tile, weight: 1 };
+      return { ...tile, weight: -1 };
     });
 
     // Maze generation using backtracking

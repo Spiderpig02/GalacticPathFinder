@@ -61,7 +61,7 @@ const HomePage = () => {
           <TextAndSelect
             title={"Place obstacles with weight"}
             text={"Choose weight"}
-            content={["-1", "1", "2", "3", "4", "5"]}
+            content={["-1", "0", "1", "2", "3", "4", "5"]}
           />
           <AnimationSpeedSlider />
         </div>
