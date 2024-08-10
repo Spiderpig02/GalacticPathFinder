@@ -7,7 +7,11 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework.parsers import JSONParser
 
 from graphtraversal.algorithms.pathfinder import Pathfinder
-from graphtraversal.serializers import GraphHeuristicsSerializer, GraphTraversalMethodSerializer, GraphTraversalSerializer
+from graphtraversal.serializers import (
+    GraphHeuristicsSerializer,
+    GraphTraversalMethodSerializer,
+    GraphTraversalSerializer,
+)
 from graphtraversal.map import Map, RestMap, Node, Position
 from graphtraversal.factory import (
     get_heuristic_function,
@@ -15,6 +19,7 @@ from graphtraversal.factory import (
     get_graph_traversal_methods,
     get_pathfinder,
 )
+
 
 @swagger_auto_schema(
     method="post",
@@ -113,7 +118,7 @@ def post_graph_traversal(request):
         return Response(
             status=status.HTTP_200_OK,
             data={
-                "message": pathfinder_status,
+                "status": pathfinder_status,
                 "path": serialized_path,
                 "nodeOrder": serialized_node_order,
             },
@@ -122,32 +127,34 @@ def post_graph_traversal(request):
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
+
 @swagger_auto_schema(
     method="get",
     operation_summary="Get all legal graph traversal methods",
     operation_description="This endpoint retrieves all legal graph traversal methods that this service provides.",
-    responses={200: GraphTraversalMethodSerializer },
+    responses={200: GraphTraversalMethodSerializer},
 )
 @api_view(["GET"])
 def fetch_graph_traversal_methods(request):
     return Response(status=status.HTTP_200_OK, data=get_graph_traversal_methods())
+
 
 @swagger_auto_schema(
     method="post",
     operation_summary="Get all legal heuristics for a given graph traversal method",
     operation_description="This endpoint retrieves all legal heuristics for a given graph traversal method that this service provides.",
     request_body=GraphTraversalMethodSerializer,
-    responses={200: GraphHeuristicsSerializer },
+    responses={200: GraphHeuristicsSerializer},
 )
 @api_view(["POST"])
 def fetch_graph_heuristics(request):
-    
+
     serializer = GraphTraversalMethodSerializer(data=request.data)
     if serializer.is_valid():
         heuristic = request.data.get("method", None)
         if heuristic is None:
             return Response(status=status.HTTP_400_BAD_REQUEST)
-        
+
         heuristics: list[str] = get_heuristics(heuristic)
         return Response(status=status.HTTP_200_OK, data=heuristics)
 
