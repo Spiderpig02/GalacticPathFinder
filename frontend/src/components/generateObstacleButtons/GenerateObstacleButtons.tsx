@@ -44,18 +44,18 @@ const GenerateObstacleButtons: React.FC = () => {
     const getNeighbors = (x: number, y: number) => {
       const neighbors = [];
       if (x > 0 && unvisited.has(`${x - 2}-${y}`)) neighbors.push([x - 2, y]);
-      if (x < height - 1 && unvisited.has(`${x + 2}-${y}`))
+      if (x < numOfColumns - 1 && unvisited.has(`${x + 2}-${y}`))
         neighbors.push([x + 2, y]);
       if (y > 0 && unvisited.has(`${x}-${y - 2}`)) neighbors.push([x, y - 2]);
-      if (y < numOfColumns - 1 && unvisited.has(`${x}-${y + 2}`))
+      if (y < height - 1 && unvisited.has(`${x}-${y + 2}`))
         neighbors.push([x, y + 2]);
       return neighbors;
     };
 
     // Start with a random cell
     const stack = [];
-    const startX = Math.floor(Math.random() * Math.floor(height / 2)) * 2;
-    const startY = Math.floor(Math.random() * Math.floor(numOfColumns / 2)) * 2;
+    const startX = Math.floor(Math.random() * Math.floor(numOfColumns / 2)) * 2;
+    const startY = Math.floor(Math.random() * Math.floor(height / 2)) * 2;
     stack.push([startX, startY]);
     unvisited.delete(`${startX}-${startY}`);
 
