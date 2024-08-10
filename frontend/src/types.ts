@@ -13,7 +13,7 @@ export interface PostTraversalProps {
 }
 
 export interface PostTraversalResponse {
-  message: string;
+  status: string;
   path: Node[];
   nodeOrder: Node[];
 }

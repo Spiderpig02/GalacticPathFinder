@@ -40,7 +40,7 @@ const MapGrid = () => {
       const newTiles: Node[] = [];
       for (let row = 0; row < maxHeight; row++) {
         for (let col = 0; col < maxNumOfColumns; col++) {
-          newTiles.push({ x: row, y: col, weight: 0 });
+          newTiles.push({ x: col, y: row, weight: 0 });
         }
       }
       tiles.value = newTiles;
@@ -49,7 +49,7 @@ const MapGrid = () => {
 
   // Check if a tile is active
   const isTileActive = (row: number, col: number) => {
-    const tile = tiles.value.find((tile) => tile.x === row && tile.y === col);
+    const tile = tiles.value.find((tile) => tile.x === col && tile.y === row);
     return tile ? tile.weight === 1 : false;
   };
 
@@ -64,7 +64,7 @@ const MapGrid = () => {
     (row: number, col: number) => {
       if (isMouseDown) {
         tiles.value = tiles.value.map((tile) =>
-          tile.x === row && tile.y === col
+          tile.x === col && tile.y === row
             ? { ...tile, weight: initialDragState ? 0 : 1 }
             : tile
         );
@@ -78,16 +78,18 @@ const MapGrid = () => {
     // Place start or end point
     if (selectionModeSignal.value) {
       if (!startPointTemp) {
-        setStartPoint({ x: row, y: col, weight: 1 });
+        setStartPoint({ x: col, y: row, weight: 1 });
+        startPoint.value = { x: col, y: row, weight: 1 };
       } else if (!endPointTemp) {
-        setEndPoint({ x: row, y: col, weight: 1 });
+        setEndPoint({ x: col, y: row, weight: 1 });
+        endPoint.value = { x: col, y: row, weight: 1 };
         selectionModeSignal.value = false;
       }
     }
     // Place obstacle
     else {
       tiles.value = tiles.value.map((tile) =>
-        tile.x === row && tile.y === col
+        tile.x === col && tile.y === row
           ? { ...tile, weight: tile.weight === 1 ? 0 : 1 }
           : tile
       );
@@ -107,15 +109,17 @@ const MapGrid = () => {
           <div key={row} className="flex">
             {Array.from({ length: numOfColumns }).map((_, col) => (
               <Tile
-                key={`${row}-${col}`}
+                key={`${col}-${row}`}
                 width={tileWidth}
                 height={tileHeight}
                 isActive={isTileActive(row, col)}
                 onTileEnter={() => handleTileEnter(row, col)}
                 onTileClick={() => handleTileClick(row, col)}
                 onMouseDown={() => handleMouseDown(row, col)}
-                isStartPoint={startPointTemp?.x === row && startPointTemp?.y === col}
-                isEndPoint={endPointTemp?.x === row && endPointTemp?.y === col}
+                isStartPoint={
+                  startPointTemp?.x === col && startPointTemp?.y === row
+                }
+                isEndPoint={endPointTemp?.x === col && endPointTemp?.y === row}
               />
             ))}
           </div>

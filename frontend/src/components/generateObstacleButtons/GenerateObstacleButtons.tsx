@@ -22,7 +22,7 @@ const GenerateObstacleButtons: React.FC = () => {
     const updatedTiles = tiles.value.map((tile) => {
       if (tile.x < height && tile.y < numOfColumns) {
         const noiseValue = noise.perlin2(tile.x * scale, tile.y * scale);
-        const isObstacle = noiseValue > 0.1 ? 1 : 0; // Adjust threshold as needed
+        const isObstacle = noiseValue > 0.1 ? -1 : 0; // Adjust threshold as needed
         return { ...tile, weight: isObstacle };
       }
       return tile; // Leave tiles outside the viewable area unchanged
