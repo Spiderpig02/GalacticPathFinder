@@ -86,6 +86,11 @@ class RestMap(Map):
             if (
                 abs(node.position.x - position.x) <= 1
                 and abs(node.position.y - position.y) <= 1
+                and (
+                    abs(node.position.x - position.x)
+                    + abs(node.position.y - position.y)
+                    == 1
+                )
             ):
                 neighbors.append(node.position)
         return neighbors
