@@ -130,3 +130,18 @@ const animatePath = (path: Node[]) => {
     timeoutIds.push(timeoutId); // Store timeout ID
   });
 };
+
+/**
+ * Reset the grid to its initial state by clearing any previous animations and resetting the tiles
+ */
+export const resetGrid = () => {
+  clearPreviousAnimations();
+  tiles.value = tiles.value.map((tile) => {
+    return {
+      ...tile,
+      isExplored: false,
+      isPath: false,
+      weight: 0,
+    };
+  });
+};
