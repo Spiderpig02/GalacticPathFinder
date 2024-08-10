@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import "./AnimationSpeedSlider.css";
-import { animationSpeedSignal } from "../../pages/homePage/HomePage";
+import { animationSpeed } from "../../pages/homePage/HomePage";
 
 const AnimationSpeedSlider = () => {
-  const [speed, setSpeed] = useState<number>(animationSpeedSignal.value);
+  const [speed, setSpeed] = useState<number>(animationSpeed.value);
 
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSpeed(parseInt(e.target.value));
   };
 
   const handleCommitChange = () => {
-    animationSpeedSignal.value = speed;
+    animationSpeed.value = speed;
   };
 
   return (

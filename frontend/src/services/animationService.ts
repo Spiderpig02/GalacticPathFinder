@@ -2,6 +2,7 @@ import { endPoint, startPoint, tiles } from "../components/mapGrid/MapGrid";
 import {
   selectedAlgorithm,
   selectedHeuristic,
+  animationSpeed,
 } from "../pages/homePage/HomePage";
 import { PostTraversalProps, PostTraversalResponse } from "../types";
 import { postTraversal } from "./postTraversal";
@@ -9,7 +10,7 @@ import { Node } from "../types";
 
 export const handleTraverse = () => {
   console.log("Traversing the grid");
-  const animationSpeed = 1.0;
+  console.log("Steps per second: ", animationSpeed.value);
 
   const postTraversalProps: PostTraversalProps = {
     algorithm: selectedAlgorithm.value,
