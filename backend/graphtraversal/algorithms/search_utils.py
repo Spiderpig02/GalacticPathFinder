@@ -22,4 +22,5 @@ def reconstruct_path(came_from: dict, current: Position) -> list[Position]:
             break
         current = came_from[current]
         total_path.append(current)
+    total_path.reverse()
     return total_path
