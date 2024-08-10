@@ -14,6 +14,7 @@ import AlgorithmStepSlider from "../../components/algorithmStepSlider/AlgorithmS
 import GenerateObstacleButtons from "../../components/generateObstacleButtons/GenerateObstacleButtons";
 import AlgorithmsMenu from "../../components/algorithmsMenu/AlgorithmsMenu";
 import AnimationSpeedSlider from "../../components/animationStepSlider/AnimationSpeedSlider";
+import ClearGridButton from "../../components/clearGridButton/ClearGridButton";
 
 export const mapSizeSliderSignal = signal<number>(50);
 export const animationSpeed = signal<number>(1);
@@ -72,7 +73,11 @@ const HomePage = () => {
           <AnimationSpeedSlider />
         </div>
         <StartAndEndPointsButton />
-        <StartButton />
+        <div className="flex">
+          <StartButton />
+          <ClearGridButton />
+        </div>
+        
       </div>
     </div>
   );
