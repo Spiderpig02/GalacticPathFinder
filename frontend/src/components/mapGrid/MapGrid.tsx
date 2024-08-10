@@ -97,11 +97,17 @@ const MapGrid = () => {
         selectionModeSignal.value = false;
       }
     }
-    // Place obstacle
+    // Place or remove obstacle
     else {
       tiles.value = tiles.value.map((tile) =>
         tile.x === col && tile.y === row
-          ? { ...tile, weight: tileWeightSignal.value }
+          ? {
+              ...tile,
+              weight:
+                tile.weight === tileWeightSignal.value
+                  ? 0
+                  : tileWeightSignal.value,
+            }
           : tile
       );
     }
