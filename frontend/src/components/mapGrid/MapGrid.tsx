@@ -25,12 +25,13 @@ export const endPoint = signal<Node>({ x: 0, y: 10, weight: 0, isPath: false });
 
 const MapGrid = () => {
   const maxNumOfColumns = 80; // Maximum number of columns
-  const maxHeight = Math.round(maxNumOfColumns * (9 / 16)); // Maximum height of the grid
+  const aspectRatio = (9/16)
+  const maxHeight = Math.round(maxNumOfColumns * aspectRatio); // Maximum height of the grid
 
   const numOfColumns = mapSizeSliderSignal.value; // Get the current size of the grid
-  const height = Math.round(numOfColumns * (9 / 16)); // Set aspect ratio of grid to 16:9
-  const tileWidth = 80 / numOfColumns; // 80 is the width of the grid container
-  const tileHeight = 80 / height; // 80 is the height of the grid container
+  const height = Math.round(numOfColumns * aspectRatio); // Set aspect ratio of grid to 16:9
+  const tileWidth = maxNumOfColumns / numOfColumns; // 80 is the width of the grid container
+  const tileHeight = maxNumOfColumns / height; // 80 is the height of the grid container
 
   // State to track the start and end point
   const [startPointTemp, setStartPoint] = useState<Node | null>(null);
