@@ -2,12 +2,15 @@ import "./TextAndSelect.css";
 import SmallButton from "../../smallButton/SmallButton";
 import { useState } from "react";
 import { ArrowUpIcon } from "../../assets/icons/ArrowUpIcon";
+import { signal } from "@preact/signals-react";
 
 interface TextAndSelectProps {
   title: string;
   text: string;
   content?: string[];
 }
+
+export const tileWeightSignal = signal<number>(-1);
 
 const TextAndSelect = ({ title, text, content }: TextAndSelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,7 +38,7 @@ const TextAndSelect = ({ title, text, content }: TextAndSelectProps) => {
                   onClick={() => {
                     setSelected(item);
                     setIsOpen(false);
-                    //TODO: Set value of signal here
+                    tileWeightSignal.value = Number(item);
                   }}
                 >
                   {item}

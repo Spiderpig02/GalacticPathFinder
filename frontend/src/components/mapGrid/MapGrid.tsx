@@ -6,6 +6,7 @@ import "./MapGrid.css";
 import { selectionModeSignal } from "../startAndEndPointsButton/StartAndEndPointsButton.tsx";
 import { Node } from "../../types.ts";
 import { signal } from "@preact/signals-react";
+import { tileWeightSignal } from "../textAndSelect/TextAndSelect.tsx";
 
 // Track the state of each tile
 // Note to self: Signals must be outside components in order to trigget correct re-rendering/component updates
@@ -50,7 +51,12 @@ const MapGrid = () => {
   // Check if a tile is active
   const isTileActive = (row: number, col: number) => {
     const tile = tiles.value.find((tile) => tile.x === col && tile.y === row);
-    return tile ? tile.weight === 1 : false;
+    return tile ? tile.weight === -1 : false;
+  };
+
+  const getTileWeight = (row: number, col: number) => {
+    const tile = tiles.value.find((tile) => tile.x === col && tile.y === row);
+    return tile ? tile.weight : 0;
   };
 
   // Handle dragging the mouse to toggle tiles
@@ -65,7 +71,7 @@ const MapGrid = () => {
       if (isMouseDown) {
         tiles.value = tiles.value.map((tile) =>
           tile.x === col && tile.y === row
-            ? { ...tile, weight: initialDragState ? 0 : 1 }
+            ? { ...tile, weight: initialDragState ? 0 : tileWeightSignal.value }
             : tile
         );
       }
@@ -78,11 +84,11 @@ const MapGrid = () => {
     // Place start or end point
     if (selectionModeSignal.value) {
       if (!startPointTemp) {
-        setStartPoint({ x: col, y: row, weight: 1 });
-        startPoint.value = { x: col, y: row, weight: 1 };
+        setStartPoint({ x: col, y: row, weight: 0 });
+        startPoint.value = { x: col, y: row, weight: 0 };
       } else if (!endPointTemp) {
-        setEndPoint({ x: col, y: row, weight: 1 });
-        endPoint.value = { x: col, y: row, weight: 1 };
+        setEndPoint({ x: col, y: row, weight: 0 });
+        endPoint.value = { x: col, y: row, weight: 0 };
         selectionModeSignal.value = false;
       }
     }
@@ -90,7 +96,7 @@ const MapGrid = () => {
     else {
       tiles.value = tiles.value.map((tile) =>
         tile.x === col && tile.y === row
-          ? { ...tile, weight: tile.weight === 1 ? 0 : 1 }
+          ? { ...tile, weight: tileWeightSignal.value }
           : tile
       );
     }
@@ -112,7 +118,7 @@ const MapGrid = () => {
                 key={`${col}-${row}`}
                 width={tileWidth}
                 height={tileHeight}
-                isActive={isTileActive(row, col)}
+                weight={getTileWeight(row, col)}
                 onTileEnter={() => handleTileEnter(row, col)}
                 onTileClick={() => handleTileClick(row, col)}
                 onMouseDown={() => handleMouseDown(row, col)}
