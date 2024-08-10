@@ -117,6 +117,11 @@ const MapGrid = () => {
     return tiles.value.find((tile) => tile.x === col && tile.y === row)?.isPath;
   };
 
+  const getIsExplored = (row: number, col: number) => {
+    return tiles.value.find((tile) => tile.x === col && tile.y === row)
+      ?.isExplored;
+  };
+
   return (
     <div
       className="grid-container"
@@ -135,6 +140,7 @@ const MapGrid = () => {
                 height={tileHeight}
                 weight={getTileWeight(row, col)}
                 isPath={getIsPath(row, col)}
+                isExplored={getIsExplored(row, col)}
                 onTileEnter={() => handleTileEnter(row, col)}
                 onTileClick={() => handleTileClick(row, col)}
                 onMouseDown={() => handleMouseDown(row, col)}

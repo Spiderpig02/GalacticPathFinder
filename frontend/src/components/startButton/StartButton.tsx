@@ -11,8 +11,8 @@ const StartButton: React.FC = () => {
 
   const handleClearEarlierTraversals = () => {
     tiles.value = tiles.value.map((tile) => {
-      if (tile.isPath) {
-        return { ...tile, weight: 0, isPath: false };
+      if (tile.isPath || tile.isExplored) {
+        return { ...tile, weight: 0, isPath: false, isExplored: false };
       }
       return tile;
     });

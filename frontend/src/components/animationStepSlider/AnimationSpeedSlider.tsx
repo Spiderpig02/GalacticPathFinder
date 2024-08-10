@@ -16,7 +16,7 @@ const AnimationSpeedSlider = () => {
   return (
     <div className="animation-speed-slider-container">
       <label htmlFor="myRange" className="slider-label">
-        Steps per second {speed}
+        Steps per second: {speed}
       </label>
       <input
         type="range"

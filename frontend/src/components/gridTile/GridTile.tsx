@@ -3,6 +3,7 @@ type GridTileProps = {
   height: number;
   weight: number;
   isPath: boolean;
+  isExplored?: boolean;
   onTileEnter: () => void;
   onTileClick: () => void;
   onMouseDown: () => void;
@@ -20,37 +21,43 @@ const GridTile = ({
   onMouseDown,
   isStartPoint,
   isEndPoint,
+  isExplored,
 }: GridTileProps) => {
   let backgroundColor;
 
-  switch (weight) {
-    case -1:
-      backgroundColor = "#050a06";
-      break;
-    case 1:
-      backgroundColor = "#5c1c1c";
-      break;
-    case 2:
-      backgroundColor = "#4c1c1c";
-      break;
-    case 3:
-      backgroundColor = "#3c1c1c";
-      break;
-    case 4:
-      backgroundColor = "#2c1c1c";
-      break;
-    case 5:
-      backgroundColor = "#1c1c1c";
-      break;
-    default:
-      backgroundColor = "white";
-      break;
+  if (isStartPoint) {
+    backgroundColor = "green";
+  } else if (isEndPoint) {
+    backgroundColor = "red";
+  } else if (isPath) {
+    backgroundColor = "blue";
+  } else if (isExplored) {
+    backgroundColor = "#08c5df"; // Color explored nodes light blue
+  } else {
+    switch (weight) {
+      case -1:
+        backgroundColor = "#050a06";
+        break;
+      case 1:
+        backgroundColor = "#5c1c1c";
+        break;
+      case 2:
+        backgroundColor = "#4c1c1c";
+        break;
+      case 3:
+        backgroundColor = "#3c1c1c";
+        break;
+      case 4:
+        backgroundColor = "#2c1c1c";
+        break;
+      case 5:
+        backgroundColor = "#1c1c1c";
+        break;
+      default:
+        backgroundColor = "white";
+        break;
+    }
   }
-
-  if (isPath) backgroundColor = "blue";
-
-  if (isStartPoint) backgroundColor = "green";
-  if (isEndPoint) backgroundColor = "red";
 
   const tileStyle = {
     width: `${width}vw`,

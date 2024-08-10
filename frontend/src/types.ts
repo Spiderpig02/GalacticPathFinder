@@ -3,6 +3,7 @@ export interface Node {
   y: number;
   weight: number;
   isPath: boolean;
+  isExplored?: boolean;
 }
 
 export interface PostTraversalProps {
