@@ -8,9 +8,14 @@ import { PostTraversalProps, PostTraversalResponse } from "../types";
 import { postTraversal } from "./postTraversal";
 import { Node } from "../types";
 
+let timeoutIds: number[] = [];
+
 export const handleTraverse = () => {
   console.log("Traversing the grid");
   console.log("Steps per second: ", animationSpeed.value);
+
+  // Clear any existing timeouts before starting a new animation
+  clearPreviousAnimations();
 
   const postTraversalProps: PostTraversalProps = {
     algorithm: selectedAlgorithm.value,
@@ -45,12 +50,18 @@ export const handleTraverse = () => {
     .catch((err) => console.log(err));
 };
 
+const clearPreviousAnimations = () => {
+  // Clear all timeouts stored in the timeoutIds array
+  timeoutIds.forEach(clearTimeout);
+  timeoutIds = []; // Reset the array
+};
+
 // Function to animate the nodeOrder
 const animateNodeOrder = (nodeOrder: Node[], callback: () => void) => {
-  const delay = 10 / animationSpeed.value; // Calculate delay based on steps per second
+  const delay = 10 / (animationSpeed.value * 100); // Calculate delay based on steps per second
 
   nodeOrder.forEach((node, index) => {
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       tiles.value = tiles.value.map((tile) => {
         if (tile.x === node.x && tile.y === node.y) {
           return { ...tile, isPath: false, isExplored: true }; // Mark as explored
@@ -63,15 +74,17 @@ const animateNodeOrder = (nodeOrder: Node[], callback: () => void) => {
         callback();
       }
     }, index * delay); // Apply calculated delay
+
+    timeoutIds.push(timeoutId); // Store timeout ID
   });
 };
 
 // Function to animate the path
 const animatePath = (path: Node[]) => {
-  const delay = 5 / animationSpeed.value; // Adjusted delay for the path animation, can be a different factor
+  const delay = 5 / (animationSpeed.value * 100); // Adjusted delay for the path animation, can be a different factor
 
   path.forEach((node, index) => {
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       tiles.value = tiles.value.map((tile) => {
         if (tile.x === node.x && tile.y === node.y) {
           return { ...tile, isPath: true, weight: 1 }; // Mark as part of the path
@@ -79,5 +92,7 @@ const animatePath = (path: Node[]) => {
         return tile;
       });
     }, index * delay); // Apply calculated delay
+
+    timeoutIds.push(timeoutId); // Store timeout ID
   });
 };
