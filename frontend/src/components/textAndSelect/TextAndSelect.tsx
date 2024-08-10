@@ -24,7 +24,9 @@ const TextAndSelect = ({ title, text, content }: TextAndSelectProps) => {
       <div className="text-field-and-setbutton-container">
         <div className="dropdown-wrapper">
           <button className="select-menu" onClick={() => setIsOpen(!isOpen)}>
-            <div className="text-wrapper">{selected ? selected : text}</div>
+            <div className="text-wrapper">
+              {selected ? (selected === "-1" ? "∞" : selected) : text}
+            </div>
             <ArrowUpIcon
               className={`vuesax-linear-arrow ${isOpen ? "rotated" : ""}`}
             />
@@ -41,7 +43,7 @@ const TextAndSelect = ({ title, text, content }: TextAndSelectProps) => {
                     tileWeightSignal.value = Number(item);
                   }}
                 >
-                  {item}
+                  {item === "-1" ? "∞" : item}
                 </button>
               ))}
             </div>

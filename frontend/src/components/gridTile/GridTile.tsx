@@ -23,19 +23,25 @@ const GridTile = ({
 
   switch (weight) {
     case -1:
-      backgroundColor = "black";
+      backgroundColor = "#050a06";
+      break;
+    case -2:
+      backgroundColor = "#668843";
       break;
     case 1:
-      backgroundColor = "darkgrey";
+      backgroundColor = "#5c1c1c";
       break;
     case 2:
-      backgroundColor = "grey";
+      backgroundColor = "#4c1c1c";
       break;
     case 3:
-      backgroundColor = "lightgrey";
+      backgroundColor = "#3c1c1c";
       break;
     case 4:
-      backgroundColor = "white";
+      backgroundColor = "#2c1c1c";
+      break;
+    case 5:
+      backgroundColor = "#1c1c1c";
       break;
     default:
       backgroundColor = "white";
