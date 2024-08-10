@@ -8,6 +8,7 @@ import {
 import { PostTraversalProps, PostTraversalResponse } from "../types";
 import { postTraversal } from "./postTraversal";
 import { Node } from "../types";
+import { clearSignal } from "../components/startAndEndPointsButton/StartAndEndPointsButton";
 
 let timeoutIds: number[] = [];
 let nodeOrder: Node[] = [];
@@ -136,6 +137,7 @@ const animatePath = (path: Node[]) => {
  */
 export const resetGrid = () => {
   clearPreviousAnimations();
+  clearSignal.value = !clearSignal.value;
   tiles.value = tiles.value.map((tile) => {
     return {
       ...tile,
