@@ -1,4 +1,4 @@
-import { signal } from "@preact/signals-react";
+import { signal, useSignalEffect } from "@preact/signals-react";
 import MapGrid from "../../components/mapGrid/MapGrid";
 import MapSizeSlider from "../../components/mapSizeSlider/MapSizeSlider";
 import { getGraphTraversalMethods } from "../../services/getGraphTraversalMethods";
@@ -33,13 +33,13 @@ const HomePage = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  useEffect(() => {
+  useSignalEffect(() => {
     console.log("Selected algorithm: ", selectedAlgorithm.value);
     if (selectedAlgorithm.value === "") return;
     postGraphHeuristics(selectedAlgorithm.value)
       .then((res) => setHeuristics(res || []))
       .catch((err) => console.log(err));
-  }, [selectedAlgorithm.value]);
+  });
 
   return (
     <div className="outer-container-homepage">
