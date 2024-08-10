@@ -54,7 +54,7 @@ const placePath = (path: Node[]) => {
     const isPathTile = path.some(
       (pathNode) => pathNode.x === tile.x && pathNode.y === tile.y
     );
-    return isPathTile ? { ...tile, weight: -2 } : tile;
+    return isPathTile ? { ...tile, isPath: true } : tile;
   });
 
   console.log("Placing path: ", path);

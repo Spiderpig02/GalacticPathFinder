@@ -2,6 +2,7 @@ type GridTileProps = {
   width: number;
   height: number;
   weight: number;
+  isPath: boolean;
   onTileEnter: () => void;
   onTileClick: () => void;
   onMouseDown: () => void;
@@ -13,6 +14,7 @@ const GridTile = ({
   width,
   height,
   weight,
+  isPath,
   onTileEnter,
   onTileClick,
   onMouseDown,
@@ -24,9 +26,6 @@ const GridTile = ({
   switch (weight) {
     case -1:
       backgroundColor = "#050a06";
-      break;
-    case -2:
-      backgroundColor = "#668843";
       break;
     case 1:
       backgroundColor = "#5c1c1c";
@@ -47,6 +46,8 @@ const GridTile = ({
       backgroundColor = "white";
       break;
   }
+
+  if (isPath) backgroundColor = "blue";
 
   if (isStartPoint) backgroundColor = "green";
   if (isEndPoint) backgroundColor = "red";

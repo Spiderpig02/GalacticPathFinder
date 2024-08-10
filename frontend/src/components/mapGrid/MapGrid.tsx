@@ -11,8 +11,13 @@ import { tileWeightSignal } from "../textAndSelect/TextAndSelect.tsx";
 // Track the state of each tile
 // Note to self: Signals must be outside components in order to trigget correct re-rendering/component updates
 export const tiles = signal<Node[]>([]);
-export const startPoint = signal<Node>({ x: 0, y: 0, weight: 0 });
-export const endPoint = signal<Node>({ x: 0, y: 10, weight: 0 });
+export const startPoint = signal<Node>({
+  x: 0,
+  y: 0,
+  weight: 0,
+  isPath: false,
+});
+export const endPoint = signal<Node>({ x: 0, y: 10, weight: 0, isPath: false });
 
 const MapGrid = () => {
   const maxNumOfColumns = 80; // Maximum number of columns
@@ -41,7 +46,7 @@ const MapGrid = () => {
       const newTiles: Node[] = [];
       for (let row = 0; row < maxHeight; row++) {
         for (let col = 0; col < maxNumOfColumns; col++) {
-          newTiles.push({ x: col, y: row, weight: 0 });
+          newTiles.push({ x: col, y: row, weight: 0, isPath: false });
         }
       }
       tiles.value = newTiles;
@@ -84,11 +89,11 @@ const MapGrid = () => {
     // Place start or end point
     if (selectionModeSignal.value) {
       if (!startPointTemp) {
-        setStartPoint({ x: col, y: row, weight: 0 });
-        startPoint.value = { x: col, y: row, weight: 0 };
+        setStartPoint({ x: col, y: row, weight: 0, isPath: false });
+        startPoint.value = { x: col, y: row, weight: 0, isPath: false };
       } else if (!endPointTemp) {
-        setEndPoint({ x: col, y: row, weight: 0 });
-        endPoint.value = { x: col, y: row, weight: 0 };
+        setEndPoint({ x: col, y: row, weight: 0, isPath: false });
+        endPoint.value = { x: col, y: row, weight: 0, isPath: false };
         selectionModeSignal.value = false;
       }
     }
@@ -100,6 +105,10 @@ const MapGrid = () => {
           : tile
       );
     }
+  };
+
+  const getIsPath = (row: number, col: number) => {
+    return tiles.value.find((tile) => tile.x === col && tile.y === row)?.isPath;
   };
 
   return (
@@ -119,6 +128,7 @@ const MapGrid = () => {
                 width={tileWidth}
                 height={tileHeight}
                 weight={getTileWeight(row, col)}
+                isPath={getIsPath(row, col)}
                 onTileEnter={() => handleTileEnter(row, col)}
                 onTileClick={() => handleTileClick(row, col)}
                 onMouseDown={() => handleMouseDown(row, col)}
