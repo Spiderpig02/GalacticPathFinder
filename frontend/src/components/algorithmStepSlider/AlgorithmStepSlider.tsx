@@ -4,7 +4,7 @@ import { algorithmStepSliderSignal } from "../../pages/homePage/HomePage";
 import {
   clearPreviousAnimations,
   renderStep,
-} from "../../services/animationService"; // Import the clear function and renderStep
+} from "../../services/animationService";
 
 const AlgorithmStepSlider = () => {
   const [size, setSize] = useState<number>(
@@ -36,19 +36,11 @@ const AlgorithmStepSlider = () => {
   useEffect(() => {
     // Dynamically update the slider's max value based on the signal's max value
     const slider = document.getElementById("myRange") as HTMLInputElement;
-    console.log("Slider = ", slider);
     if (slider) {
       slider.max = algorithmStepSliderSignal.value.max.toString();
       slider.min = algorithmStepSliderSignal.value.min.toString();
     }
   }, [algorithmStepSliderSignal.value.max]);
-
-  useEffect(() => {
-    console.log(
-      "AlgorithmStepSliderSignal = ",
-      algorithmStepSliderSignal.value
-    );
-  }, [algorithmStepSliderSignal.value]);
 
   return (
     <div className="algorithm-step-slider-container">

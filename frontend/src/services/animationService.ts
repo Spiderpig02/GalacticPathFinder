@@ -18,6 +18,7 @@ import { clearSignal } from "../components/startAndEndPointsButton/StartAndEndPo
 
 let timeoutIds: number[] = [];
 let nodeOrder: Node[] = [];
+let path: Node[] = [];
 
 export const handleTraverse = () => {
   console.log("Traversing the grid");
@@ -30,8 +31,8 @@ export const handleTraverse = () => {
 
   const map = tiles.value.filter(
     (tile) =>
-      tile.x <= mapSizeSliderSignal.value &&
-      tile.y <= Math.round(mapSizeSliderSignal.value * aspectRatio)
+      tile.x < mapSizeSliderSignal.value &&
+      tile.y < Math.round(mapSizeSliderSignal.value * aspectRatio)
   );
   const postTraversalProps: PostTraversalProps = {
     algorithm: selectedAlgorithm.value,
@@ -49,7 +50,7 @@ export const handleTraverse = () => {
         if (res.status === "success") {
           try {
             // Parse the path and nodeOrder JSON strings into arrays
-            const parsedPath: Node[] = JSON.parse(res.path);
+            path = JSON.parse(res.path);
             nodeOrder = JSON.parse(res.nodeOrder); // Store nodeOrder for later use
             console.log("NodeOrder = ", nodeOrder);
 
@@ -57,13 +58,13 @@ export const handleTraverse = () => {
             const updatedSignal = { ...algorithmStepSliderSignal.value };
             updatedSignal.currentValue = 0;
             updatedSignal.min = 0;
-            updatedSignal.max = nodeOrder.length - 1;
+            updatedSignal.max = nodeOrder.length + path.length - 1;
             algorithmStepSliderSignal.value = updatedSignal;
 
             // Animate node exploration
             animateNodeOrder(nodeOrder, () => {
               // After node exploration, animate the path
-              animatePath(parsedPath);
+              animatePath(path);
             });
           } catch (err) {
             console.error("Error parsing path or nodeOrder: ", err);
@@ -82,13 +83,37 @@ export const clearPreviousAnimations = () => {
 
 // Function to render a specific step
 export const renderStep = (step: number) => {
+  // Reset all tiles first
+  tiles.value = tiles.value.map((tile) => ({
+    ...tile,
+    isExplored: false,
+    isPath: false,
+    weight: tile.weight >= 1 || tile.weight === -1 ? tile.weight : 0,
+  }));
+
+  // First, render all the explored nodes up to the point of the nodeOrder
   tiles.value = tiles.value.map((tile) => {
-    const node = nodeOrder[step];
-    if (node && tile.x === node.x && tile.y === node.y) {
-      return { ...tile, isPath: false, isExplored: true }; // Mark as explored up to the specified step
+    for (let i = 0; i < Math.min(step, nodeOrder.length); i++) {
+      const node = nodeOrder[i];
+      if (node && tile.x === node.x && tile.y === node.y) {
+        return { ...tile, isExplored: true };
+      }
     }
     return tile;
   });
+
+  // Then, if the step is beyond the nodeOrder length, render the path
+  if (step >= nodeOrder.length) {
+    tiles.value = tiles.value.map((tile) => {
+      for (let i = 0; i < step - nodeOrder.length; i++) {
+        const node = path[i];
+        if (node && tile.x === node.x && tile.y === node.y) {
+          return { ...tile, isPath: true, weight: 0 };
+        }
+      }
+      return tile;
+    });
+  }
 };
 
 // Function to animate the nodeOrder
@@ -110,11 +135,6 @@ const animateNodeOrder = (nodeOrder: Node[], callback: () => void) => {
         const updatedSignal = { ...algorithmStepSliderSignal.value };
         updatedSignal.currentValue += 1;
         algorithmStepSliderSignal.value = updatedSignal;
-
-        console.log(
-          "Current value: ",
-          algorithmStepSliderSignal.value.currentValue
-        );
 
         // If this is the last node, call the callback to start animating the path
         if (index === nodeOrder.length - 1) {
@@ -139,6 +159,11 @@ const animatePath = (path: Node[]) => {
         }
         return tile;
       });
+
+      // Increment the algorithm step slider signal
+      const updatedSignal = { ...algorithmStepSliderSignal.value };
+      updatedSignal.currentValue += 1;
+      algorithmStepSliderSignal.value = updatedSignal;
     }, index * delay); // Apply calculated delay
 
     timeoutIds.push(timeoutId); // Store timeout ID
