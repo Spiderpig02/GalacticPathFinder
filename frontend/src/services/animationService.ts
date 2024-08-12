@@ -30,8 +30,8 @@ export const handleTraverse = () => {
 
   const map = tiles.value.filter(
     (tile) =>
-      tile.x <= Math.round(mapSizeSliderSignal.value) * aspectRatio &&
-      tile.y <= mapSizeSliderSignal.value
+      tile.x <= mapSizeSliderSignal.value &&
+      tile.y <= Math.round(mapSizeSliderSignal.value * aspectRatio)
   );
   const postTraversalProps: PostTraversalProps = {
     algorithm: selectedAlgorithm.value,

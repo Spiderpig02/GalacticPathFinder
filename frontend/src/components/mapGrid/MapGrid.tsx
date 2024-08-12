@@ -22,7 +22,7 @@ export const startPoint = signal<Node>({
   isPath: false,
 });
 export const endPoint = signal<Node>({ x: 0, y: 10, weight: 0, isPath: false });
-export const aspectRatio = (9/16)
+export const aspectRatio = 9 / 16;
 
 const MapGrid = () => {
   const maxNumOfColumns = 80; // Maximum number of columns
@@ -129,7 +129,8 @@ const MapGrid = () => {
   });
 
   const getIsPath = (row: number, col: number): boolean => {
-    return !!tiles.value.find((tile) => tile.x === col && tile.y === row)?.isPath;
+    return !!tiles.value.find((tile) => tile.x === col && tile.y === row)
+      ?.isPath;
   };
 
   const getIsExplored = (row: number, col: number) => {
