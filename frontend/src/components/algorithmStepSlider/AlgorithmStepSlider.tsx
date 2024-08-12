@@ -45,7 +45,7 @@ const AlgorithmStepSlider = () => {
   return (
     <div className="algorithm-step-slider-container">
       <label htmlFor="myRange" className="slider-label">
-        Adjust step
+        Adjust step (Current: {algorithmStepSliderSignal.value.currentValue})
       </label>
       <input
         type="range"
