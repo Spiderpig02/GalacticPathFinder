@@ -1,4 +1,5 @@
 """ This module contains the factory functions for the graph traversal algorithms """
+
 from typing import Callable
 from graphtraversal.algorithms.heuristics import euclidean_distance, manhattan_distance
 from graphtraversal.algorithms.uninformed_search import (
@@ -10,9 +11,9 @@ from graphtraversal.algorithms.pathfinder import Pathfinder
 
 
 graph_traversal_function_map: dict[str, Pathfinder] = {
-    "a star": AStarPathfinder(),
-    "breadth first search": BFSPathfinder(),
-    "depth first search": DFSPathfinder(),
+    "A* (A Star)": AStarPathfinder(),
+    "Breadth First Search (BFS)": BFSPathfinder(),
+    "Depth First Search (DFS)": DFSPathfinder(),
 }
 
 
@@ -20,7 +21,6 @@ def get_pathfinder(graph_method_name: str) -> Pathfinder:
     """
     This function returns the pathfinder for the given graph method name
     """
-    print(f"graph_method_name in factory: {graph_method_name}")
     return graph_traversal_function_map[graph_method_name]
 
 
@@ -28,8 +28,7 @@ def get_graph_traversal_methods() -> list[str]:
     """
     This function returns a list of all available graph traversal methods
     """
-    method_names: list[str] = list(graph_traversal_function_map.keys())
-    return method_names
+    return list(graph_traversal_function_map.keys())
 
 
 def get_heuristics(graph_method_name: str) -> list[str]:
@@ -37,11 +36,11 @@ def get_heuristics(graph_method_name: str) -> list[str]:
     This function returns a list of heuristics that are valid for the given graph method name
     """
     match graph_method_name.lower():
-        case "a star":
-            return ["manhattan", "euclidean"]
-        case "breadth first search":
+        case "a* (a star)":
+            return ["Manhattan", "Euclidean"]
+        case "breadth first search (bfs)":
             return []
-        case "depth first search":
+        case "depth first search (dfs)":
             return []
         case _:
             raise ValueError(f"Invalid graph method name: {graph_method_name}")
