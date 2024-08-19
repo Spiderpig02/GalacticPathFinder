@@ -68,7 +68,7 @@ def post_graph_traversal(request):
             )
 
         # Parse data
-        algorithm: str = (algorithm.lower()).strip()
+        algorithm: str = (algorithm).strip()
 
         start_point: Node = Node(
             Position(int(start_point.get("x", 0)), int(start_point.get("y", 0))),
@@ -128,6 +128,7 @@ def post_graph_traversal(request):
         )
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST, data=serializer.errors)
+
 
 
 @swagger_auto_schema(
