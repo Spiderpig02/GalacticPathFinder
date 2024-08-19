@@ -63,6 +63,7 @@ class RestMap(Map):
     map: list[Node]
     start_pos: Node
     goal_pos: Node
+    SENTINEL_VALUE = -1
 
     def __post_init__(self):
         """
@@ -80,9 +81,16 @@ class RestMap(Map):
         for node in self.map:
             if node.position.x == position.x and node.position.y == position.y:
                 continue
+            if node.weight == self.SENTINEL_VALUE:
+                continue
             if (
                 abs(node.position.x - position.x) <= 1
                 and abs(node.position.y - position.y) <= 1
+                and (
+                    abs(node.position.x - position.x)
+                    + abs(node.position.y - position.y)
+                    == 1
+                )
             ):
                 neighbors.append(node.position)
         return neighbors

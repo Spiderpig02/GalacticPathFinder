@@ -59,7 +59,9 @@ class AStarPathfinder(Pathfinder):
         return a_star(map, start, goal, heuristic)
 
 
-def a_star(map: Map, start: Node, goal: Node, heuristic: Callable) -> list[Position]:
+def a_star(
+    map: Map, start: Node, goal: Node, heuristic: Callable
+) -> tuple[list[Position], list[Node]]:
     """
     A* algorithm implementation
 
@@ -109,11 +111,11 @@ def a_star(map: Map, start: Node, goal: Node, heuristic: Callable) -> list[Posit
 
                 came_from[neighbor] = current
                 cost_to_reach_position[neighbor] = tentative_cost_to_reach
-                estimated_remaining_distance[
-                    neighbor
-                ] = tentative_cost_to_reach + heuristic(neighbor, goal_pos)
+                estimated_remaining_distance[neighbor] = (
+                    tentative_cost_to_reach + heuristic(neighbor, goal_pos)
+                )
 
                 # Add the neighbor to the frontier if it is not explored yet
                 if neighbor not in frontier.get_frontier():
                     frontier.insert(neighbor, tentative_cost_to_reach)
-    return None
+    return [], []

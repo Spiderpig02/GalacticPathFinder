@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import React from "react";
 import DefaultButton from "../defaultButton/DefaultButton";
-import Noise from "noisejs";
 import "./GenerateObstacleButtons.css";
+import { Noise } from "noisejs";
 import { tiles } from "../mapGrid/MapGrid";
 import { mapSizeSliderSignal } from "../../pages/homePage/HomePage";
 
@@ -20,14 +19,16 @@ const GenerateObstacleButtons: React.FC = () => {
     const scale = 0.2; // Adjust the scale to control the frequency of obstacles
 
     // Only modify the tiles that are within the viewable grid (based on the current mapSizeSliderSignal-value)
-    tiles.value = tiles.value.map((tile) => {
-      if (tile.x < height && tile.y < numOfColumns) {
+    const updatedTiles = tiles.value.map((tile) => {
+      if (tile.x < numOfColumns && tile.y < height) {
         const noiseValue = noise.perlin2(tile.x * scale, tile.y * scale);
-        const isObstacle = noiseValue > 0.1 ? 1 : 0; // Adjust threshold as needed
+        const isObstacle = noiseValue > 0.1 ? -1 : 0; // Adjust threshold as needed
         return { ...tile, weight: isObstacle };
       }
       return tile; // Leave tiles outside the viewable area unchanged
     });
+
+    tiles.value = updatedTiles;
 
     console.log("Generated obstacles");
   };
@@ -43,25 +44,25 @@ const GenerateObstacleButtons: React.FC = () => {
     const getNeighbors = (x: number, y: number) => {
       const neighbors = [];
       if (x > 0 && unvisited.has(`${x - 2}-${y}`)) neighbors.push([x - 2, y]);
-      if (x < height - 1 && unvisited.has(`${x + 2}-${y}`))
+      if (x < numOfColumns - 1 && unvisited.has(`${x + 2}-${y}`))
         neighbors.push([x + 2, y]);
       if (y > 0 && unvisited.has(`${x}-${y - 2}`)) neighbors.push([x, y - 2]);
-      if (y < numOfColumns - 1 && unvisited.has(`${x}-${y + 2}`))
+      if (y < height - 1 && unvisited.has(`${x}-${y + 2}`))
         neighbors.push([x, y + 2]);
       return neighbors;
     };
 
     // Start with a random cell
     const stack = [];
-    const startX = Math.floor(Math.random() * Math.floor(height / 2)) * 2;
-    const startY = Math.floor(Math.random() * Math.floor(numOfColumns / 2)) * 2;
+    const startX = Math.floor(Math.random() * Math.floor(numOfColumns / 2)) * 2;
+    const startY = Math.floor(Math.random() * Math.floor(height / 2)) * 2;
     stack.push([startX, startY]);
     unvisited.delete(`${startX}-${startY}`);
 
     // Accumulate changes to apply them after the loop
     const updatedTiles = tiles.value.map((tile) => {
       // Initially set all tiles as obstacles (walls)
-      return { ...tile, weight: 1 };
+      return { ...tile, weight: -1 };
     });
 
     // Maze generation using backtracking

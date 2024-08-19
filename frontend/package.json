@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "test": "vitest",
     "test:watch": "vitest watch",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "cypress run"
   },
   "dependencies": {
     "@fremtind/jkl-icon-button-react": "^4.0.33",
@@ -19,6 +20,7 @@
     "@fremtind/jkl-tooltip-react": "^4.2.21",
     "@preact/signals-react": "^1.3.6",
     "axios": "^1.6.3",
+    "galacticpathfinder": "file:",
     "noisejs": "^2.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -31,6 +33,7 @@
     "@typescript-eslint/parser": "^6.17.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "autoprefixer": "^10.4.16",
+    "cypress": "^13.13.2",
     "eslint": "^8.55.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",

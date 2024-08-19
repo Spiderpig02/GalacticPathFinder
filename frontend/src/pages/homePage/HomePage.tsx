@@ -1,25 +1,32 @@
-import { signal } from "@preact/signals-react";
+import { signal, useSignalEffect } from "@preact/signals-react";
 import MapGrid from "../../components/mapGrid/MapGrid";
 import MapSizeSlider from "../../components/mapSizeSlider/MapSizeSlider";
 import { getGraphTraversalMethods } from "../../services/getGraphTraversalMethods";
 import { postGraphHeuristics } from "../../services/postGraphHeuristicMethods";
 import { useEffect, useState } from "react";
 import MapHandler from "../../components/mapFileHandler/MapFileHandler";
-import AlgorithmsMenu, {
-  selectedAlgorithm,
-} from "../../components/algorithmsMenu/AlgorithmsMenu";
 import HeuristicsMenu from "../../components/heuristicsMenu/HeuristicsMenu";
-import TextFieldAndButton from "../../components/textFieldAndButton/TextFieldAndButton";
+import TextAndSelect from "../../components/textAndSelect/TextAndSelect";
 import StartAndEndPointsButton from "../../components/startAndEndPointsButton/StartAndEndPointsButton";
 import "./HomePage.css";
 import StartButton from "../../components/startButton/StartButton";
 import AlgorithmStepSlider from "../../components/algorithmStepSlider/AlgorithmStepSlider";
 import GenerateObstacleButtons from "../../components/generateObstacleButtons/GenerateObstacleButtons";
+import AlgorithmsMenu from "../../components/algorithmsMenu/AlgorithmsMenu";
+import AnimationSpeedSlider from "../../components/animationStepSlider/AnimationSpeedSlider";
+import ClearGridButton from "../../components/clearGridButton/ClearGridButton";
 
 export const mapSizeSliderSignal = signal<number>(50);
-export const algorithmStepSliderSignal = signal<number>(0);
-// export const algorithms = signal<string>("");
-// export const heuristics = signal<string>("");
+export const animationSpeed = signal<number>(1);
+// export const algorithmStepSliderSignal = signal<number>(0);
+export const selectedAlgorithm = signal<string>("");
+export const selectedHeuristic = signal<string>("");
+
+export const algorithmStepSliderSignal = signal({
+  currentValue: 0,
+  min: 0,
+  max: 0,
+});
 
 const HomePage = () => {
   //TODO: Make a global colors.css-file and import this in the CSS instead
@@ -33,13 +40,13 @@ const HomePage = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  useEffect(() => {
+  useSignalEffect(() => {
     console.log("Selected algorithm: ", selectedAlgorithm.value);
     if (selectedAlgorithm.value === "") return;
     postGraphHeuristics(selectedAlgorithm.value)
       .then((res) => setHeuristics(res || []))
       .catch((err) => console.log(err));
-  }, [selectedAlgorithm.value]);
+  });
 
   return (
     <div className="outer-container-homepage">
@@ -56,20 +63,21 @@ const HomePage = () => {
         <div className="map-size-slider-container-homepage">
           <MapSizeSlider />
         </div>
-        {/* <div className="generate-obstacles-buttons-container">
-          <DefaultButton
-            text={"Generate obstacles"}
-            onClick={handleGenerateObstacles}
-          />
-          <DefaultButton text={"Generate maze"} onClick={handleGenerateMaze} />
-        </div> */}
         <GenerateObstacleButtons />
         <div className="text-fields-container-homepage">
-          <TextFieldAndButton text={"Place obstacles"} />
-          <TextFieldAndButton text={"Select animation speed"} />
+          <TextAndSelect
+            title={"Place obstacles with weight"}
+            text={"Choose weight"}
+            content={["-1", "0", "1", "2", "3", "4", "5"]}
+          />
+          <AnimationSpeedSlider />
         </div>
         <StartAndEndPointsButton />
-        <StartButton />
+        <div className="flex">
+          <StartButton />
+          <ClearGridButton />
+        </div>
+        
       </div>
     </div>
   );

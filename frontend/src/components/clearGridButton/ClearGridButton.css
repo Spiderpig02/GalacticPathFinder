@@ -1,10 +1,10 @@
-.start-button-container {
+.clear-button-container {
   display: flex;
   justify-content: center;
   margin-top: 20px;
 }
 
-.start-button {
+.clear-button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,7 +17,7 @@
   background-color: var(--ss-blue-grotto);
 }
 
-.start-button:hover {
+.clear-button:hover {
   background-color: var(--ss-blue-grotto-hover);
 }
 

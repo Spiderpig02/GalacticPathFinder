@@ -2,6 +2,8 @@ export interface Node {
   x: number;
   y: number;
   weight: number;
+  isPath: boolean;
+  isExplored?: boolean;
 }
 
 export interface PostTraversalProps {
@@ -13,7 +15,7 @@ export interface PostTraversalProps {
 }
 
 export interface PostTraversalResponse {
-  message: string;
+  status: string;
   path: Node[];
   nodeOrder: Node[];
 }

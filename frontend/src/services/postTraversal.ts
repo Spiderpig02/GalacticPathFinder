@@ -24,13 +24,11 @@ export const postTraversal = async ({
     );
 
     if (response.status === 200) {
-      const responseData: PostTraversalResponse = response.data;
+      const responseData = response.data;
       return responseData;
     } else if (response.status === 400) {
-      console.error("Error in postTraversal frontend:", response.data.message);
       return null;
     } else if (response.status === 500) {
-      console.error("Error in postTraversal backend:", response.data.message);
       return null;
     }
 

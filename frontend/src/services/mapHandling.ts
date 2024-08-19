@@ -1,4 +1,5 @@
 import { tiles } from "../components/mapGrid/MapGrid.tsx";
+import { Node } from "../types.ts";
 /**
  * Uploads a csv of the map to the storage
  * @param map The map to upload
@@ -21,11 +22,12 @@ function parseCSV(csvText: string): Node[] {
   const lines = csvText.split("\n");
   const nodes = [];
   for (const line of lines) {
-    const [x, y, weight] = line.split(",");
+    const [x, y, weight, isPath] = line.split(",");
     nodes.push({
       x: parseFloat(x),
       y: parseFloat(y),
       weight: parseFloat(weight),
+      isPath: isPath === "true" ? true : false,
     });
   }
   return nodes;
@@ -58,14 +60,7 @@ export const downloadMap = () => {
 function parseNodes(map: Node[]): string {
   let csvText = "";
   for (const node of map) {
-    csvText += `${node.x},${node.y},${node.weight}\n`;
+    csvText += `${node.x},${node.y},${node.weight},${node.isPath}\n`;
   }
   return csvText;
-}
-
-// Types
-export interface Node {
-  x: number;
-  y: number;
-  weight: number;
 }

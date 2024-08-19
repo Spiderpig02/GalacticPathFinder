@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { ArrowUpIcon } from "../../assets/icons/ArrowUpIcon";
 import "./AlgorithmsMenu.css";
-import { signal } from "@preact/signals-react";
-
+import { selectedAlgorithm } from "../../pages/homePage/HomePage";
 interface DropDownMenuProps {
   content?: string[];
 }
 
-export const selectedAlgorithm = signal<string>("");
 
 const AlgorithmsMenu: React.FC<DropDownMenuProps> = ({ content }) => {
   const [isOpen, setIsOpen] = useState(false);

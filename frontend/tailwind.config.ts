@@ -14,6 +14,7 @@ export default {
         "ss-blue-grotto": "#189ab4",
         black: "#000000",
         "ml-dark-blue": "#0c2d48",
+        "ss-blue-grotto-hover": "#0f7e9b",
       },
     },
   },

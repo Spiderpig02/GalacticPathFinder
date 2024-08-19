@@ -1,10 +1,17 @@
 import React from "react";
 import "./StartButton.css";
+import { handleTraverse } from "../../services/animationService";
+import { handleClearEarlierTraversals } from "../../services/draw";
 
 const StartButton: React.FC = () => {
+  const startAnimation = () => {
+    handleClearEarlierTraversals();
+    handleTraverse();
+  };
+
   return (
     <div className="start-button-container">
-      <button className="start-button">
+      <button className="start-button" onClick={startAnimation}>
         <svg
           width="64"
           height="64"
