@@ -20,7 +20,7 @@ const developers = [
 
 const AboutUs: React.FC = () => {
   return (
-    <div className="flex flex-col items-center p-8">
+    <div className="flex flex-col items-center p-8 bg-ss-navy-blue text-white">
       <h1 className="text-3xl font-bold mb-8">About Us</h1>
       <div className="flex justify-center space-x-12">
         {developers.map((developer, index) => (
