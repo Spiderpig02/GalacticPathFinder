@@ -28,6 +28,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     "134.209.177.49",
+    "134.209.177.49:8000",
     "galacticpathfinder",
     "backend.galacticpathfinder.com",
     "localhost",
