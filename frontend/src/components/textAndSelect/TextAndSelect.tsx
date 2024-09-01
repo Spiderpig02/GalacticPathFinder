@@ -1,5 +1,4 @@
 import "./TextAndSelect.css";
-import SmallButton from "../../smallButton/SmallButton";
 import { useState } from "react";
 import { ArrowUpIcon } from "../../assets/icons/ArrowUpIcon";
 import { signal } from "@preact/signals-react";

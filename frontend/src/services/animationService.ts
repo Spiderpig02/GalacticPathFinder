@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import {
   endPoint,
   startPoint,
@@ -51,7 +52,7 @@ export const handleTraverse = () => {
           try {
             // Parse the path and nodeOrder JSON strings into arrays
             path = JSON.parse(res.path);
-            nodeOrder = JSON.parse(res.nodeOrder); // Store nodeOrder for later use
+            nodeOrder = JSON.parse(res.nodeOrder);
             console.log("NodeOrder = ", nodeOrder);
 
             // Create a copy of the signal and update min, max, and currentValue
@@ -121,7 +122,7 @@ const animateNodeOrder = (nodeOrder: Node[], callback: () => void) => {
   const delay = 10 / (animationSpeed.value * 100); // Calculate delay based on steps per second
 
   nodeOrder.forEach((node, index) => {
-    const timeoutId = setTimeout(() => {
+    const timeoutId = window.setTimeout(() => {
       // Check if the current index matches the slider value
       if (index === algorithmStepSliderSignal.value.currentValue) {
         tiles.value = tiles.value.map((tile) => {
@@ -152,7 +153,7 @@ const animatePath = (path: Node[]) => {
   const delay = 5 / (animationSpeed.value * 100); // Adjusted delay for the path animation, can be a different factor
 
   path.forEach((node, index) => {
-    const timeoutId = setTimeout(() => {
+    const timeoutId = window.setTimeout(() => {
       tiles.value = tiles.value.map((tile) => {
         if (tile.x === node.x && tile.y === node.y) {
           return { ...tile, isPath: true, weight: 1 }; // Mark as part of the path
