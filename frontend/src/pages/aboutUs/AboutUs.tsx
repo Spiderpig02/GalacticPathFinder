@@ -1,5 +1,6 @@
 import React from 'react';
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { FaArrowAltCircleUp, FaGithub, FaLinkedin } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const developers = [
   {
@@ -30,7 +31,10 @@ const developers = [
 
 const AboutUs: React.FC = () => {
   return (
-    <div className="flex flex-col items-center p-8 min-h-screen bg-gradient-to-r from-ss-navy-blue via-purple-900 to-ss-navy-blue text-white">
+    <div className="flex flex-col items-center p-8 min-h-screen bg-gradient-to-r from-ss-navy-blue via-purple-900 to-ss-navy-blue text-white ">
+      <Link to="/" className="mb-4">
+        <FaArrowAltCircleUp size={30} className="transition-transform duration-300 transform hover:scale-125"/>
+      </Link>
       <h1 className="text-5xl font-extrabold mb-4">About Us</h1>
       <p className="text-xl text-gray-200 mb-12 text-center max-w-2xl">
         We are a team of dedicated computer science students specializing in AI and system development, pursuing our master's degrees at the Norwegian University of Science and Technology (NTNU). Our mission is to make complex algorithms accessible and easy to understand through interaction and visualization.
