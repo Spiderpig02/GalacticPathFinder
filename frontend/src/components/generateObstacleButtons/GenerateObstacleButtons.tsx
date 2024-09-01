@@ -1,6 +1,7 @@
 import React from "react";
 import DefaultButton from "../defaultButton/DefaultButton";
 import "./GenerateObstacleButtons.css";
+// @ts-ignore
 import { Noise } from "noisejs";
 import { tiles } from "../mapGrid/MapGrid";
 import { mapSizeSliderSignal } from "../../pages/homePage/HomePage";
@@ -11,8 +12,8 @@ type NoiseType = {
 
 const GenerateObstacleButtons: React.FC = () => {
   const handleGenerateObstacles = () => {
-    const noise = new Noise(Math.random()) as NoiseType;
-
+    // @ts-ignore
+    const noise = new Noise(Math.random()) as unknown as NoiseType;
     const numOfColumns = mapSizeSliderSignal.value; // Get the current number of columns from the slider
     const height = Math.round(numOfColumns * (9 / 16)); // Set aspect ratio of grid to 16:9
 
