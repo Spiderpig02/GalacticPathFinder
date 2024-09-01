@@ -12,7 +12,7 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  border: none;
+  border: solid 1px black; 
   cursor: pointer;
   background-color: var(--ss-blue-grotto);
 }

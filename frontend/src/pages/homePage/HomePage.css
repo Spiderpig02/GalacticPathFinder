@@ -36,13 +36,30 @@
     margin-top: 16px;
 }
 
-/* .generate-obstacles-buttons-container {
-    display: flex;
-    flex-direction: column;
-    margin-top: 24px;
-    gap: 16px;
-} */
-
 .text-fields-container-homepage {
     width: 268px;
+}
+
+
+.about-us-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.about-us-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 10px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: solid 1px black;
+  cursor: pointer;
+  background-color: var(--ss-blue-grotto);
+}
+
+.about-us-button:hover {
+  background-color: var(--ss-blue-grotto-hover);
 }

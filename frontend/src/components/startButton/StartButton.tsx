@@ -20,7 +20,6 @@ const StartButton: React.FC = () => {
           xmlns="http://www.w3.org/2000/svg"
           className="play-icon"
         >
-          <circle cx="32" cy="32" r="31" stroke="black" strokeWidth="1.5" />
           <path d="M26 20L46 32L26 44V20Z" fill="currentColor" />
         </svg>
       </button>
