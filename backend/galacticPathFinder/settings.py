@@ -24,9 +24,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-gnsh@sfm6^!@7z(1t)gz3=4!!fvbzj(a6%btrgbrnc&zfo(w2("
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "134.209.177.49",
+    "galacticpathfinder",
+    "backend.galacticpathfinder.com",
+    "localhost",
+]
 
 
 # Application definition
@@ -41,7 +46,7 @@ INSTALLED_APPS = [
     # External
     "rest_framework",
     "rest_framework_swagger",
-    'drf_yasg',
+    "drf_yasg",
     "corsheaders",
     # Internal
     "graphtraversal",
