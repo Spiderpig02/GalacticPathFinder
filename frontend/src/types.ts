@@ -16,6 +16,6 @@ export interface PostTraversalProps {
 
 export interface PostTraversalResponse {
   status: string;
-  path: Node[];
-  nodeOrder: Node[];
+  path: string;
+  nodeOrder: string;
 }
