@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 
 const developers = [
   {
@@ -6,18 +7,24 @@ const developers = [
     specialization: 'Artificial Intelligence',
     image: 'https://github.com/Spiderpig02.png?size=100',
     description: 'Daniel specializes in AI, bringing advanced machine learning models to life.',
+    github: 'https://github.com/Spiderpig02',
+    linkedin: 'https://www.linkedin.com/in/daniel-neukirch-hansen-475895263/',
   },
   {
     name: 'Jens Martin Norheim Berget',
     specialization: 'Program and System Development',
     image: 'https://github.com/Jensern1.png?size=100',
     description: 'Jens focuses on ProgSys, ensuring our systems are robust and scalable.',
+    github: 'https://github.com/Jensern1',
+    linkedin: 'https://www.linkedin.com/in/jens-martin-norheim-berget-87560b141/',
   },
   {
     name: 'Sverre Nystad',
     specialization: 'AI & Program and System Development',
     image: 'https://github.com/SverreNystad.png?size=100',
     description: 'Sverre bridges AI and ProgSys, integrating cutting-edge AI into reliable systems.',
+    github: 'https://github.com/SverreNystad',
+    linkedin: 'https://www.linkedin.com/in/sverre-nystad/',
   },
 ];
 
@@ -29,7 +36,7 @@ const AboutUs: React.FC = () => {
         We are a team of dedicated computer science students specializing in AI and system development, pursuing our master's degrees at the Norwegian University of Science and Technology (NTNU). Our mission is to make complex algorithms accessible and easy to understand through interaction and visualization.
       </p>
       
-     <div className="flex flex-wrap justify-center space-x-8">
+      <div className="flex flex-wrap justify-center space-x-8">
         {developers.map((developer, index) => (
           <div 
             key={index} 
@@ -46,6 +53,14 @@ const AboutUs: React.FC = () => {
               <h3 className="text-2xl font-semibold text-gray-900 group-hover:text-white">{developer.name}</h3>
               <p className="text-gray-700 mt-2 group-hover:text-white">{developer.specialization}</p>
               <p className="text-gray-800 mt-4 text-sm group-hover:text-white">{developer.description}</p>
+              <div className="flex justify-center mt-4 space-x-4">
+                <a href={developer.github} target="_blank" rel="noopener noreferrer">
+                  <FaGithub className="text-gray-800 group-hover:text-white text-2xl" />
+                </a>
+                <a href={developer.linkedin} target="_blank" rel="noopener noreferrer">
+                  <FaLinkedin className="text-gray-800 group-hover:text-white text-2xl" />
+                </a>
+              </div>
             </div>
           </div>
         ))}
