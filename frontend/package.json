@@ -23,7 +23,8 @@
     "galacticpathfinder": "file:",
     "noisejs": "^2.1.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.26.1"
   },
   "devDependencies": {
     "@types/noisejs": "^0.0.31",
