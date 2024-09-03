@@ -1,0 +1,41 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0.7rem;
+  z-index: 1000;
+
+  /* background-color: red; */
+}
+
+.navbar-logo {
+  font-size: 1.5rem;
+  color: white;
+  margin-left: 1rem;
+  font-weight: 600;
+  /* background-color: blue; */
+  height: 100%;
+  cursor: pointer;
+}
+
+.navbar-links {
+  position: absolute; 
+  left: 50%;
+  transform: translateX(-50%); 
+  color: white;
+}
+
+.navbar-links a {
+  margin: 0 1rem;
+  text-decoration: none;
+  color: inherit;
+  font-size: 1.2rem;
+  /* background-color: green; */
+}
+
+.navbar-links a:hover {
+  text-decoration: underline;
+}
