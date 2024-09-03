@@ -1,0 +1,17 @@
+.tutorial-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px;
+    min-height: 100vh;
+    background: linear-gradient(to right, var(--ss-navy-blue), rgb(90, 0, 90), var(--ss-navy-blue));
+    color: white;
+    padding-top: 80px;
+}
+
+.tutorial-page-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    line-height: 1;
+}
