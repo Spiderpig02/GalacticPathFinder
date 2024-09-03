@@ -4,7 +4,7 @@
     align-items: center;
     padding: 8px;
     min-height: 100vh;
-    background: linear-gradient(to right, var(--ss-navy-blue), purple, var(--ss-navy-blue));
+    background: linear-gradient(to right, var(--ss-navy-blue), rgb(90, 0, 90), var(--ss-navy-blue));
     color: white;
     padding-top: 80px;
 }

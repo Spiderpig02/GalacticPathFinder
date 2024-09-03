@@ -1,6 +1,5 @@
 import React from "react";
-import { FaArrowAltCircleUp, FaGithub, FaLinkedin } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 const developers = [
   {

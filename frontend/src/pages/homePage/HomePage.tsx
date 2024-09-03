@@ -16,7 +16,7 @@ import AlgorithmsMenu from "../../components/algorithmsMenu/AlgorithmsMenu";
 import AnimationSpeedSlider from "../../components/animationStepSlider/AnimationSpeedSlider";
 import ClearGridButton from "../../components/clearGridButton/ClearGridButton";
 import { Link } from "react-router-dom";
-import { FaUsers } from 'react-icons/fa';
+import { FaUsers } from "react-icons/fa";
 
 export const mapSizeSliderSignal = signal<number>(50);
 export const animationSpeed = signal<number>(1);
@@ -78,13 +78,7 @@ const HomePage = () => {
         <div className="flex">
           <StartButton />
           <ClearGridButton />
-          <Link to="/about-us" className="about-us-button-container">
-              <div className="about-us-button">
-                <FaUsers size={40}/>
-              </div>
-          </Link>
         </div>
-        
       </div>
     </div>
   );
