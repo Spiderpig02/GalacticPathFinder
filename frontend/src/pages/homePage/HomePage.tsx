@@ -15,8 +15,6 @@ import GenerateObstacleButtons from "../../components/generateObstacleButtons/Ge
 import AlgorithmsMenu from "../../components/algorithmsMenu/AlgorithmsMenu";
 import AnimationSpeedSlider from "../../components/animationStepSlider/AnimationSpeedSlider";
 import ClearGridButton from "../../components/clearGridButton/ClearGridButton";
-import { Link } from "react-router-dom";
-import { FaUsers } from "react-icons/fa";
 
 export const mapSizeSliderSignal = signal<number>(50);
 export const animationSpeed = signal<number>(1);
