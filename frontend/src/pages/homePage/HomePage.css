@@ -5,8 +5,17 @@
     height: 100vh;
     background-color: var(--ss-navy-blue);
     padding-left: 50px;
-    padding-top: 80px;
+    padding-top: 60px;
     padding-bottom: 50px;
+    overflow: hidden;
+}
+
+@media (max-width: 1000px) {
+    .outer-container-homepage {
+        flex-direction: column;
+        overflow: auto;
+        align-items: center;
+    }
 }
 
 .grid-container-homepage {
