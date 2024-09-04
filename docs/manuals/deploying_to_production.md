@@ -95,6 +95,6 @@ git pull
 
 **6. Restart the docker container (IMPORTANT: in detached mode (-d) so it keeps running even when you close the terminal)**
 
-```bash // TODO: Docker stop is NOT CORRECT!
-docker stop; docker compose up --build -d
+```bash
+docker compose down; docker compose up --build -d
 ```
