@@ -14,7 +14,9 @@ const HeuristicsMenu: React.FC<DropDownMenuProps> = ({ content }) => {
     <div className="dropdown-wrapper">
       <button className="select-menu" onClick={() => setIsOpen(!isOpen)}>
         <div className="text-wrapper">
-          {selectedHeuristic.value ? selectedHeuristic.value : "Choose heuristic"}
+          {selectedHeuristic.value
+            ? selectedHeuristic.value
+            : "Choose heuristic"}
         </div>
         <ArrowUpIcon
           className={`vuesax-linear-arrow ${isOpen ? "rotated" : ""}`}
@@ -34,6 +36,9 @@ const HeuristicsMenu: React.FC<DropDownMenuProps> = ({ content }) => {
               {item}
             </button>
           ))}
+          {!content?.length && (
+            <span>No heuristic available for the selected algorithm</span>
+          )}
         </div>
       )}
     </div>
