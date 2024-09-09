@@ -11,6 +11,7 @@ import {
   animationSpeed,
   algorithmStepSliderSignal,
   mapSizeSliderSignal,
+  showToastSignal,
 } from "../pages/homePage/HomePage";
 import { PostTraversalProps, PostTraversalResponse } from "../types";
 import { postTraversal } from "./postTraversal";
@@ -70,6 +71,8 @@ export const handleTraverse = () => {
           } catch (err) {
             console.error("Error parsing path or nodeOrder: ", err);
           }
+        } else {
+          showToastSignal.value = true;
         }
       }
     })

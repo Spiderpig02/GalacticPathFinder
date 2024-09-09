@@ -49,7 +49,6 @@
     width: 268px;
 }
 
-
 .about-us-button-container {
     display: flex;
     justify-content: center;
@@ -71,4 +70,46 @@
 
 .about-us-button:hover {
   background-color: var(--ss-blue-grotto-hover);
+}
+
+.toast-container-homepage {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    z-index: 1000;
+    border-radius: 50px;
+    animation: bounceIn 0.5s, slideOut 0.5s 2.5s forwards;
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: translateY(100%);
+    }
+    60% {
+        transform: translateY(-10%);
+    }
+    80% {
+        transform: translateY(5%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideOut {
+    0% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10%);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+body.no-scroll {
+    overflow: hidden;
 }
