@@ -69,7 +69,7 @@ vi ~/.ssh/authorized_keys
 cat ~/.ssh/authorized_keys
 ```
 
-# Connecting to the server
+# Connecting to the server and updating the code in the VM
 
 In a git bash terminal, run the following commands:
 
