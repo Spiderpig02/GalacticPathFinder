@@ -163,7 +163,7 @@ const animatePath = (path: Node[]) => {
     const timeoutId = window.setTimeout(() => {
       tiles.value = tiles.value.map((tile) => {
         if (tile.x === node.x && tile.y === node.y) {
-          return { ...tile, isPath: true, weight: 1 }; // Mark as part of the path
+          return { ...tile, isPath: true, weight: 0 }; // Mark as part of the path
         }
         return tile;
       });

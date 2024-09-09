@@ -2,11 +2,25 @@ import React, { useState } from "react";
 import "./StartButton.css";
 import { handleTraverse } from "../../services/animationService";
 import { handleClearEarlierTraversals } from "../../services/draw";
+import {
+  selectedAlgorithm,
+  errorMessageSignal,
+} from "../../pages/homePage/HomePage";
+import { endPoint, startPoint } from "../mapGrid/MapGrid";
 
 const StartButton: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const startAnimation = () => {
+    if (!selectedAlgorithm.value) {
+      errorMessageSignal.value = "Please select an algorithm";
+      return;
+    }
+    if (!startPoint.value || !endPoint.value) {
+      errorMessageSignal.value = "Please set both start and end points";
+      return;
+    }
+
     setIsLoading(true);
     handleClearEarlierTraversals();
     handleTraverse(() => {

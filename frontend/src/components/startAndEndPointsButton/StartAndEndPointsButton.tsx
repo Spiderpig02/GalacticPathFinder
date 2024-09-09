@@ -1,6 +1,7 @@
 import { signal } from "@preact/signals-react";
 import DefaultButton from "../defaultButton/DefaultButton";
 import "./StartAndEndPointsButton.css";
+import { tiles } from "../mapGrid/MapGrid";
 
 export const selectionModeSignal = signal<boolean>(false);
 export const startEndSignal = signal<number>(0);
@@ -8,6 +9,13 @@ export const clearSignal = signal<boolean>(false);
 
 const StartAndEndPointsButton = () => {
   const toggleSelectionMode = () => {
+    // Clear old explored nodes and path
+    tiles.value = tiles.value.map((tile) => ({
+      ...tile,
+      isExplored: false,
+      isPath: false,
+    }));
+
     startEndSignal.value = 1;
     clearSignal.value = !clearSignal.value;
     selectionModeSignal.value = !selectionModeSignal.value;
