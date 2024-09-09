@@ -22,7 +22,7 @@ let timeoutIds: number[] = [];
 let nodeOrder: Node[] = [];
 let path: Node[] = [];
 
-export const handleTraverse = () => {
+export const handleTraverse = (onAnimationStart: () => void) => {
   console.log("Traversing the grid");
   console.log("Steps per second: ", animationSpeed.value);
 
@@ -63,6 +63,9 @@ export const handleTraverse = () => {
             updatedSignal.max = nodeOrder.length + path.length - 1;
             algorithmStepSliderSignal.value = updatedSignal;
 
+            // Call the callback to indicate the animation is starting
+            onAnimationStart();
+
             // Animate node exploration
             animateNodeOrder(nodeOrder, () => {
               // After node exploration, animate the path
@@ -73,6 +76,7 @@ export const handleTraverse = () => {
           }
         } else {
           showToastSignal.value = true;
+          onAnimationStart();
         }
       }
     })
@@ -159,7 +163,7 @@ const animatePath = (path: Node[]) => {
     const timeoutId = window.setTimeout(() => {
       tiles.value = tiles.value.map((tile) => {
         if (tile.x === node.x && tile.y === node.y) {
-          return { ...tile, isPath: true, weight: 1 }; // Mark as part of the path
+          return { ...tile, isPath: true, weight: 0 }; // Mark as part of the path
         }
         return tile;
       });

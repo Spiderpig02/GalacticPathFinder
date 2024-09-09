@@ -38,6 +38,7 @@ export const algorithmStepSliderSignal = signal({
 });
 
 export const showToastSignal = signal<boolean>(false);
+export const errorMessageSignal = signal<string>("");
 
 // SIGNALS =================================================================================
 
@@ -74,6 +75,20 @@ const HomePage = () => {
       };
     }
   }, [showToastSignal.value]);
+
+  useEffect(() => {
+    if (errorMessageSignal.value) {
+      document.body.classList.add("no-scroll");
+      const timer = setTimeout(() => {
+        errorMessageSignal.value = "";
+        document.body.classList.remove("no-scroll");
+      }, 3000);
+      return () => {
+        clearTimeout(timer);
+        document.body.classList.remove("no-scroll");
+      };
+    }
+  }, [errorMessageSignal.value]);
 
   return (
     <div className="outer-container-homepage">
@@ -115,6 +130,15 @@ const HomePage = () => {
               Make sure that there is a possible path from the start node to the
               end node.
             </AlertDescription>
+          </Alert>
+        </div>
+      )}
+
+      {errorMessageSignal.value && (
+        <div className="toast-container-homepage">
+          <Alert status="error">
+            <AlertIcon />
+            <AlertTitle>{errorMessageSignal.value}</AlertTitle>
           </Alert>
         </div>
       )}

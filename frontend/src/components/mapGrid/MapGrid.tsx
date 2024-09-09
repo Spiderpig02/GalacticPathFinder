@@ -15,13 +15,8 @@ import { tileWeightSignal } from "../textAndSelect/TextAndSelect.tsx";
 // Track the state of each tile
 // Note to self: Signals must be outside components in order to trigget correct re-rendering/component updates
 export const tiles = signal<Node[]>([]);
-export const startPoint = signal<Node>({
-  x: 0,
-  y: 0,
-  weight: 0,
-  isPath: false,
-});
-export const endPoint = signal<Node>({ x: 0, y: 10, weight: 0, isPath: false });
+export const startPoint = signal<Node | null>(null);
+export const endPoint = signal<Node | null>(null);
 export const aspectRatio = 9 / 16;
 
 const MapGrid = () => {
@@ -124,8 +119,8 @@ const MapGrid = () => {
     clearSignal.value;
     setEndPoint(null);
     setStartPoint(null);
-    startPoint.value = { x: 0, y: 0, weight: 0, isPath: false };
-    endPoint.value = { x: 0, y: 10, weight: 0, isPath: false };
+    startPoint.value = null;
+    endPoint.value = null;
   });
 
   const getIsPath = (row: number, col: number): boolean => {
