@@ -44,7 +44,7 @@ const AboutUs: React.FC = () => {
         and visualization.
       </p>
 
-      <div className="flex flex-wrap justify-center space-x-8">
+      <div className="flex flex-wrap justify-center lg:space-x-8">
         {developers.map((developer, index) => (
           <div
             key={index}
