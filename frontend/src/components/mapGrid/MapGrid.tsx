@@ -134,8 +134,9 @@ const MapGrid = () => {
   };
 
   // Handle scroll to adjust grid size
-  const handleScroll = (event: WheelEvent) => {
-    if (event.deltaY < 0) {
+  const handleScroll = (event: Event) => {
+    const wheelEvent = event as WheelEvent;
+    if (wheelEvent.deltaY < 0) {
       // Scrolling up - zooming in
       mapSizeSliderSignal.value = Math.max(20, mapSizeSliderSignal.value - 2);
     } else {

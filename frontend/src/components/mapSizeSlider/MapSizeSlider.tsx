@@ -17,9 +17,9 @@ const MapSizeSlider = () => {
       </label>
       <input
         type="range"
-        min="20"
-        max="70"
-        value={size.value}
+        min={20}
+        max={70}
+        value={size.value.toString()}
         className="slider"
         id="myRange"
         onChange={handleSliderChange}
