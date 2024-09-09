@@ -60,7 +60,10 @@ export const downloadMap = () => {
 function parseNodes(map: Node[]): string {
   let csvText = "";
   for (const node of map) {
-    csvText += `${node.x},${node.y},${node.weight},${node.isPath}\n`;
+    // Exclude nodes with isPath = true
+    if (!node.isPath) {
+      csvText += `${node.x},${node.y},${node.weight},${node.isPath}\n`;
+    }
   }
   return csvText;
 }
