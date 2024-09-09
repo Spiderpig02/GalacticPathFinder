@@ -133,6 +133,29 @@ const MapGrid = () => {
       ?.isExplored;
   };
 
+  // Handle scroll to adjust grid size
+  const handleScroll = (event: WheelEvent) => {
+    if (event.deltaY < 0) {
+      // Scrolling up - zooming in
+      mapSizeSliderSignal.value = Math.max(20, mapSizeSliderSignal.value - 2);
+    } else {
+      // Scrolling down - zooming out
+      mapSizeSliderSignal.value = Math.min(70, mapSizeSliderSignal.value + 2);
+    }
+  };
+
+  useEffect(() => {
+    const gridContainer = document.querySelector(".grid-container");
+    if (gridContainer) {
+      gridContainer.addEventListener("wheel", handleScroll);
+    }
+    return () => {
+      if (gridContainer) {
+        gridContainer.removeEventListener("wheel", handleScroll);
+      }
+    };
+  }, []);
+
   return (
     <div
       className="grid-container"
