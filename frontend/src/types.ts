@@ -9,8 +9,8 @@ export interface Node {
 export interface PostTraversalProps {
   algorithm: string;
   heuristic: string;
-  startPoint: Node;
-  endPoint: Node;
+  startPoint: Node | null;
+  endPoint: Node | null;
   map: Node[];
 }
 
