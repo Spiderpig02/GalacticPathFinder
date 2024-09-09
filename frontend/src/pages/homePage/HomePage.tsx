@@ -16,6 +16,15 @@ import AlgorithmsMenu from "../../components/algorithmsMenu/AlgorithmsMenu";
 import AnimationSpeedSlider from "../../components/animationStepSlider/AnimationSpeedSlider";
 import ClearGridButton from "../../components/clearGridButton/ClearGridButton";
 
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from "@chakra-ui/react";
+
+// SIGNALS =================================================================================
+
 export const mapSizeSliderSignal = signal<number>(50);
 export const animationSpeed = signal<number>(1);
 // export const algorithmStepSliderSignal = signal<number>(0);
@@ -27,6 +36,10 @@ export const algorithmStepSliderSignal = signal({
   min: 0,
   max: 0,
 });
+
+export const showToastSignal = signal<boolean>(false);
+
+// SIGNALS =================================================================================
 
 const HomePage = () => {
   //TODO: Make a global colors.css-file and import this in the CSS instead
@@ -47,6 +60,20 @@ const HomePage = () => {
       .then((res) => setHeuristics(res || []))
       .catch((err) => console.log(err));
   });
+
+  useEffect(() => {
+    if (showToastSignal.value) {
+      document.body.classList.add("no-scroll");
+      const timer = setTimeout(() => {
+        showToastSignal.value = false;
+        document.body.classList.remove("no-scroll");
+      }, 3000);
+      return () => {
+        clearTimeout(timer);
+        document.body.classList.remove("no-scroll");
+      };
+    }
+  }, [showToastSignal.value]);
 
   return (
     <div className="outer-container-homepage">
@@ -78,6 +105,19 @@ const HomePage = () => {
           <ClearGridButton />
         </div>
       </div>
+
+      {showToastSignal.value && (
+        <div className="toast-container-homepage">
+          <Alert status="error">
+            <AlertIcon />
+            <AlertTitle>No path was found</AlertTitle>
+            <AlertDescription>
+              Make sure that there is a possible path from the start node to the
+              end node.
+            </AlertDescription>
+          </Alert>
+        </div>
+      )}
     </div>
   );
 };
