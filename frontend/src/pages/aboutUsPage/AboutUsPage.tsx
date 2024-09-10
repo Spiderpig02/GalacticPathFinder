@@ -39,9 +39,9 @@ const AboutUs: React.FC = () => {
       <p className="text-xl text-gray-200 mb-12 text-center max-w-2xl">
         We are a team of dedicated computer science students specializing in AI
         and systems development, pursuing our master's degrees at the Norwegian
-        University of Science and Technology (NTNU). Our mission is to make
-        complex algorithms accessible and easy to understand through interaction
-        and visualization.
+        University of Science and Technology (NTNU) in Trondheim, Norway. Our
+        mission is to make complex algorithms accessible and easy to understand
+        through interaction and visualization.
       </p>
 
       <div className="flex flex-wrap justify-center lg:space-x-8">
@@ -103,16 +103,16 @@ const AboutUs: React.FC = () => {
           </a>
           , a technical student organization that offers its members the
           opportunity to collaborate on developing AI systems. Our involvement
-          in Cogito NTNU has enriched our learning experience, allowing us to
-          apply theoretical knowledge to practical, real-world projects.
+          in Cogito NTNU has allowed us to apply theoretical knowledge to
+          practical, real-world projects.
         </p>
       </section>
 
       <section className="max-w-4xl text-center mb-8">
         <h2 className="text-3xl font-bold mb-4">Our Passion</h2>
         <p className="text-lg mb-4">
-          We love developing software that solves real problems and enhances
-          learning. Our latest project,{" "}
+          We love developing software that solves real problems and makes
+          learning complex subjects easier. Our latest project,{" "}
           <strong className="text-pink-300">GalacticPathFinder</strong>, was
           born out of our fascination with pathfinding algorithms. As students,
           we realized that while pathfinding algorithms are crucial in computer
@@ -127,21 +127,22 @@ const AboutUs: React.FC = () => {
         </h2>
         <p className="text-lg mb-4">
           GalacticPathFinder is our solution to make the study of pathfinding
-          algorithms more accessible. We designed it with both students and
-          teachers in mind, aiming to provide a visual and interactive tool that
-          illustrates how different algorithms explore and determine paths. By
-          seeing these algorithms in action, users can gain a deeper
-          understanding of their behavior and efficiency in various scenarios.
+          algorithms more accessible to anyone. We designed it with both
+          students and teachers in mind, aiming to provide a visual and
+          interactive tool that illustrates how different algorithms explore a
+          world with obstacles and determine paths. By seeing these algorithms
+          in action, users can gain a deeper understanding of their behavior and
+          efficiency in different scenarios.
         </p>
       </section>
 
       <section className="max-w-4xl text-center">
-        <h2 className="text-3xl font-bold mb-4">Join Us on Our Journey</h2>
+        <h2 className="text-3xl font-bold mb-4">Feel free to reach out!</h2>
         <p className="text-lg">
-          We are excited to share our project with you and hope it enhances your
-          learning experience as much as it has ours. If you’re interested in
-          what we do or have any questions, feel free to reach out. We’re always
-          eager to connect with fellow enthusiasts and collaborators.
+          We are excited to share our project with you and hope you have as much
+          fun using it as we had developing it. If you’re interested in what we
+          do or have any questions, feel free to reach out via LinkedIn or
+          Github.
         </p>
       </section>
     </div>
