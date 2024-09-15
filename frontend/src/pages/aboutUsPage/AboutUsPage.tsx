@@ -14,10 +14,10 @@ const developers = [
   {
     name: "Jens Martin Norheim Berget",
     specialization: "Programming and Systems Development",
-    image: "https://github.com/Jensern1.png?size=100",
+    image: "https://github.com/jmnorheim.png?size=100",
     description:
       "Jens focuses on ProgSys, ensuring our systems are robust and scalable.",
-    github: "https://github.com/Jensern1",
+    github: "https://github.com/jmnorheim",
     linkedin:
       "https://www.linkedin.com/in/jens-martin-norheim-berget-87560b141/",
   },
