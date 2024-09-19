@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Navbar.css";
 
 const Navbar: React.FC = () => {
   const location = useLocation();
+  const [shouldHaveSolidColour, setShouldHaveSolidColour] = useState(false);
+
+  useEffect(() => {
+    if (location.pathname === "/about-us") {
+      setShouldHaveSolidColour(true);
+    } else {
+      setShouldHaveSolidColour(false);
+    }
+  }, [location.pathname]);
 
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${shouldHaveSolidColour ? "navbar-solid" : ""}`}>
       <div className="navbar-logo" onClick={() => (window.location.href = "/")}>
         GalacticPathFinder
       </div>
