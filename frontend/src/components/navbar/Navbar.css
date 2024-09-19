@@ -7,8 +7,11 @@
   justify-content: flex-start;
   padding: 0.7rem;
   z-index: 1000;
+}
 
-  /* background-color: red; */
+.navbar-solid {
+  background-image: linear-gradient(to right, #05445e, #581c87, #05445e); /* Gradient background */
+  transition: background-color 0.3s ease-in-out;
 }
 
 .navbar-logo {
