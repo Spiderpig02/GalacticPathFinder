@@ -16,8 +16,10 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className={`navbar ${shouldHaveSolidColour ? "navbar-solid" : ""}`}>
-      <div className="navbar-logo" onClick={() => (window.location.href = "/")}>
-        GalacticPathFinder
+      <div className="navbar-logo">
+        <Link to="/" className="navbar-logo-link">
+          GalacticPathFinder
+        </Link>
       </div>
       <div className="navbar-links">
         <Link to="/" className={location.pathname === "/" ? "active" : ""}>
