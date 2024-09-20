@@ -5,6 +5,10 @@ import {
   clearPreviousAnimations,
   renderStep,
 } from "../../services/animationService";
+import { endPoint, startPoint } from "../mapGrid/MapGrid";
+import { signal } from "@preact/signals-react";
+
+export const disableAlgorithmStepSliderSignal = signal<boolean>(false);
 
 const AlgorithmStepSlider = () => {
   const [size, setSize] = useState<number>(
@@ -57,6 +61,11 @@ const AlgorithmStepSlider = () => {
         onChange={handleSliderChange}
         onMouseUp={handleCommitChange}
         onKeyUp={handleCommitChange}
+        disabled={
+          startPoint.value === null ||
+          endPoint.value === null ||
+          disableAlgorithmStepSliderSignal.value
+        } // Disable slider if start or end point is not set or if disableAlgorithmStepSliderSignal is set to true
       />
     </div>
   );

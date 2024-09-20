@@ -17,6 +17,7 @@ import { PostTraversalProps, PostTraversalResponse } from "../types";
 import { postTraversal } from "./postTraversal";
 import { Node } from "../types";
 import { clearSignal } from "../components/startAndEndPointsButton/StartAndEndPointsButton";
+import { disableAlgorithmStepSliderSignal } from "../components/algorithmStepSlider/AlgorithmStepSlider";
 
 let timeoutIds: number[] = [];
 let nodeOrder: Node[] = [];
@@ -54,7 +55,6 @@ export const handleTraverse = (onAnimationStart: () => void) => {
             // Parse the path and nodeOrder JSON strings into arrays
             path = JSON.parse(res.path);
             nodeOrder = JSON.parse(res.nodeOrder);
-            console.log("NodeOrder = ", nodeOrder);
 
             // Create a copy of the signal and update min, max, and currentValue
             const updatedSignal = { ...algorithmStepSliderSignal.value };
@@ -62,6 +62,7 @@ export const handleTraverse = (onAnimationStart: () => void) => {
             updatedSignal.min = 0;
             updatedSignal.max = nodeOrder.length + path.length - 1;
             algorithmStepSliderSignal.value = updatedSignal;
+            disableAlgorithmStepSliderSignal.value = false;
 
             // Call the callback to indicate the animation is starting
             onAnimationStart();
@@ -193,3 +194,21 @@ export const resetGrid = () => {
     };
   });
 };
+
+/**
+ * Reset the traversal variables to their initial state so that user can not access earlier traversals
+ * via the algorithmStepSliderSignal
+ */
+export const ResetTraversalVariablesIfAtLeastOneTraversalHasAlreadyBeenDone =
+  () => {
+    if (path.length > 0 && nodeOrder.length > 0) {
+      path = [];
+      nodeOrder = [];
+      algorithmStepSliderSignal.value = {
+        currentValue: 0,
+        min: 0,
+        max: 0,
+      };
+      disableAlgorithmStepSliderSignal.value = true;
+    }
+  };
