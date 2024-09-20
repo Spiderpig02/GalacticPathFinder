@@ -2,6 +2,7 @@ import { signal } from "@preact/signals-react";
 import DefaultButton from "../defaultButton/DefaultButton";
 import "./StartAndEndPointsButton.css";
 import { tiles } from "../mapGrid/MapGrid";
+import { ResetTraversalVariablesIfAtLeastOneTraversalHasAlreadyBeenDone } from "../../services/animationService";
 
 export const selectionModeSignal = signal<boolean>(false);
 export const startEndSignal = signal<number>(0);
@@ -15,6 +16,8 @@ const StartAndEndPointsButton = () => {
       isExplored: false,
       isPath: false,
     }));
+    // Reset traversal variables
+    ResetTraversalVariablesIfAtLeastOneTraversalHasAlreadyBeenDone();
 
     startEndSignal.value = 1;
     clearSignal.value = !clearSignal.value;
