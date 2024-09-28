@@ -47,6 +47,20 @@ const HomePage = () => {
 
   const [algorithms, setAlgorithms] = useState<string[]>([]);
   const [heuristics, setHeuristics] = useState<string[]>([]);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1000);
+    };
+
+    handleResize(); // Check initial width
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     getGraphTraversalMethods()
@@ -89,6 +103,15 @@ const HomePage = () => {
       };
     }
   }, [errorMessageSignal.value]);
+
+  if (isMobile) {
+    return (
+      <div className="mobile-message">
+        Mobile platforms are not yet supported. We are working on this and will
+        release it as soon as possible.
+      </div>
+    );
+  }
 
   return (
     <div className="outer-container-homepage">

@@ -5,6 +5,20 @@ import "./Navbar.css";
 const Navbar: React.FC = () => {
   const location = useLocation();
   const [shouldHaveSolidColour, setShouldHaveSolidColour] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1000);
+    };
+
+    handleResize(); // Check initial width
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     if (location.pathname === "/about-us") {
@@ -13,6 +27,10 @@ const Navbar: React.FC = () => {
       setShouldHaveSolidColour(false);
     }
   }, [location.pathname]);
+
+  if (isMobile) {
+    return <></>;
+  }
 
   return (
     <nav className={`navbar ${shouldHaveSolidColour ? "navbar-solid" : ""}`}>
