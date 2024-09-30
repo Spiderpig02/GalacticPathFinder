@@ -22,34 +22,54 @@ jobs:
 
   frontend-build:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [18.x, 20.x, 22.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-        cache-dependency-path: './frontend/package-lock.json'
-    - run: npm ci
-      working-directory: ./frontend
-    - run: npm run build --if-present
-      working-directory: ./frontend
-    - run: npm test
-      working-directory: ./frontend
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: './frontend/package-lock.json'
+      - run: npm ci
+        working-directory: ./frontend
+      - run: npm run build --if-present
+        working-directory: ./frontend
+      - run: npm test
+        working-directory: ./frontend
 
   e2e:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        # Install npm dependencies, cache them correctly
-        # and run all Cypress tests
+      
+      # Set up Node.js
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+          cache: 'npm'
+          cache-dependency-path: './frontend/package-lock.json'
+      
+      # Install dependencies
+      - name: Install dependencies
+        run: npm ci
+        working-directory: ./frontend
+
+      # Start the frontend server
+      - name: Start server
+        run: npm start &
+        working-directory: ./frontend
+
+      # Wait for the server to be available
+      - name: Wait for server to be ready
+        run: npx wait-on http://localhost:3000
+
+      # Run Cypress tests
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
@@ -74,4 +94,3 @@ jobs:
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-
