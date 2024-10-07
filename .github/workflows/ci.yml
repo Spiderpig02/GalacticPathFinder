@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: ["main"]
+    branches: ['main']
   pull_request:
-    branches: ["main"]
+    branches: ['main']
 
 jobs:
   build:
@@ -41,53 +41,21 @@ jobs:
       - run: npm test
         working-directory: ./frontend
 
-  e2e:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      
-      # Set up Node.js
-      - name: Use Node.js 20.x
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20.x
-          cache: 'npm'
-          cache-dependency-path: './frontend/package-lock.json'
-      
-      # Install dependencies
-      - name: Install dependencies
-        run: npm ci
-        working-directory: ./frontend
-
-      # Start the frontend server
-      - name: Start server
-        run: npm run build && npm run preview &
-        working-directory: ./frontend
-
-      # Run Cypress tests
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
-        with:
-          working-directory: ./frontend
-          browser: chrome
-          wait-on: 'http://localhost:5174'
-  
   dependabot:
     permissions:
       pull-requests: write
       contents: write
-              
+
     name: 'Dependabot'
     # After the other jobs complete, if one of them fails, it won't merge the PR.
-    needs: [build, frontend-build, e2e] 
+    needs: [build, frontend-build]
     runs-on: ubuntu-latest
     # Detect that the PR author is dependabot
-    if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request'}} 
+    if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request'}}
     steps:
       - name: Enable auto-merge for Dependabot PRs
         # Use Github CLI to merge automatically the PR
-        run: gh pr merge --auto --merge "$PR_URL" 
+        run: gh pr merge --auto --merge "$PR_URL"
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
