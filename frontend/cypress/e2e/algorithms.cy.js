@@ -1,6 +1,6 @@
 describe("AlgorithmsMenu Dropdown Test", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:3000/");
+    cy.visit("http://localhost:5174/");
   });
 
   it("should display dropdown content when clicking the menu", () => {

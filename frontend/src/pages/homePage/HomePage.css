@@ -83,6 +83,16 @@
     animation: bounceIn 0.5s, slideOut 0.5s 2.5s forwards;
 }
 
+.mobile-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 1rem;
+  }
+
 @keyframes bounceIn {
     0% {
         transform: translateY(100%);

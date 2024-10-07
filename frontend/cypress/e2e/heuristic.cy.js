@@ -1,7 +1,7 @@
 describe("HeuristicsMenu Dropdown Test", () => {
   beforeEach(() => {
     // Visit the home page where HeuristicsMenu is rendered
-    cy.visit("http://localhost:3000/");
+    cy.visit("http://localhost:5174/");
   });
 
   it("Should not display any dropdown content by default", () => {

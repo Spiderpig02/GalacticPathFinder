@@ -162,5 +162,4 @@ cython_debug/
 # Frontend
 node_modules/
 dist/
-package-lock.json
 
