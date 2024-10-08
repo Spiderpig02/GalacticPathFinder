@@ -28,10 +28,6 @@ const MapGrid = () => {
   const tileWidth = maxNumOfColumns / numOfColumns; // 80 is the width of the grid container
   const tileHeight = maxNumOfColumns / height; // 80 is the height of the grid container
 
-  // State to track the start and end point
-  const [startPointTemp, setStartPoint] = useState<Node | null>(null);
-  const [endPointTemp, setEndPoint] = useState<Node | null>(null);
-
   // States to handle the placing of obstacles
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [initialDragState, setInitialDragState] = useState<boolean | null>(
@@ -83,17 +79,14 @@ const MapGrid = () => {
     },
     [isMouseDown, initialDragState]
   );
-
   // Handle clicking a tile to toggle it
   const handleTileClick = (row: number, col: number) => {
     // Place start or end point
     if (selectionModeSignal.value) {
-      if (!startPointTemp) {
-        setStartPoint({ x: col, y: row, weight: 0, isPath: false });
+      if (!startPoint.value) {
         startPoint.value = { x: col, y: row, weight: 0, isPath: false };
         startEndSignal.value = 2;
-      } else if (!endPointTemp) {
-        setEndPoint({ x: col, y: row, weight: 0, isPath: false });
+      } else if (!endPoint.value) {
         endPoint.value = { x: col, y: row, weight: 0, isPath: false };
         selectionModeSignal.value = false;
         startEndSignal.value = 0;
@@ -117,8 +110,6 @@ const MapGrid = () => {
 
   useSignalEffect(() => {
     clearSignal.value;
-    setEndPoint(null);
-    setStartPoint(null);
     startPoint.value = null;
     endPoint.value = null;
   });
@@ -180,9 +171,11 @@ const MapGrid = () => {
                 onTileClick={() => handleTileClick(row, col)}
                 onMouseDown={() => handleMouseDown(row, col)}
                 isStartPoint={
-                  startPointTemp?.x === col && startPointTemp?.y === row
+                  startPoint.value?.x === col && startPoint.value?.y === row
                 }
-                isEndPoint={endPointTemp?.x === col && endPointTemp?.y === row}
+                isEndPoint={
+                  endPoint.value?.x === col && endPoint.value?.y === row
+                }
               />
             ))}
           </div>
