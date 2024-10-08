@@ -4,6 +4,8 @@ export interface Node {
   weight: number;
   isPath: boolean;
   isExplored?: boolean;
+  isStartPoint?: boolean;
+  isEndPoint?: boolean;
 }
 
 export interface PostTraversalProps {
