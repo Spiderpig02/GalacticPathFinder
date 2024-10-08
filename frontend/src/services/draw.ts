@@ -1,4 +1,4 @@
-import { tiles } from "../components/mapGrid/MapGrid";
+import { endPoint, startPoint, tiles } from "../components/mapGrid/MapGrid";
 
 export const handleClearEarlierTraversals = () => {
   tiles.value = tiles.value.map((tile) => {
@@ -7,4 +7,19 @@ export const handleClearEarlierTraversals = () => {
     }
     return tile;
   });
+};
+
+export const clearMap = () => {
+  // Reset all tiles' isPath and isExplored properties
+  tiles.value = tiles.value.map((tile) => ({
+    ...tile,
+    isPath: false,
+    isExplored: false,
+  }));
+
+  // Reset start and end points signal-values
+  startPoint.value = null;
+  endPoint.value = null;
+
+  console.log("Map cleared");
 };

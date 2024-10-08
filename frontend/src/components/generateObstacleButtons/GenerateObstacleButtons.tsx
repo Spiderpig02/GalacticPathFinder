@@ -5,6 +5,7 @@ import "./GenerateObstacleButtons.css";
 import { Noise } from "noisejs";
 import { tiles } from "../mapGrid/MapGrid";
 import { mapSizeSliderSignal } from "../../pages/homePage/HomePage";
+import { clearMap } from "../../services/draw";
 
 type NoiseType = {
   perlin2(x: number, y: number): number;
@@ -12,6 +13,9 @@ type NoiseType = {
 
 const GenerateObstacleButtons: React.FC = () => {
   const handleGenerateObstacles = () => {
+    clearMap(); // Clear the map before generating new obstacles
+    console.log("Finished clearing map");
+
     // @ts-ignore
     const noise = new Noise(Math.random()) as unknown as NoiseType;
     const numOfColumns = mapSizeSliderSignal.value; // Get the current number of columns from the slider
@@ -35,6 +39,9 @@ const GenerateObstacleButtons: React.FC = () => {
   };
 
   const handleGenerateMaze = () => {
+    clearMap(); // Clear the map before generating a new maze
+    console.log("Finished clearing map");
+
     const numOfColumns = mapSizeSliderSignal.value;
     const height = Math.round(numOfColumns * (9 / 16));
 
