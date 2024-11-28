@@ -44,10 +44,10 @@ const Navbar: React.FC = () => {
           Home
         </Link>
         <Link
-          to="/tutorial"
-          className={location.pathname === "/tutorial" ? "active" : ""}
+          to="/algorithms"
+          className={location.pathname === "/algorithms" ? "active" : ""}
         >
-          Tutorial
+          Algorithms
         </Link>
         <Link
           to="/about-us"
