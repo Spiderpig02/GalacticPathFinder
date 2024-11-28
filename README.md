@@ -1,6 +1,6 @@
 ﻿# GalacticPathFinder
 
-GalacticPathFinder is an interactive web application designed to visualize and aid understanding of pathfinding-algorithms like A* (A-star), Breadth-First-Search (BFS) and others. It allows users to create grids, set start and end points, visualize the algorithm's step-by-step process, and experiment with different heuristics. This tool is ideal for students, educators, and anyone interested in algorithm visualization and AI pathfinding techniques. It is made with a Django backend and React Typescript frontend.
+GalacticPathFinder is an interactive web application designed to visualize and aid understanding of pathfinding-algorithms like A* (A-star), Breadth-First-Search (BFS) and others. It allows users to create obstacles, set start and end points, visualize the algorithm's step-by-step process, and experiment with different heuristics. This tool is ideal for students, educators, and anyone interested in algorithm visualization and AI pathfinding techniques. It is made with a Django backend and React Typescript frontend.
 
 Visit the deployed application [here](https://galacticpathfinder.com/).
 <div align="center">
@@ -9,9 +9,10 @@ Visit the deployed application [here](https://galacticpathfinder.com/).
 
 ## Features:
 
-- [x] **Create Grids/Graphs:** Users can generate grids or graphs on which the A\* algorithm operates.
-- [x] **Set Start and End Points:** Flexibility to define start and end points to visualize pathfinding.
+- [x] **Create Obstacles:** Users can generate obstacles inside the grid on which the A\* algorithm operates.
+- [x] **Set Start and End Points:** Users can freely place start and end points anywhere they like.
 - [x] **Visualize Algorithm:** Step-by-step visualization of the A\* algorithm in action.
+- [x] **Select Step** Users can freely select which step in the traversal they want to see displayed on the grid.
 - [x] **Customize Heuristics:** Experiment with different heuristics to see how they influence the pathfinding process.
 - [x] **Web Deployment:** Accessible on the World Wide Web for widespread use and demonstration.
 
