@@ -21,7 +21,10 @@ const Navbar: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (location.pathname === "/about-us") {
+    if (
+      location.pathname === "/about-us" ||
+      location.pathname === "/algorithms"
+    ) {
       setShouldHaveSolidColour(true);
     } else {
       setShouldHaveSolidColour(false);
