@@ -61,9 +61,10 @@ function parseNodes(map: Node[]): string {
   let csvText = "";
   for (const node of map) {
     // Exclude nodes with isPath = true
-    if (!node.isPath) {
-      csvText += `${node.x},${node.y},${node.weight},${node.isPath}\n`;
+    if (node.isPath || node.isExplored) {
+      node.weight = 0;
     }
+    csvText += `${node.x},${node.y},${node.weight}\n`;
   }
   return csvText;
 }
