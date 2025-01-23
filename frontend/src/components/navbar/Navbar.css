@@ -10,7 +10,8 @@
 }
 
 .navbar-solid {
-  background-image: linear-gradient(to right, #05445e, #581c87, #05445e); /* Gradient background */
+  background-image: linear-gradient(to right, #05445e, #581c87, #05445e);
+  /* Gradient background */
   transition: background-color 0.3s ease-in-out;
 }
 
@@ -52,15 +53,16 @@
   left: 0;
   background-color: white;
   transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.3s ease-in-out;
+  transform-origin: right center;
+  transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .navbar-links a:hover::after {
   transform: scaleX(1);
+  transform-origin: left center;
 }
 
 .navbar-links a.active::after {
   transform: scaleX(1);
-  transform-origin: left;
+  transform-origin: left center;
 }
