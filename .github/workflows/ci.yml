@@ -41,6 +41,33 @@ jobs:
       - run: npm test
         working-directory: ./frontend
 
+  upload-docker-images:
+    runs-on: ubuntu-latest
+    needs: [build, frontend-build]
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Extract short SHA
+        id: git_sha
+        run: echo "GIT_SHA=$(git rev-parse --short $GITHUB_SHA)" >> $GITHUB_ENV
+      - name: Build and Push Docker Backend Image
+        run: |
+          docker build -t ghcr.io/spiderpig02/galacticpathfinder-backend:${{ env.GIT_SHA }} ./backend
+          docker push ghcr.io/spiderpig02/galacticpathfinder-backend:${{ env.GIT_SHA }}
+      - name: Build and Push Docker Webapp Image
+        run: |
+          docker build -t ghcr.io/spiderpig02/galacticpathfinder-frontend:${{ env.GIT_SHA }} ./frontend
+          docker push ghcr.io/spiderpig02/galacticpathfinder-frontend:${{ env.GIT_SHA }}
+
   dependabot:
     permissions:
       pull-requests: write

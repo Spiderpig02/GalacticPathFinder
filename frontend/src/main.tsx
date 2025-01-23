@@ -9,6 +9,7 @@ import AboutUs from "./pages/aboutUsPage/AboutUsPage";
 import NotFoundPage from "./pages/notFound/NotFoundPage";
 import TutorialPage from "./pages/tutorialPage/TutorialPage";
 import Navbar from "./components/navbar/Navbar";
+import AlgorithmsPage from "./pages/algorithms/AlgorithmsPage";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="/" element={<HomePage />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/tutorial" element={<TutorialPage />} />
+          <Route path="/algorithms" element={<AlgorithmsPage />} />
           <Route path="*" element={<NotFoundPage />} />{" "}
           {/* 404 Not Found Route */}
         </Routes>
