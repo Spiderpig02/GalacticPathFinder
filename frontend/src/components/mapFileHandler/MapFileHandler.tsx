@@ -35,8 +35,8 @@ const MapHandler: React.FC = () => {
           className="button-circle bg-ss-blue-grotto hover:bg-ss-blue-grotto-hover"
         >
           <svg
-            width="26"
-            height="27"
+            width="22"
+            height="23"
             viewBox="0 0 42 43"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -56,8 +56,8 @@ const MapHandler: React.FC = () => {
         >
           <div className=" br-rado"></div>
           <svg
-            width="26"
-            height="27"
+            width="22"
+            height="23"
             viewBox="0 0 42 43"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -78,8 +78,8 @@ const MapHandler: React.FC = () => {
           align-items: center;
           justify-content: center;
           margin: 0 10px; /* Adjust the space between buttons */
-          width: 60px; /* Width of the button */
-          height: 60px; /* Height of the button, equal to width for circle */
+          width: 55px; /* Width of the button */
+          height: 55px; /* Height of the button, equal to width for circle */
           border-radius: 50%; /* Make it circular */
           border: none; /* Remove border */
           cursor: pointer; /* Change cursor on hover */

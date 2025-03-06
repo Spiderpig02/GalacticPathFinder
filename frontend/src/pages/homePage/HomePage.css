@@ -31,6 +31,8 @@
     align-items: center;
     justify-content: flex-start;
     width: 100%;
+    height: fit-content;
+    /* background-color: blue; */
 }
 
 .algorithms-and-heuristics-container {
@@ -47,6 +49,12 @@
 
 .text-fields-container-homepage {
     width: 268px;
+}
+
+.start-and-clear-buttons-container-homepage {
+    display: flex;
+    height: fit-content;
+    /* background-color: green; */
 }
 
 .about-us-button-container {

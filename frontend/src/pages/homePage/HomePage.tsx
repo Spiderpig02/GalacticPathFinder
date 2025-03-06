@@ -138,7 +138,7 @@ const HomePage = () => {
           <AnimationSpeedSlider />
         </div>
         <StartAndEndPointsButton />
-        <div className="flex">
+        <div className="start-and-clear-buttons-container-homepage">
           <StartButton />
           <ClearGridButton />
         </div>
