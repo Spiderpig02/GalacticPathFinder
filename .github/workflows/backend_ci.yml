@@ -31,21 +31,21 @@ jobs:
         with:
           enable-cache: true
 
-      - name: Change directory
-        run: cd backend
-
       - name: Run pre-commit hooks (optional)
         run: |
+          cd backend
           uv pip install --system pre-commit
           pre-commit run --all-files || true
         continue-on-error: true
 
       - name: Install and sync dependencies
         run: |
+          cd backend
           uv sync --locked --all-extras
 
       - name: Run root tests
         run: |
+          cd backend
           uv run pytest --doctest-modules --cov=src --cov-report=html
 
   deploy:
