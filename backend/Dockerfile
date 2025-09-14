@@ -1,18 +1,20 @@
-# Use the official Python image from the Docker Hub
-FROM python:3.11.2
+FROM python:3.12-slim
 
-# Make a new directory to put our code in.
-RUN mkdir /code
+# Set environment variables to prevent Python from buffering stdout/stderr
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
-# Change the working directory.
-WORKDIR /code
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
-# Copy only the requirements first
-COPY requirements.txt /code/
-RUN pip install -r requirements.txt
+WORKDIR /app
 
-# Then copy the rest of the code
-COPY . /code/
+COPY . .
 
-# Run the application:
-CMD gunicorn --bind :8000 galacticPathFinder.wsgi --workers 1 --timeout 120
+# Install the application dependencies.
+RUN uv sync --frozen --no-cache
+
+# Expose the application port
+EXPOSE 8000
+
+# Run the application (use Uvicorn instead of FastAPI directly)
+CMD ["uv", "run", "uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000", "--reload", "--proxy-headers"]

@@ -1,13 +1,13 @@
-""" This module contains the factory functions for the graph traversal algorithms """
+"""This module contains the factory functions for the graph traversal algorithms"""
 
 from typing import Callable
-from graphtraversal.algorithms.heuristics import euclidean_distance, manhattan_distance
-from graphtraversal.algorithms.uninformed_search import (
+from src.algorithms.heuristics import euclidean_distance, manhattan_distance
+from src.algorithms.uninformed_search import (
     BFSPathfinder,
     DFSPathfinder,
 )
-from graphtraversal.algorithms.a_star import AStarPathfinder
-from graphtraversal.algorithms.pathfinder import Pathfinder
+from src.algorithms.a_star import AStarPathfinder
+from src.algorithms.pathfinder import Pathfinder
 
 
 graph_traversal_function_map: dict[str, Pathfinder] = {

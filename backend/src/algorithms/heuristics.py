@@ -1,4 +1,4 @@
-from graphtraversal.map import Position
+from src.map import Position
 
 from math import sqrt
 

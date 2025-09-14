@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from abc import ABC, ABCMeta, abstractmethod
 from typing import Any, Callable
 
-from graphtraversal.map import Map, Node, Position
+from src.map import Map, Node, Position
 
 
 class Pathfinder(ABC):

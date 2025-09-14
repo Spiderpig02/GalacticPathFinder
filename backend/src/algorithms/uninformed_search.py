@@ -2,9 +2,9 @@
 
 from typing import Callable
 
-from graphtraversal.algorithms.search_utils import reconstruct_path
-from graphtraversal.algorithms.pathfinder import Pathfinder
-from graphtraversal.map import Map, Node, Position
+from src.algorithms.search_utils import reconstruct_path
+from src.algorithms.pathfinder import Pathfinder
+from src.map import Map, Node, Position
 
 
 class BFSPathfinder(Pathfinder):
@@ -47,7 +47,7 @@ class QueueFrontier:
         Finds the node with the lowest cost in the frontier and returns it.
         As the frontier is sorted, the node with the lowest cost is the last
         """
-        return self.frontier.pop()
+        return self.frontier.pop(0)
 
     def is_empty(self):
         """Checks if the frontier is empty"""

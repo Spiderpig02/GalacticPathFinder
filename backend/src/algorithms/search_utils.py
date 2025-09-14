@@ -1,4 +1,4 @@
-from graphtraversal.map import Position
+from src.map import Position
 
 
 def reconstruct_path(came_from: dict, current: Position) -> list[Position]:
