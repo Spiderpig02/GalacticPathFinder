@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+
 class Node(BaseModel):
     x: int
     y: int
@@ -22,3 +23,6 @@ class GraphTraversalMethodResponse(BaseModel):
     
 class GraphHeuristicsResponse(BaseModel):
     heuristics: list[str]
+    
+class GraphHeuristicsRequest(BaseModel):
+    method: str

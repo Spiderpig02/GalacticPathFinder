@@ -1,17 +1,17 @@
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import JSONResponse
 from fastapi import status
 from datetime import datetime
 from src.factory import get_pathfinder, get_graph_traversal_methods, get_heuristics, get_heuristic_function
-from src.map import Map, Node, Position, RestMap
-from typing import Callable
-from src.models import GraphTraversalRequest, GraphTraversalResponse, GraphTraversalMethodResponse, GraphHeuristicsResponse
+from src.map import Node, Position, RestMap
+from src.models import GraphTraversalRequest, GraphTraversalResponse, GraphHeuristicsRequest
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI()
-app.title = "Galactic Path Finder API"
-app.description = "An API for finding the shortest path between two points on a grid using various graph traversal algorithms."
-app.version = "1.0.0"
+app = FastAPI(
+    title="Galactic Path Finder API",
+    description = "An API for finding the shortest path between two points on a grid using various graph traversal algorithms.",
+    version = "1.0.0",
+    )
+
 origins = [
     "http://localhost",
     "http://localhost:5173",  # Vite default port
@@ -77,24 +77,22 @@ def post_graph_traversal(request: GraphTraversalRequest):
     path_dicts = [node.to_dict() for node in path]
     node_order_dicts = [node.to_dict() for node in node_order]
 
-    return JSONResponse(
-        status_code=status.HTTP_200_OK,
-        content={
-            "status": pathfinder_status,
-            "path": path_dicts,
-            "nodeOrder": node_order_dicts,
-            "timeTaken": time_taken,
-        }
+    return GraphTraversalResponse(
+            status = pathfinder_status,
+            path = path_dicts,
+            nodeOrder = node_order_dicts,
+            timeTaken = time_taken,
     )
 
-@app.get("/graphtraversal/graph-traversal-methods", response_model=GraphTraversalMethodResponse)
+@app.get("/graphtraversal/graph-traversal-methods", response_model=list[str])
 def fetch_graph_traversal_methods():
-    return GraphTraversalMethodResponse(method=get_graph_traversal_methods())
+    return get_graph_traversal_methods()
 
-@app.post("/graphtraversal/graph-heuristics-methods", response_model=GraphHeuristicsResponse)
-def fetch_graph_heuristics(method:str):
+@app.post("/graphtraversal/graph-heuristics-methods", response_model=list[str])
+def fetch_graph_heuristics(request: GraphHeuristicsRequest):
+    method = request.method
+    print(f"method in fetch_graph_heuristics: {method}")
     heuristics = get_heuristics(method)
-    data : GraphHeuristicsResponse = GraphHeuristicsResponse(heuristics=heuristics)
-    return data
+    return heuristics
 
 
