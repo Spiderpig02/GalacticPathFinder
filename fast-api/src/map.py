@@ -23,7 +23,7 @@ class Node:
     """
 
     position: Position
-    weight: float
+    weight: int
 
     def to_dict(self):
         return {"x": self.position.x, "y": self.position.y, "weight": self.weight}

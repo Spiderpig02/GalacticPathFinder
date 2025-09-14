@@ -1,4 +1,4 @@
-""" This module contains the factory functions for the graph traversal algorithms """
+"""This module contains the factory functions for the graph traversal algorithms"""
 
 from typing import Callable
 from src.algorithms.heuristics import euclidean_distance, manhattan_distance

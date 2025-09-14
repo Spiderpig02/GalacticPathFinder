@@ -53,8 +53,8 @@ export const handleTraverse = (onAnimationStart: () => void) => {
         if (res.status === "success") {
           try {
             // Parse the path and nodeOrder JSON strings into arrays
-            path = JSON.parse(res.path);
-            nodeOrder = JSON.parse(res.nodeOrder);
+            path = res.path;
+            nodeOrder = res.nodeOrder;
 
             // Create a copy of the signal and update min, max, and currentValue
             const updatedSignal = { ...algorithmStepSliderSignal.value };

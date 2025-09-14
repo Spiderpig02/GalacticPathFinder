@@ -1,10 +1,13 @@
 from fastapi import FastAPI, HTTPException
 from fastapi import status
 from datetime import datetime
+
+import uvicorn
 from src.factory import get_pathfinder, get_graph_traversal_methods, get_heuristics, get_heuristic_function
 from src.map import Node, Position, RestMap
 from src.models import GraphTraversalRequest, GraphTraversalResponse, GraphHeuristicsRequest
 from fastapi.middleware.cors import CORSMiddleware
+import src.models as models
 
 app = FastAPI(
     title="Galactic Path Finder API",
@@ -39,6 +42,7 @@ def post_graph_traversal(request: GraphTraversalRequest):
     end_point = request.endPoint
     raw_map = request.map
     heuristic = request.heuristic
+    print("Managed to get here")
 
     # Check if the algorithm name is valid
     if algorithm not in get_graph_traversal_methods():
@@ -73,14 +77,14 @@ def post_graph_traversal(request: GraphTraversalRequest):
     time_taken = datetime.now().timestamp() - current_time
 
     pathfinder_status = "success" if len(path) != 0 else "failure"
-
-    path_dicts = [node.to_dict() for node in path]
-    node_order_dicts = [node.to_dict() for node in node_order]
+    
+    path = [models.Position(x = node.x, y = node.y) for node in path]
+    node_order = [models.Position(x = node.x, y = node.y) for node in node_order]
 
     return GraphTraversalResponse(
             status = pathfinder_status,
-            path = path_dicts,
-            nodeOrder = node_order_dicts,
+            path = path,
+            nodeOrder = node_order,
             timeTaken = time_taken,
     )
 
@@ -96,3 +100,6 @@ def fetch_graph_heuristics(request: GraphHeuristicsRequest):
     return heuristics
 
 
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
