@@ -2,15 +2,11 @@ services:
   backend:
     build:
       context: ./backend
-    container_name: backend 
-    command: python manage.py runserver 0.0.0.0:8000
+    container_name: backend
     volumes:
       - ./backend:/code
     ports:
       - "8000:8000"
-    environment:
-      - DEBUG=True
-      - DJANGO_SECRET_KEY
 
   frontend:
     build:
@@ -20,4 +16,3 @@ services:
       - "3000:80"
     depends_on:
       - backend
-  
