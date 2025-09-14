@@ -1,6 +1,7 @@
 """ Contains the uninformed search algorithms. """
 
 from typing import Callable
+from collections import deque
 
 from src.algorithms.search_utils import reconstruct_path
 from src.algorithms.pathfinder import Pathfinder
@@ -23,40 +24,25 @@ class DFSPathfinder(Pathfinder):
         return DFS(map, start, goal)
 
 
+
 class QueueFrontier:
     """
-    The frontier is a priority queue of nodes. The nodes are sorted by it cost.
+    True FIFO queue for BFS.
     """
-
     def __init__(self, start_pos):
-        """Instantiate a frontier object."""
-        self.frontier = [start_pos]
+        self.frontier = deque([start_pos])
 
     def append(self, position):
-        """
-        Inserts a node into the frontier. The node is inserted in the
-        correct position based on its cost and distance towards the goal.
-        Args:
-            position (Position): The position of the node
-            cost (float, optional): The cost to reach the node. Defaults to 0.
-        """
         self.frontier.append(position)
 
     def pop(self):
-        """
-        Finds the node with the lowest cost in the frontier and returns it.
-        As the frontier is sorted, the node with the lowest cost is the last
-        """
-        return self.frontier.pop()
+        return self.frontier.popleft()
 
     def is_empty(self):
-        """Checks if the frontier is empty"""
         return len(self.frontier) == 0
 
-    def contains(self, object) -> bool:
-        """Getter for the frontier"""
-        return object in self.frontier
-
+    def contains(self, obj) -> bool:
+        return obj in self.frontier
 
 class StackFrontier:
     """
