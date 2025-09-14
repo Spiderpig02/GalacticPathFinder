@@ -1,29 +1,22 @@
-# Use an official node image as the base image
-FROM node:18-alpine
-
-# Set the working directory
+# ---------- Build stage ----------
+FROM node:18-alpine AS build
 WORKDIR /app
 
-# Copy the package.json
-COPY package.json ./
+COPY package.json package-lock.json ./
 
-# Install dependencies
-RUN npm install
+# Don't download Cypress binary during install
+ENV CYPRESS_INSTALL_BINARY=0
 
-# Copy the rest of the application code
+RUN --mount=type=cache,target=/root/.npm npm ci
+
+# Copy the rest and build
 COPY . .
-
-# Build the app
 RUN npm run build --if-present
 
-# Use a lightweight web server to serve the static files
-FROM nginx:alpine
+# ---------- Runtime stage ----------
+FROM nginx:alpine AS runner
+# Copy the built static files
+COPY --from=build /app/dist /usr/share/nginx/html
 
-# Copy the build output to the server's static files directory
-COPY --from=0 /app/dist /usr/share/nginx/html
-
-# Expose the port the app runs on
 EXPOSE 80
-
-# Start Nginx server
 CMD ["nginx", "-g", "daemon off;"]
