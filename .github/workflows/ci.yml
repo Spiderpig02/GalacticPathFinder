@@ -129,18 +129,15 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Extract short SHA
-        id: git_sha
-        run: echo "GIT_SHA=$(git rev-parse --short ${GITHUB_SHA})" >> $GITHUB_ENV
       - name: Build and Push Docker Backend Image
         run: |
-          docker build -t ghcr.io/spiderpig02/galacticpathfinder-backend:$GIT_SHA ./backend
-          docker push ghcr.io/spiderpig02/galacticpathfinder-backend:$GIT_SHA
+          docker build -t ghcr.io/spiderpig02/galacticpathfinder-backend:latest ./backend
+          docker push ghcr.io/spiderpig02/galacticpathfinder-backend:latest
 
       - name: Build and Push Docker Webapp Image
         run: |
-          docker build -t ghcr.io/spiderpig02/galacticpathfinder-frontend:$GIT_SHA ./frontend
-          docker push ghcr.io/spiderpig02/galacticpathfinder-frontend:$GIT_SHA
+          docker build -t ghcr.io/spiderpig02/galacticpathfinder-frontend:latest ./frontend
+          docker push ghcr.io/spiderpig02/galacticpathfinder-frontend:latest
 
   dependabot:
     permissions:
