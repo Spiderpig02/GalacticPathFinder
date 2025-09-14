@@ -1,5 +1,6 @@
 const baseAPIUrl: string =
-  (import.meta.env.VITE_BACKEND_URL as string) ?? "http://127.0.0.1:8000";
+  (import.meta.env.VITE_BACKEND_URL as string) ??
+  "https://backend.galacticpathfinder.com";
 
 const routes = {};
 
