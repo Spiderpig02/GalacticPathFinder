@@ -1,0 +1,22 @@
+name: CD Pipeline
+
+on:
+  workflow_run:
+    workflows: ["Backend Continuous Integration"]
+    types:
+      - completed
+  workflow_dispatch: {}
+
+jobs:
+  deploy:
+    runs-on:
+      group: VM
+      labels: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Docker Container
+        run: |
+          docker compose down
+          docker compose build
+          docker compose up -d
