@@ -10,7 +10,6 @@ on:
 jobs:
   deploy:
     runs-on:
-      group: VM
       labels: self-hosted
     steps:
       - uses: actions/checkout@v4
