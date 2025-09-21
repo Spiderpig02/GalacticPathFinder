@@ -5,10 +5,10 @@ const developers = [
   {
     name: "Daniel Neukirch Hansen",
     specialization: "Artificial Intelligence",
-    image: "https://github.com/Spiderpig02.png?size=100",
+    image: "https://github.com/danielnhansen.png?size=100",
     description:
       "Daniel specializes in AI, bringing advanced machine learning models to life.",
-    github: "https://github.com/Spiderpig02",
+    github: "https://github.com/danielnhansen",
     linkedin: "https://www.linkedin.com/in/daniel-neukirch-hansen-475895263/",
   },
   {
