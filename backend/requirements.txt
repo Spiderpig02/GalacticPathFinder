@@ -458,9 +458,9 @@ starlette==0.48.0 \
     --hash=sha256:0764ca97b097582558ecb498132ed0c7d942f233f365b86ba37770e026510659 \
     --hash=sha256:7e8cee469a8ab2352911528110ce9088fdc6a37d9876926e73da7ce4aa4c7a46
     # via fastapi
-typer==0.17.4 \
-    --hash=sha256:015534a6edaa450e7007eba705d5c18c3349dcea50a6ad79a5ed530967575824 \
-    --hash=sha256:b77dc07d849312fd2bb5e7f20a7af8985c7ec360c45b051ed5412f64d8dc1580
+typer==0.19.1 \
+    --hash=sha256:914b2b39a1da4bafca5f30637ca26fa622a5bf9f515e5fdc772439f306d5682a \
+    --hash=sha256:cb881433a4b15dacc875bb0583d1a61e78497806741f9aba792abcab390c03e6
     # via
     #   fastapi-cli
     #   fastapi-cloud-cli
